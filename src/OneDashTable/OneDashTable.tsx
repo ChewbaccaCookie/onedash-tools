@@ -126,7 +126,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 				},
 				this.props.onClick
 					? () => {
-						this.props.onClick && this.props.onClick(selectedEntry);
+							this.props.onClick && this.props.onClick(selectedEntry);
 					  }
 					: this.openDialog
 			);
@@ -212,7 +212,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 		this.setState({ tableValues });
 	};
 
-	sortItems = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }, e: any) => {
+	sortItems = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
 		const tableValues = this.state.tableValues;
 		const element = tableValues[oldIndex];
 		tableValues.splice(oldIndex, 1);
@@ -247,11 +247,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 				<div className="table-toolbox">
 					{this.props.searchable && (
 						<OneDashForm onChange={this.filterEntries}>
-							<OneDashInput
-								name="search"
-								placeholder="Suche nach Eintrag ..."
-								iconRight="fas fa-search"
-							/>
+							<OneDashInput name="search" placeholder="Suche nach Eintrag ..." iconRight="fas fa-search" />
 						</OneDashForm>
 					)}
 					{this.props.editable && (
@@ -292,7 +288,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 								{this.props.onDelete && (
 									<div
 										className="cell cell-icon"
-										onClick={(e: any) => {
+										onClick={() => {
 											this.currentId = tableRow.id;
 											const p = this.prompt.current;
 											if (p) p.open();
@@ -305,10 +301,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 					</SortableContainerEl>
 				</div>
 
-				<PromptDialog
-					ref={this.prompt}
-					callback={this.promptCallback}
-					title="Element wirklich löschen?"></PromptDialog>
+				<PromptDialog ref={this.prompt} callback={this.promptCallback} title="Element wirklich löschen?"></PromptDialog>
 
 				<OneDashDialog
 					className="table-detail-dialog"
@@ -320,26 +313,22 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 					<OneDashForm ref={this.entryDialogForm}>
 						{this.props.tableHeaders.map((header, index) => (
 							<div key={index}>
-								{((this.state.selectedEntry[header.columnName] &&
-									this.state.selectedEntry[header.columnName].length > 0) ||
+								{((this.state.selectedEntry[header.columnName] && this.state.selectedEntry[header.columnName].length > 0) ||
 									this.props.editable) && (
 									<div key={index} className={this.buildDialogClasses()}>
 										<div className="detail-title">{header.title}</div>
 										<div className="detail-value">
 											{this.props.editable && (
 												<>
-													{header.type === "select" &&
-														typeof header.selectValueLabelPair === "object" && (
+													{header.type === "select" && typeof header.selectValueLabelPair === "object" && (
 														<OneDashSelect
 															name={header.columnName}
 															zIndex={this.props.tableHeaders.length - index}
 															defaultIndex={
 																header.selectValueLabelPair &&
-																	header.selectValueLabelPair.findIndex(
-																		(x) =>
-																			x.value ===
-																			this.state.selectedEntry[header.columnName]
-																	)
+																header.selectValueLabelPair.findIndex(
+																	(x) => x.value === this.state.selectedEntry[header.columnName]
+																)
 															}
 															selectValues={header.selectValueLabelPair || []}
 														/>
@@ -348,10 +337,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 														<OneDashInput
 															type={header.type}
 															required={
-																header.columnNotNull &&
-																Number(header.columnNotNull) === 1
-																	? true
-																	: false
+																header.columnNotNull && Number(header.columnNotNull) === 1 ? true : false
 															}
 															maxLength={header.columnLength}
 															value={this.state.selectedEntry[header.columnName]}

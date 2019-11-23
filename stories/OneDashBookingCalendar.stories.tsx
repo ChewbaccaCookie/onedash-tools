@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import "../styles/default.scss";
-import OneDashBookingCalendar from "../components/OneDashBookingCalendar/OneDashBookingCalendar";
-import OneDashCard from "../components/OneDashCard/OneDashCard";
+import "../src/styles/default.scss";
+import OneDashBookingCalendar from "../src/OneDashBookingCalendar/OneDashBookingCalendar";
+import OneDashCard from "../src/OneDashCard/OneDashCard";
 import { action } from "@storybook/addon-actions";
 
 storiesOf("Booking Calendar", module)

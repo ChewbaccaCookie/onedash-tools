@@ -1,11 +1,11 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import "../styles/default.scss";
+import "../src/styles/default.scss";
 import { action } from "@storybook/addon-actions";
-import OneDashForm from "../components/OneDashForm/OneDashForm";
-import OneDashInput from "../components/OneDashForm/OneDashInput";
-import OneDashSelect from "../components/OneDashForm/OneDashSelect";
-import OneDashCard from "../components/OneDashCard/OneDashCard";
+import OneDashForm from "../src/OneDashForm/OneDashForm";
+import OneDashInput from "../src/OneDashForm/OneDashInput";
+import OneDashSelect from "../src/OneDashForm/OneDashSelect";
+import OneDashCard from "../src/OneDashCard/OneDashCard";
 
 storiesOf("Form", module)
 	.add("text", () => (

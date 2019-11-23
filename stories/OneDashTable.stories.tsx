@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import "../styles/default.scss";
-import OneDashCard from "../components/OneDashCard/OneDashCard";
-import OneDashTable, { tableHeader } from "../components/OneDashTable/OneDashTable";
+import "../src/styles/default.scss";
+import OneDashCard from "../src/OneDashCard/OneDashCard";
+import OneDashTable, { tableHeader } from "../src/OneDashTable/OneDashTable";
 import { action } from "@storybook/addon-actions";
 
 const tableHeaders: tableHeader[] = [
@@ -60,12 +60,6 @@ storiesOf("Table", module)
 	))
 	.add("editable / add", () => (
 		<OneDashCard>
-			<OneDashTable
-				searchable
-				editable
-				onSave={action("Add")}
-				tableHeaders={tableHeaders}
-				tableValues={tableValues}
-			/>
+			<OneDashTable searchable editable onSave={action("Add")} tableHeaders={tableHeaders} tableValues={tableValues} />
 		</OneDashCard>
 	));
