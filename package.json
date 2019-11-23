@@ -17,10 +17,10 @@
     "test:watch": "react-scripts-ts test --env=jsdom",
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "prepare": "npm run build",
-    "deploy": "npm run build && npx auto-bump && npm publish --registry https://npm.1bit.ddnss.de",
+	"prepare": "npm run build",
+    "deploy": "npm run build && npx auto-bump && npm publish --registry https://npm.1bit.ddnss.de && npm run build-storybook",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+	"build-storybook": "build-storybook -c .storybook -o public && npx now"
   },
   "dependencies": {
     "@types/cleave.js": "^1.4.1",
@@ -60,6 +60,7 @@
     "eslint-plugin-react": "^7.16.0",
     "gh-pages": "^2.1.1",
     "node-sass": "^4.13.0",
+    "now": "^16.6.0",
     "react": "^16.4.1",
     "react-calendar": "^2.19.2",
     "react-docgen-typescript-loader": "^3.5.0",
