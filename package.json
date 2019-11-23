@@ -18,7 +18,7 @@
 		"build": "rollup -c",
 		"start": "rollup -c -w",
 		"prepare": "npm run build",
-		"deploy": "npx auto-bump && npm publish --registry https://npm.1bit.ddnss.de",
+		"deploy": "npm run build && npx auto-bump && npm publish --registry https://npm.1bit.ddnss.de",
 		"npm-login": "npm login --registry https://npm.1bit.ddnss.de",
 		"storybook": "start-storybook -p 6006",
 		"build-storybook": "build-storybook"
