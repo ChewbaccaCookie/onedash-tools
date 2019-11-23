@@ -1,0 +1,49 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true
+	},
+	"plugins": ["@typescript-eslint", "react"],
+	"extends": [
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"prettier",
+		"prettier/@typescript-eslint"
+	],
+	"parser": "@typescript-eslint/parser",
+
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2018,
+		"sourceType": "module",
+		"project": "./tsconfig.json"
+	},
+
+	"rules": {
+		"@typescript-eslint/await-thenable": "error",
+		"@typescript-eslint/class-name-casing": "error",
+		"@typescript-eslint/consistent-type-assertions": "error",
+		"@typescript-eslint/no-empty-function": "error",
+		"@typescript-eslint/no-misused-new": "error",
+		"@typescript-eslint/no-unnecessary-qualifier": "error",
+		"@typescript-eslint/no-unnecessary-type-assertion": "error",
+		"@typescript-eslint/prefer-namespace-keyword": "error",
+		"@typescript-eslint/type-annotation-spacing": "off",
+		"@typescript-eslint/no-floating-promises": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/no-empty-interface": "off",
+		"indent": ["error", "tab"],
+		"linebreak-style": ["error", "windows"],
+		"quotes": ["error", "double"],
+		"semi": ["error", "always"]
+
+	}
+}

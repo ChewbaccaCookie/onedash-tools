@@ -1,0 +1,259 @@
+@import "../styles/colors.scss";
+
+.dialog-container {
+	display: flex;
+	left: 0px;
+	top: 0px;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	position: fixed;
+	align-items: center;
+	justify-content: center;
+	z-index: 100;
+	display: none;
+	transition: 0.3s all ease-in-out;
+
+	&.no-padding {
+		.dialog-content {
+			max-height: 90vh !important;
+		}
+		.dialog {
+			top: -25px;
+			background: none;
+			padding: 0px;
+			margin: 0px;
+			box-shadow: none;
+			.dialog-content {
+				padding-bottom: 0px;
+			}
+		}
+
+		.dialog-close {
+			color: white;
+			z-index: 5;
+			font-weight: bold;
+			right: 30px !important;
+			display: none;
+			font-size: 25px !important;
+		}
+	}
+
+	&.dialog-open {
+		display: flex;
+		animation: 0.2s ease-in-out 0s showDialog;
+
+		& > .dialog-bg {
+			display: block;
+			opacity: 1;
+		}
+	}
+
+	&.dialog-closes {
+		animation: 0.4s ease-in-out 0s hideDialog;
+		& > .dialog-bg {
+			opacity: 0;
+		}
+	}
+
+	.dialog-headding {
+		color: $dialogTextColor;
+		font-weight: lighter;
+		margin-bottom: 10px;
+		border-bottom: 1px solid $dialogDividerColor;
+		padding: 0px 0px 2.5px 5px;
+	}
+
+	.dialog-bg {
+		display: block;
+		background: rgba(0, 0, 0, 0.9);
+		z-index: 110;
+		left: 0px;
+		top: 0px;
+		transition: 0.3s all ease-in-out;
+		height: 100vh;
+		width: 100vw;
+		position: fixed;
+		display: none;
+		opacity: 0;
+	}
+	.dialog-main-content {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	&.big-padding .dialog {
+		padding: 50px;
+		padding-bottom: 30px;
+	}
+
+	.dialog {
+		background: $dialogBackground;
+		z-index: 115;
+		max-width: 600px;
+		min-width: 250px;
+		padding: 25px;
+		padding-bottom: 5px;
+		border-radius: 5px;
+		box-shadow: $dialogShadow;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin: 25px;
+		max-height: calc(100vh - 150px);
+		overflow-y: auto;
+		p {
+			font-size: 1.2rem;
+		}
+
+		.dialog-close {
+			position: absolute;
+			top: 15px;
+			right: 20px;
+			font-size: 1.2rem;
+			cursor: pointer;
+			transition: $dialogTransition;
+
+			&:hover {
+				transform: rotate(90deg);
+				opacity: 0.8;
+			}
+		}
+
+		.dialog-footer {
+			width: 100%;
+			display: flex;
+			justify-content: flex-end;
+			border-top: 1px solid $dialogFooterBorderColor;
+			padding-top: 15px;
+			margin-bottom: 10px;
+
+			button {
+				border-radius: 4px;
+				box-shadow: $dialogFooterButtonShadow;
+				border: none;
+				padding: 10px 30px;
+				cursor: pointer;
+				transition: $dialogTransition;
+				background: white;
+				margin: 0px 10px;
+				color: $dialogFooterTextColor;
+				&:hover {
+					opacity: 0.7;
+				}
+
+				&.dialog-save {
+					background: $dialogFooterSaveColor;
+					color: white;
+				}
+			}
+		}
+
+		.dialog-content {
+			padding-bottom: 15px;
+			flex-grow: 1;
+		}
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: #e4685b;
+	}
+
+	::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		background-color: #f5f5f5;
+	}
+
+	::-webkit-scrollbar {
+		width: 10px;
+		background-color: #f5f5f5;
+	}
+
+	&.dialog-style-ios {
+		.dialog {
+			border-radius: 2px;
+			background: $iosWhiteBackground;
+			width: 60%;
+
+			.dialog-headding {
+				border: none;
+				margin: 0px;
+				padding: 0px;
+				font-size: 1.3rem;
+				text-align: left;
+				font-weight: bold;
+				margin-bottom: 15px;
+			}
+			.dialog-content {
+				padding: 0px;
+			}
+			.dialog-footer {
+				border: none;
+				padding: 0px;
+				margin: 0px;
+				margin-top: -5px;
+				margin-bottom: 15px;
+
+				button {
+					border-radius: 0px;
+					box-shadow: none;
+					border: none;
+					padding: 0px;
+					cursor: pointer;
+					background: none;
+					color: $iosBlue;
+				}
+			}
+
+			ul {
+				li {
+					margin: 15px 0px;
+				}
+			}
+		}
+	}
+}
+
+@media print {
+	.dashboard-headder {
+		display: none !important;
+	}
+	.dashboard-content {
+		padding: 0px !important;
+		margin: 0px !important;
+		width: 100% !important;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes showDialog {
+	0% {
+		opacity: 0;
+		transform: scale(0.5);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+@keyframes hideDialog {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	70% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+		transform: scale(0.1);
+	}
+}

@@ -1,0 +1,65 @@
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import "../styles/default.scss";
+import { action } from "@storybook/addon-actions";
+import OneDashForm from "../components/OneDashForm/OneDashForm";
+import OneDashInput from "../components/OneDashForm/OneDashInput";
+import OneDashSelect from "../components/OneDashForm/OneDashSelect";
+import OneDashCard from "../components/OneDashCard/OneDashCard";
+
+storiesOf("Form", module)
+	.add("text", () => (
+		<OneDashCard>
+			<OneDashForm onSubmit={action("Submit")}>
+				<OneDashInput name="firstName" label="Vorname"></OneDashInput>
+				<OneDashInput name="lastName" label="Nachname"></OneDashInput>
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
+	.add("number", () => (
+		<OneDashCard>
+			<OneDashForm onSubmit={action("Submit")}>
+				<OneDashInput name="num" label="Nummer" type="number"></OneDashInput>
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
+	.add("euro", () => (
+		<OneDashCard>
+			<OneDashForm onSubmit={action("Submit")}>
+				<OneDashInput name="euro" label="Euro" type="euro"></OneDashInput>
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
+	.add("boolean", () => (
+		<OneDashCard>
+			<OneDashForm onSubmit={action("Submit")}>
+				<OneDashInput name="boolean-toggle" label="Boolean" type="boolean"></OneDashInput>
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
+	.add("textarea", () => (
+		<OneDashCard>
+			<OneDashForm onSubmit={action("Submit")}>
+				<OneDashInput name="text" label="Textarea" type="textarea"></OneDashInput>
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
+	.add("select", () => (
+		<OneDashCard>
+			<OneDashForm onSubmit={action("Submit")}>
+				<OneDashSelect
+					name="select"
+					label="Select"
+					selectValues={[
+						{ label: "Option 1", value: "option-1" },
+						{ label: "Option 2", value: "option-2" },
+					]}></OneDashSelect>
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	));

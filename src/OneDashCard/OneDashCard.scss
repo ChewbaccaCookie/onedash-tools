@@ -1,0 +1,22 @@
+@import "../styles/colors.scss";
+.onedash-card {
+	margin: 10px;
+	background: $cardBackground;
+	box-shadow: $cardShadow;
+	padding: 30px;
+	max-width: 600px;
+	width: 100%;
+
+	&.onedash-table-card {
+		width: calc(100% - 80px);
+		max-width: 100%;
+	}
+
+	.card-headding {
+		color: $cardTitleColor;
+		font-weight: lighter;
+		margin-bottom: 10px;
+		border-bottom: 1px solid $cardDividerBorder;
+		padding: 0px 0px 2.5px 5px;
+	}
+}
