@@ -9,7 +9,7 @@ import OneDashTable from "./OneDashTable/OneDashTable";
 import OneDashUtils from "./OneDashUtils/OneDashUtils";
 import PromptDialog from "./PromptDialog/PromptDialog";
 
-export default {
+export {
 	OneDashBookingCalendar,
 	OneDashCard,
 	OneDashDialog,
