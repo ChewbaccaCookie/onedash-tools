@@ -5,7 +5,7 @@ import OneDashCard from "../src/OneDashCard/OneDashCard";
 import OneDashTable, { tableHeader } from "../src/OneDashTable/OneDashTable";
 import { action } from "@storybook/addon-actions";
 
-const tableHeaders: tableHeader[] = [
+const basicHeaders: tableHeader[] = [
 	{
 		columnName: "plz",
 		title: "Postleitzahl",
@@ -19,7 +19,7 @@ const tableHeaders: tableHeader[] = [
 		visible: 1,
 	},
 ];
-const tableValues: any[] = [
+const basicValues: any[] = [
 	{
 		id: 0,
 		plz: "54470",
@@ -37,29 +37,90 @@ const tableValues: any[] = [
 	},
 ];
 
+const tagHeaders: tableHeader[] = [
+	{
+		columnName: "plz",
+		title: "Postleitzahl",
+		type: "number",
+		visible: 1,
+	},
+	{
+		columnName: "ort",
+		title: "Ortsname",
+		type: "text",
+		visible: 1,
+	},
+	{
+		columnName: "tags",
+		title: "Tags",
+		type: "tag-input",
+		visible: 1,
+		selectValueLabelPair: [
+			{
+				value: "alpha",
+				label: "Alphabet",
+			},
+			{
+				value: "beta",
+				label: "Brüssel",
+			},
+		],
+	},
+];
+const tagValues: any[] = [
+	{
+		id: 0,
+		plz: "54470",
+		ort: "Bernkastel - Kues",
+		tags: [],
+	},
+	{
+		id: 1,
+		plz: "54516",
+		ort: "Wittlich",
+		tags: [
+			{
+				value: "alpha",
+				label: "Alphabet",
+			},
+		],
+	},
+	{
+		id: 2,
+		plz: "68169",
+		ort: "Mannheim",
+		tags: [],
+	},
+];
+
 storiesOf("Table", module)
 	.add("default", () => (
 		<OneDashCard>
-			<OneDashTable tableHeaders={tableHeaders} tableValues={tableValues} />
+			<OneDashTable tableHeaders={basicHeaders} tableValues={basicValues} />
 		</OneDashCard>
 	))
 	.add("search", () => (
 		<OneDashCard>
-			<OneDashTable searchable tableHeaders={tableHeaders} tableValues={tableValues} />
+			<OneDashTable searchable tableHeaders={basicHeaders} tableValues={basicValues} />
 		</OneDashCard>
 	))
 	.add("orderable", () => (
 		<OneDashCard>
-			<OneDashTable orderable tableHeaders={tableHeaders} tableValues={tableValues} />
+			<OneDashTable orderable tableHeaders={basicHeaders} tableValues={basicValues} />
 		</OneDashCard>
 	))
 	.add("delete", () => (
 		<OneDashCard>
-			<OneDashTable onDelete={action("Delete")} tableHeaders={tableHeaders} tableValues={tableValues} />
+			<OneDashTable onDelete={action("Delete")} tableHeaders={basicHeaders} tableValues={basicValues} />
 		</OneDashCard>
 	))
 	.add("editable / add", () => (
 		<OneDashCard>
-			<OneDashTable searchable editable onSave={action("Add")} tableHeaders={tableHeaders} tableValues={tableValues} />
+			<OneDashTable searchable editable onSave={action("Add")} tableHeaders={basicHeaders} tableValues={basicValues} />
+		</OneDashCard>
+	))
+	.add("tag input", () => (
+		<OneDashCard>
+			<OneDashTable searchable editable onSave={action("Add")} tableHeaders={tagHeaders} tableValues={tagValues} />
 		</OneDashCard>
 	));

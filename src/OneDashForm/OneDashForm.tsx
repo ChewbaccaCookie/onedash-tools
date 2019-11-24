@@ -2,6 +2,7 @@ import React from "react";
 import "./OneDashForm.scss";
 import OneDashInput from "./OneDashInput";
 import OneDashSelect from "./OneDashSelect";
+import OneDashTagInput from "./OneDashTagInput";
 
 export interface OneDashFormProps {
 	onSubmit?: (values: any, formControl: OneDashForm) => void;
@@ -41,7 +42,7 @@ class OneDashForm extends React.Component<OneDashFormProps, OneDashFormState> {
 			if (child.props && child.props.children && typeof child.props.children === "object") {
 				childElements = this.cloneChildren(child.props.children, []);
 			}
-			if (child.type === OneDashInput || child.type === OneDashSelect) {
+			if (child.type === OneDashInput || child.type === OneDashSelect || child.type === OneDashTagInput) {
 				const newEl = React.cloneElement(
 					child,
 					{ ref: (el: any) => this.references.push(el), key: i, onChange: this.onChange },

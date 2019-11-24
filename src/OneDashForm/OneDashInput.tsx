@@ -47,7 +47,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		valid: true,
 	};
 
-	public getInputValue = () => {
+	public getInputValue = (): { name: string; value: any | any[] } => {
 		let value = this.state.value;
 		if (this.props.type === "boolean" || this.props.type === "number") {
 			if (this.state.value === "") {

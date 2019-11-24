@@ -6,12 +6,13 @@ import OneDashDialog from "../OneDashDialog/OneDashDialog";
 import OneDashSelect from "../OneDashForm/OneDashSelect";
 import PromptDialog from "../PromptDialog/PromptDialog";
 import { SortableElement, SortableHandle, SortableContainer } from "react-sortable-hoc";
+import OneDashTagInput from "../OneDashForm/OneDashTagInput";
 
 type formattingFunction = (value: any, shortForm?: boolean) => any;
 export type tableHeader = {
 	title: string;
 	columnName: string;
-	type: "number" | "text" | "password" | "select" | "boolean" | "email";
+	type: "number" | "text" | "password" | "select" | "tag-input" | "boolean" | "email";
 	selectValueLabelPair?: SelectValueLabelPair[];
 	visible: boolean | 0 | 1;
 	formattingFunction?: formattingFunction;
@@ -126,7 +127,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 				},
 				this.props.onClick
 					? () => {
-							this.props.onClick && this.props.onClick(selectedEntry);
+						this.props.onClick && this.props.onClick(selectedEntry);
 					  }
 					: this.openDialog
 			);
@@ -134,8 +135,6 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 	};
 	openDialog = () => {
 		const dialog = this.entryDialog.current;
-		const form = this.entryDialogForm.current;
-		if (form) form.resetForm();
 		if (dialog) dialog.open();
 	};
 	closeDialog = () => {
@@ -226,6 +225,16 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 	formatOutput = (type: any, value: any, formattingFunction: formattingFunction, shortForm?: boolean) => {
 		if (formattingFunction) {
 			return formattingFunction(value, shortForm);
+		}
+		if (type === "select") {
+			return value ? value.label : "";
+		}
+		if (type === "tag-input") {
+			if (value) {
+				return value.map((v) => v.label).join(",");
+			} else {
+				return "";
+			}
 		}
 		if (type === "email") {
 			return <a href={`mailto:${value}`}>{value}</a>;
@@ -333,7 +342,15 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 															selectValues={header.selectValueLabelPair || []}
 														/>
 													)}
-													{header.type !== "select" && (
+													{header.type === "tag-input" && typeof header.selectValueLabelPair === "object" && (
+														<OneDashTagInput
+															preventDuplicates
+															name={header.columnName}
+															tags={header.selectValueLabelPair}
+															selectedTags={this.state.selectedEntry[header.columnName]}
+														/>
+													)}
+													{header.type !== "select" && header.type !== "tag-input" && (
 														<OneDashInput
 															type={header.type}
 															required={

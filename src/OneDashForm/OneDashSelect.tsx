@@ -44,7 +44,7 @@ class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 
 	setIndex = (index: number) => {
 		this.setState({ selectedIndex: Number(index) }, () => {
-			if (this.props.onChange) this.props.onChange();
+			if (this.props.onChange) this.props.onChange(Number(index));
 		});
 	};
 
@@ -63,9 +63,7 @@ class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 				{this.props.label && (
 					<label className="onedash-label" htmlFor={this.id}>
 						{this.props.label}
-						{this.props.required === true && !this.props.requiredNotVisible && (
-							<span className="required">*</span>
-						)}
+						{this.props.required === true && !this.props.requiredNotVisible && <span className="required">*</span>}
 					</label>
 				)}
 				<div className="onedash-select">

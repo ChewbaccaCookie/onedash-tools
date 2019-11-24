@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import OneDashForm from "../src/OneDashForm/OneDashForm";
 import OneDashInput from "../src/OneDashForm/OneDashInput";
 import OneDashSelect from "../src/OneDashForm/OneDashSelect";
+import OneDashTagInput from "../src/OneDashForm/OneDashTagInput";
 import OneDashCard from "../src/OneDashCard/OneDashCard";
 
 storiesOf("Form", module)
@@ -60,6 +61,33 @@ storiesOf("Form", module)
 						{ label: "Option 2", value: "option-2" },
 					]}></OneDashSelect>
 				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
+	.add("tag input", () => (
+		<OneDashCard>
+			<OneDashForm onSubmit={action("Submit")}>
+				<OneDashTagInput
+					name="select"
+					label="Tag Input"
+					tags={[
+						{ label: "Option 1", value: "option-1" },
+						{ label: "Option 2", value: "option-2" },
+					]}></OneDashTagInput>
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
+	.add("onchange", () => (
+		<OneDashCard>
+			<OneDashForm onChange={action("Change")}>
+				<OneDashTagInput
+					name="select"
+					label="Tag Input"
+					tags={[
+						{ label: "Option 1", value: "option-1" },
+						{ label: "Option 2", value: "option-2" },
+					]}></OneDashTagInput>
 			</OneDashForm>
 		</OneDashCard>
 	));

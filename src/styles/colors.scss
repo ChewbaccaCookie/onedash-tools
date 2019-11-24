@@ -4,10 +4,9 @@ $cardBackground: white;
 $cardShadow: 1px 1px 6px rgba(0, 0, 0, 0.16);
 $cardTitleColor: #393939;
 
-
 // Dialog
 $dialogTextColor: #393939;
-$dialogDividerColor:#e4e4e4;
+$dialogDividerColor: #e4e4e4;
 $dialogBackground: white;
 $dialogShadow: 1px 1px 6px rgba(0, 0, 0, 0.16);
 $dialogTransition: 0.3s all ease-in-out;
@@ -34,9 +33,11 @@ $formSubmitTextColor: white;
 $formInputBackground: white;
 $formInputFocusTransition: 0.15s all ease-in-out;
 $formHintBackground: #fafafa;
-$formHintBorder:#ebebeb;
-$formHintTextColor:#393939;
-$formHintIndicatorBorderColor:#393939;
+$formHintBorder: #ebebeb;
+$formHintTextColor: #393939;
+$formHintIndicatorBorderColor: #393939;
+$formTagInputShadow: 1px 1px 6px rgba(0, 0, 0, 0.16);
+$formTagInputFocusBackground: #a8d1fc;
 
 // Table
 $tableTransition: 0.15s all ease-in-out;
@@ -55,7 +56,7 @@ $calendarToday: #2477bb;
 $calendarBooked: #4fc486;
 $calendarPending: #fdc266;
 $calendarRejected: #b64c22;
-$calendarHeaderTextColor:#1d4d7a;
+$calendarHeaderTextColor: #1d4d7a;
 $calendarTransition: 0.15s all ease-in-out;
 $calendarLegendBorder: #e4e4e4;
 
