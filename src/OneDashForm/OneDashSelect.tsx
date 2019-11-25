@@ -1,107 +1,144 @@
 import React from "react";
+import { OneDashUtils } from "..";
 import OneDashInput, { OneDashInputProps } from "./OneDashInput";
-import OneDashUtils from "../OneDashUtils/OneDashUtils";
+import "./OneDashSelect.scss";
 
-export interface OneDashSelectProps extends OneDashInputProps {
-	selectValues: SelectValueLabelPair[];
-	defaultIndex?: number;
-	zIndex?: number;
+export interface ValueLabelPair {
+	label: string;
+	value: any;
 }
 
-class OneDashSelect extends OneDashInput<OneDashSelectProps> {
+interface OneDashSelectProps extends OneDashInputProps {
+	options: ValueLabelPair[];
+	name: string;
+	value?: ValueLabelPair;
+	onChange?: (value: any) => void;
+}
+
+export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 	id = OneDashUtils.generateGuid();
 
+	selectRef = React.createRef<HTMLSelectElement>();
+
 	state = {
-		selectedIndex: 0,
-		value: "",
 		renderRangeDatePicker: false,
-		valid: true,
+		value: undefined as any,
+		valid: false,
+		focus: false,
+		options: [] as SelectValueLabelPair[],
 	};
-	public getIndex = () => {
-		return this.state.selectedIndex;
+	public getInputValue = () => {
+		const value = this.state.value;
+		const entry = this.state.options.find((o) => String(o.value) === value);
+		return {
+			name: this.props.name,
+			value: entry,
+		};
 	};
-	componentDidMount() {
-		if (this.props.defaultIndex && this.props.defaultIndex >= 0) {
-			let index = 0;
-			if (!isNaN(Number(this.props.defaultIndex))) {
-				index = Number(this.props.defaultIndex);
-			}
-			this.setState({
-				selectedIndex: index,
-			});
+	public validateInput = () => {
+		let valid = true;
+		if (this.props.required && (!this.state.value || this.state.value.length === 0)) {
+			valid = false;
 		}
-	}
-
-	componentDidUpdate(lastProps: OneDashSelectProps) {
-		let index = 0;
-		if (this.props.defaultIndex && lastProps.defaultIndex !== this.props.defaultIndex) {
-			if (this.props.defaultIndex && this.props.defaultIndex >= 0) {
-				index = this.props.defaultIndex;
-			}
-			if (!isNaN(Number(index))) this.setState({ selectedIndex: Number(index) });
+		this.setState({
+			valid,
+		});
+		return valid;
+	};
+	public resetInput = () => {
+		this.setState({
+			value: this.props.value || "",
+			valid: false,
+		});
+	};
+	buildClassList = () => {
+		let classList = "onedash-input-container onedash-select-container";
+		if (!this.state.valid) {
+			classList += " input-invalid";
 		}
-	}
+		if (this.state.focus) {
+			classList += " focused";
+		}
+		return classList;
+	};
 
-	setIndex = (index: number) => {
-		this.setState({ selectedIndex: Number(index) }, () => {
-			if (this.props.onChange) this.props.onChange(Number(index));
+	public focus = () => {
+		if (this.selectRef.current) {
+			this.selectRef.current.focus();
+		}
+	};
+	onFocus = () => {
+		this.setState({
+			valid: true,
+			focus: true,
 		});
 	};
 
-	public getInputValue = () => {
-		const val = this.props.selectValues[this.getIndex()].value;
-		return {
-			name: this.props.name,
-			value: val,
-		};
+	onBlur = () => {
+		this.setState({
+			focus: false,
+		});
 	};
 
-	render() {
-		if (typeof this.props.selectValues === "string") return <></>;
-		return (
-			<div className="onedash-input-container" style={{ zIndex: this.props.zIndex || 5 }}>
-				{this.props.label && (
-					<label className="onedash-label" htmlFor={this.id}>
-						{this.props.label}
-						{this.props.required === true && !this.props.requiredNotVisible && <span className="required">*</span>}
-					</label>
-				)}
-				<div className="onedash-select">
-					<div className="onedash-select__current" tabIndex={0}>
-						{this.props.selectValues.map((val, index) => (
-							<div key={index} className="onedash-select__value">
-								<input
-									className="onedash-select__input"
-									type="radio"
-									id={this.id + "-" + index}
-									value={val.value}
-									name={this.props.name}
-									readOnly
-									checked={index === this.state.selectedIndex ? true : false}
-								/>
-								<p className="onedash-select__input-text">{val.label}</p>
-							</div>
-						))}
+	inputChange = (e: any) => {
+		const value = e.target.value;
+		const entry = this.state.options.find((o) => o.value === value);
+		this.setState(
+			{
+				value,
+			},
+			() => {
+				if (this.props.onChange) this.props.onChange(entry);
+			}
+		);
+	};
 
-						<i className="fas fa-chevron-down onedash-select__icon" />
-					</div>
-					<ul className="onedash-select__list">
-						{this.props.selectValues.map((val, index) => (
-							<li key={index}>
-								<label
-									onClick={() => this.setIndex(index)}
-									className="onedash-select__option"
-									htmlFor={this.id + "-" + index}
-									aria-hidden="true">
-									{val.label}
-								</label>
-							</li>
+	private loadOptions = () => {
+		const options = this.props.options;
+		this.setState({ options });
+	};
+	private loadSelected = () => {
+		const value = this.props.value ? this.props.value.value : undefined;
+		this.setState({ value });
+	};
+
+	componentDidMount() {
+		this.loadOptions();
+		this.loadSelected();
+	}
+
+	componentDidUpdate() {
+		// Default Value is defined
+		if (this.props.value && this.props.value.value !== this.state.value) {
+			this.loadSelected();
+		}
+	}
+
+	render() {
+		return (
+			<>
+				<div className={this.buildClassList()}>
+					{this.props.label && (
+						<label className="onedash-label" htmlFor={this.id}>
+							{this.props.label}
+							{this.props.required === true && !this.props.requiredNotVisible && <span className="required">*</span>}
+						</label>
+					)}
+					<select
+						onBlur={this.onBlur}
+						value={this.state.value}
+						onFocus={this.onFocus}
+						onChange={this.inputChange}
+						className="onedash-select">
+						<option value={undefined}>{this.props.placeholder ? this.props.placeholder : "Wählen Sie eine Option"}</option>
+						{this.state.options.map((option, index) => (
+							<option key={index} value={option.value}>
+								{option.label}
+							</option>
 						))}
-					</ul>
+					</select>
 				</div>
-			</div>
+			</>
 		);
 	}
 }
-
-export default OneDashSelect;

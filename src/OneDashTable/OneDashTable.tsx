@@ -68,7 +68,10 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 			if (dialog) {
 				if (dialog.isOpen()) {
 					this.saveEntry();
-					this.showAddEntryDialog();
+
+					setTimeout(() => {
+						this.showAddEntryDialog();
+					}, 500);
 				}
 			}
 		}
@@ -127,7 +130,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 				},
 				this.props.onClick
 					? () => {
-						this.props.onClick && this.props.onClick(selectedEntry);
+							this.props.onClick && this.props.onClick(selectedEntry);
 					  }
 					: this.openDialog
 			);
@@ -135,7 +138,9 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 	};
 	openDialog = () => {
 		const dialog = this.entryDialog.current;
-		if (dialog) dialog.open();
+		if (dialog) {
+			dialog.open();
+		}
 	};
 	closeDialog = () => {
 		const dialog = this.entryDialog.current;
@@ -143,6 +148,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 	};
 
 	showAddEntryDialog = () => {
+		if (this.entryDialogForm.current) this.entryDialogForm.current.resetForm();
 		const newObj = {} as any;
 		this.props.tableHeaders.forEach((header) => {
 			if (header.type === "boolean" || header.type === "number") {
@@ -167,7 +173,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 			const data = form.getData();
 			data.id = this.state.selectedEntry.id;
 
-			if (data.id) {
+			if (data.id !== undefined) {
 				const objIndex = tableValues.findIndex((tValue) => tValue.id === data.id);
 				tableValues[objIndex] = data;
 			} else {
@@ -180,6 +186,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 			this.setState({
 				tableValues,
 			});
+
 			if (this.props.onSave) {
 				this.props.onSave(data, tableValues);
 			}
@@ -332,14 +339,12 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 													{header.type === "select" && typeof header.selectValueLabelPair === "object" && (
 														<OneDashSelect
 															name={header.columnName}
-															zIndex={this.props.tableHeaders.length - index}
-															defaultIndex={
-																header.selectValueLabelPair &&
-																header.selectValueLabelPair.findIndex(
-																	(x) => x.value === this.state.selectedEntry[header.columnName]
-																)
+															value={this.state.selectedEntry[header.columnName]}
+															options={header.selectValueLabelPair || []}
+															placeholder="Wählen Sie eine Option"
+															required={
+																header.columnNotNull && Number(header.columnNotNull) === 1 ? true : false
 															}
-															selectValues={header.selectValueLabelPair || []}
 														/>
 													)}
 													{header.type === "tag-input" && typeof header.selectValueLabelPair === "object" && (
