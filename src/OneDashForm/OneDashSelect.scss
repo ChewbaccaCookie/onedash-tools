@@ -4,6 +4,10 @@
 	width: calc(100% - 20px);
 	max-width: 245px;
 
+	&.input-invalid select {
+		border: 1.5px solid $formValidationFail;
+	}
+
 	select {
 		width: 100%;
 		margin-top: 5px;

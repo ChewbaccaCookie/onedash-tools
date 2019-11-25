@@ -37,7 +37,7 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 	};
 	public validateInput = () => {
 		let valid = true;
-		if (this.props.required && (!this.state.value || this.state.value.length === 0)) {
+		if (this.props.required && (!this.state.value || this.state.value === "invalid-input")) {
 			valid = false;
 		}
 		this.setState({
@@ -48,7 +48,7 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 	public resetInput = () => {
 		this.setState({
 			value: this.props.value || "",
-			valid: false,
+			valid: true,
 		});
 	};
 	buildClassList = () => {
@@ -82,15 +82,17 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 
 	inputChange = (e: any) => {
 		const value = e.target.value;
-		const entry = this.state.options.find((o) => o.value === value);
-		this.setState(
-			{
-				value,
-			},
-			() => {
-				if (this.props.onChange) this.props.onChange(entry);
-			}
-		);
+		if (value !== "invalid-input" || !this.props.required) {
+			const entry = this.state.options.find((o) => o.value === value);
+			this.setState(
+				{
+					value,
+				},
+				() => {
+					if (this.props.onChange) this.props.onChange(entry);
+				}
+			);
+		}
 	};
 
 	private loadOptions = () => {
@@ -130,7 +132,7 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 						onFocus={this.onFocus}
 						onChange={this.inputChange}
 						className="onedash-select">
-						<option value={undefined}>{this.props.placeholder ? this.props.placeholder : "Wählen Sie eine Option"}</option>
+						<option value="invalid-input">{this.props.placeholder ? this.props.placeholder : "Wählen Sie eine Option"}</option>
 						{this.state.options.map((option, index) => (
 							<option key={index} value={option.value}>
 								{option.label}
