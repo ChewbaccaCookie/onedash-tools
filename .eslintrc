@@ -12,6 +12,12 @@
 		"SharedArrayBuffer": "readonly"
 	},
 
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
+
 	"parserOptions": {
 		"ecmaFeatures": {
 			"jsx": true
