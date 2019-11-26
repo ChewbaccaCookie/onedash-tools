@@ -50,11 +50,9 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		const st = this.props.selectedTags;
 		const selectedTags = st
 			? st.map((t) => {
-				return { id: t.value, name: t.label };
+					return { id: t.value, name: t.label };
 			  })
 			: [];
-		console.log(selectedTags);
-
 		this.setState({ selectedTags });
 	};
 
@@ -67,8 +65,15 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		if (lastProps.tags !== this.props.tags) {
 			this.loadTags();
 		}
-		if (lastProps.selectedTags !== this.props.selectedTags) {
-			this.loadSelectedTags();
+		if (this.props.selectedTags) {
+			const values = this.props.selectedTags
+				? this.props.selectedTags.map((t) => {
+						return { id: t.value, name: t.label };
+				  })
+				: [];
+			if (JSON.stringify(values) !== JSON.stringify(this.state.selectedTags)) {
+				this.loadSelectedTags();
+			}
 		}
 	}
 
@@ -128,7 +133,10 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 				)}
 				<div className="onedash-tag-input">
 					<ReactTags
+						autofocus={false}
+						placeholder={this.props.placeholder ? this.props.placeholder : "Geben Sie ein Tag ein"}
 						tags={this.state.selectedTags}
+						allowBackspace={false}
 						suggestions={tags}
 						handleDelete={this.handleDelete.bind(this)}
 						handleAddition={this.handleAddition.bind(this)}

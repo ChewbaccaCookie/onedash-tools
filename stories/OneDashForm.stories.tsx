@@ -56,10 +56,11 @@ storiesOf("Form", module)
 				<OneDashSelect
 					name="select"
 					label="Select"
-					selectValues={[
+					options={[
 						{ label: "Option 1", value: "option-1" },
 						{ label: "Option 2", value: "option-2" },
-					]}></OneDashSelect>
+					]}
+				/>
 				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
 			</OneDashForm>
 		</OneDashCard>

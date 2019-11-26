@@ -25,7 +25,7 @@ export interface OneDashInputProps {
 	minLength?: number;
 	maxLength?: number;
 	showHint?: boolean;
-	value?: string | Dayjs[];
+	value?: string | Dayjs[] | SelectValueLabelPair;
 	requiredNotVisible?: boolean;
 	onChange?: Function;
 	placeholder?: string;
@@ -39,7 +39,7 @@ export interface OneDashInputProps {
 class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> {
 	id = OneDashUtils.generateGuid();
 
-	inputRef = React.createRef<any>();
+	selectRef = React.createRef<any>();
 
 	state = {
 		value: "",
@@ -125,8 +125,8 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 	};
 
 	public focus = () => {
-		if (this.inputRef.current) {
-			this.inputRef.current.focus();
+		if (this.selectRef.current) {
+			this.selectRef.current.focus();
 		}
 	};
 
@@ -178,7 +178,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			return (
 				<textarea
 					disabled={this.props.disabled}
-					ref={this.inputRef}
+					ref={this.selectRef}
 					placeholder={this.props.placeholder}
 					onChange={this.inputChange}
 					value={this.state.value}
@@ -191,7 +191,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 				<label className="onedash-switch">
 					<input
 						disabled={this.props.disabled}
-						ref={this.inputRef}
+						ref={this.selectRef}
 						id={this.id}
 						type="checkbox"
 						checked={checked}
@@ -204,7 +204,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			return (
 				<input
 					disabled={this.props.disabled}
-					ref={this.inputRef}
+					ref={this.selectRef}
 					placeholder={this.props.placeholder}
 					onChange={this.inputChange}
 					className="onedash-input"
@@ -283,7 +283,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			return (
 				<input
 					disabled={this.props.disabled}
-					ref={this.inputRef}
+					ref={this.selectRef}
 					placeholder={this.props.placeholder}
 					value={this.state.value}
 					onChange={this.inputChange}
@@ -297,7 +297,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			return (
 				<input
 					disabled={this.props.disabled}
-					ref={this.inputRef}
+					ref={this.selectRef}
 					placeholder={this.props.placeholder}
 					value={this.state.value}
 					onChange={this.inputChange}
@@ -311,7 +311,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			return (
 				<input
 					disabled={this.props.disabled}
-					ref={this.inputRef}
+					ref={this.selectRef}
 					placeholder={this.props.placeholder}
 					value={this.state.value}
 					onChange={this.inputChange}
