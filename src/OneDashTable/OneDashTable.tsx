@@ -345,9 +345,9 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 					onSaveButtonClick={this.props.editable ? this.saveEntry : undefined}>
 					<OneDashForm ref={this.entryDialogForm}>
 						{this.props.tableHeaders.map((header, index) => (
-							<>
+							<div key={index}>
 								{!header.isId && (
-									<div key={index}>
+									<div>
 										{((this.state.selectedEntry[header.columnName] &&
 											this.state.selectedEntry[header.columnName].length > 0) ||
 											this.props.editable) && (
@@ -414,7 +414,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 										)}
 									</div>
 								)}
-							</>
+							</div>
 						))}
 					</OneDashForm>
 				</OneDashDialog>
