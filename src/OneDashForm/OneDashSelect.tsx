@@ -1,7 +1,7 @@
 import React from "react";
-import { OneDashUtils } from "..";
 import OneDashInput, { OneDashInputProps } from "./OneDashInput";
 import "./OneDashSelect.scss";
+import OneDashUtils from "../OneDashUtils/OneDashUtils";
 
 export interface ValueLabelPair {
 	label: string;
