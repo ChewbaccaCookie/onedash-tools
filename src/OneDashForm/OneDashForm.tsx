@@ -10,7 +10,7 @@ export interface OneDashFormProps {
 	listStyle?: "normal" | "pair";
 	listStyleLabel?: string;
 	listStyleLabelToolTip?: string;
-	classList?: string;
+	className?: string;
 	validateOnSubmit?: boolean;
 }
 
@@ -124,8 +124,8 @@ class OneDashForm extends React.Component<OneDashFormProps, OneDashFormState> {
 		if (this.props.listStyle === "pair") {
 			classes += "onedash-pair-form ";
 		}
-		if (this.props.classList) {
-			classes += this.props.classList + " ";
+		if (this.props.className) {
+			classes += this.props.className + " ";
 		}
 		if (this.state.className) {
 			classes += this.state.className + " ";
