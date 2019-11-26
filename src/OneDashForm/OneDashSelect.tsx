@@ -114,6 +114,9 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 		if (this.props.value !== lastProps.value) {
 			this.loadSelected();
 		}
+		if (this.props.options !== lastProps.options) {
+			this.loadOptions();
+		}
 	}
 
 	render() {
