@@ -78,6 +78,7 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		selectedTags.splice(i, 1);
 		this.setState({ value: selectedTags }, () => {
 			if (this.props.onChange) this.props.onChange(selectedTags.map((t: Tag) => t.id));
+			if (this.props.onFormChange) this.props.onFormChange();
 		});
 	}
 
@@ -86,6 +87,7 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		selectedTags = selectedTags.concat(tag);
 		this.setState({ value: selectedTags }, () => {
 			if (this.props.onChange) this.props.onChange(selectedTags.map((t: Tag) => t.id));
+			if (this.props.onFormChange) this.props.onFormChange();
 		});
 	}
 

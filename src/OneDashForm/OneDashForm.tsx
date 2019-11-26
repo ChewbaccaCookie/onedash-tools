@@ -45,7 +45,7 @@ class OneDashForm extends React.Component<OneDashFormProps, OneDashFormState> {
 			if (child.type === OneDashInput || child.type === OneDashSelect || child.type === OneDashTagInput) {
 				const newEl = React.cloneElement(
 					child,
-					{ ref: (el: any) => this.references.push(el), key: i, onChange: this.onChange },
+					{ ref: (el: any) => this.references.push(el), key: i, onFormChange: this.onChange },
 					childElements
 				);
 				elements.push(newEl);

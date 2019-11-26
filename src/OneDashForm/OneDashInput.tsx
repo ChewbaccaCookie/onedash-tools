@@ -28,6 +28,7 @@ export interface OneDashInputProps {
 	value?: string | Dayjs[];
 	requiredNotVisible?: boolean;
 	onChange?: Function;
+	onFormChange?: Function;
 	placeholder?: string;
 	placeholder2?: string;
 	iconRight?: string;
@@ -99,7 +100,8 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 				value: value,
 			},
 			() => {
-				if (this.props.onChange) this.props.onChange();
+				if (this.props.onChange) this.props.onChange(value);
+				if (this.props.onFormChange) this.props.onFormChange();
 			}
 		);
 	};

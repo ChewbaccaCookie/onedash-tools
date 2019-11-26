@@ -14,7 +14,6 @@ interface OneDashSelectProps extends OneDashInputProps {
 	options: ValueLabelPair[];
 	name: string;
 	value?: any;
-	onChange?: (value: any) => void;
 }
 
 export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
@@ -89,7 +88,10 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 					value,
 				},
 				() => {
-					if (this.props.onChange) this.props.onChange(value);
+					if (this.props.onChange) {
+						this.props.onChange(value);
+					}
+					if (this.props.onFormChange) this.props.onFormChange();
 				}
 			);
 		}

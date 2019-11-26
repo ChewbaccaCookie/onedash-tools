@@ -66,6 +66,20 @@ storiesOf("Form", module)
 			</OneDashForm>
 		</OneDashCard>
 	))
+	.add("select onchange", () => (
+		<OneDashCard>
+			<OneDashSelect
+				name="select"
+				label="Select"
+				onChange={action("Change")}
+				value="option-1"
+				options={[
+					{ label: "Option 1", value: "option-1" },
+					{ label: "Option 2", value: "option-2" },
+				]}
+			/>
+		</OneDashCard>
+	))
 	.add("tag input", () => (
 		<OneDashCard>
 			<OneDashForm onSubmit={action("Submit")}>
