@@ -75,12 +75,7 @@ export const TABLE_VALUES = {
 			id: 1,
 			plz: "54516",
 			ort: "Wittlich",
-			tags: [
-				{
-					value: "alpha",
-					label: "Alphabet",
-				},
-			],
+			tags: ["alpha"],
 		},
 		{
 			id: 2,
@@ -130,10 +125,7 @@ export const TABLE_VALUES = {
 		{
 			id: 1,
 			plz: "54516",
-			ort: {
-				value: 54470,
-				label: "Bernkastel - Kues",
-			},
+			ort: 54470,
 		},
 		{
 			id: 2,

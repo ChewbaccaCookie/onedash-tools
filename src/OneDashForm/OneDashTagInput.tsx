@@ -6,17 +6,16 @@ import "./OneDashTagInput.scss";
 
 export interface OneDashTagInputProps extends OneDashInputProps {
 	tags: SelectValueLabelPair[];
-	selectedTags?: SelectValueLabelPair[];
 	preventDuplicates?: boolean;
+	value?: any[];
 }
 
 class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 	id = OneDashUtils.generateGuid();
 
 	state = {
-		value: "",
+		value: [] as any,
 		renderRangeDatePicker: true,
-		selectedTags: [] as Tag[],
 		tags: [] as Tag[],
 		valid: true,
 	};
@@ -24,12 +23,7 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 	public getInputValue = () => {
 		return {
 			name: this.props.name,
-			value: this.state.selectedTags.map((s) => {
-				return {
-					label: s.name,
-					value: s.id,
-				};
-			}) as SelectValueLabelPair[],
+			value: this.state.value.map((t: Tag) => t.id),
 		};
 	};
 
@@ -47,13 +41,22 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		this.setState({ tags });
 	};
 	private loadSelectedTags = () => {
-		const st = this.props.selectedTags;
-		const selectedTags = st
-			? st.map((t) => {
-					return { id: t.value, name: t.label };
-			  })
-			: [];
-		this.setState({ selectedTags });
+		const values = this.props.value;
+		const selectedTags = [] as Tag[];
+		if (values) {
+			values.forEach((v) => {
+				let name = String(v);
+				const t = this.props.tags.find((t) => t.value === v);
+				if (t) {
+					name = t.label;
+				}
+				selectedTags.push({
+					id: v,
+					name,
+				});
+			});
+		}
+		this.setState({ value: selectedTags });
 	};
 
 	componentDidMount() {
@@ -65,47 +68,24 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		if (lastProps.tags !== this.props.tags) {
 			this.loadTags();
 		}
-		if (this.props.selectedTags) {
-			const values = this.props.selectedTags
-				? this.props.selectedTags.map((t) => {
-						return { id: t.value, name: t.label };
-				  })
-				: [];
-			if (JSON.stringify(values) !== JSON.stringify(this.state.selectedTags)) {
-				this.loadSelectedTags();
-			}
+		if (this.props.value !== lastProps.value) {
+			this.loadSelectedTags();
 		}
 	}
 
 	handleDelete(i: any) {
-		const selectedTags = this.state.selectedTags.slice(0);
+		const selectedTags = this.state.value.slice(0);
 		selectedTags.splice(i, 1);
-		this.setState({ selectedTags }, () => {
-			if (this.props.onChange)
-				this.props.onChange(
-					selectedTags.map((s) => {
-						return {
-							label: s.name,
-							value: s.id,
-						};
-					}) as SelectValueLabelPair[]
-				);
+		this.setState({ value: selectedTags }, () => {
+			if (this.props.onChange) this.props.onChange(selectedTags.map((t: Tag) => t.id));
 		});
 	}
 
 	handleAddition(tag: any) {
-		let selectedTags = this.state.selectedTags;
+		let selectedTags = this.state.value;
 		selectedTags = selectedTags.concat(tag);
-		this.setState({ selectedTags }, () => {
-			if (this.props.onChange)
-				this.props.onChange(
-					selectedTags.map((s) => {
-						return {
-							label: s.name,
-							value: s.id,
-						};
-					}) as SelectValueLabelPair[]
-				);
+		this.setState({ value: selectedTags }, () => {
+			if (this.props.onChange) this.props.onChange(selectedTags.map((t: Tag) => t.id));
 		});
 	}
 
@@ -113,7 +93,7 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		let tags = this.state.tags;
 		if (this.props.preventDuplicates) {
 			tags = this.state.tags.filter((tag) => {
-				if (!this.state.selectedTags.find((s) => s.id === tag.id)) {
+				if (!this.state.value.find((s) => s.id === tag.id)) {
 					return tag;
 				} else {
 					return undefined;
@@ -135,7 +115,7 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 					<ReactTags
 						autofocus={false}
 						placeholder={this.props.placeholder ? this.props.placeholder : "Geben Sie ein Tag ein"}
-						tags={this.state.selectedTags}
+						tags={this.state.value}
 						allowBackspace={false}
 						suggestions={tags}
 						handleDelete={this.handleDelete.bind(this)}

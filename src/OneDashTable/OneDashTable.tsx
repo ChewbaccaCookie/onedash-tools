@@ -130,7 +130,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 				},
 				this.props.onClick
 					? () => {
-							this.props.onClick && this.props.onClick(selectedEntry);
+						this.props.onClick && this.props.onClick(selectedEntry);
 					  }
 					: this.openDialog
 			);
@@ -172,6 +172,8 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 		if (form && form.validateInputs()) {
 			const data = form.getData();
 			data.id = this.state.selectedEntry.id;
+
+			console.log(data);
 
 			if (data.id !== undefined) {
 				const objIndex = tableValues.findIndex((tValue) => tValue.id === data.id);
@@ -229,19 +231,36 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 		this.setState({ tableValues });
 	};
 
-	formatOutput = (type: any, value: any, formattingFunction: formattingFunction, shortForm?: boolean) => {
+	formatOutput = (
+		type: any,
+		value: any,
+		formattingFunction: formattingFunction,
+		shortForm?: boolean,
+		selectValueLabelPair?: SelectValueLabelPair[]
+	) => {
 		if (formattingFunction) {
 			return formattingFunction(value, shortForm);
 		}
+
 		if (type === "select") {
-			return value ? value.label : "";
+			let val = value;
+			if (selectValueLabelPair && selectValueLabelPair.find((x) => String(x.value) === String(val))) {
+				val = (selectValueLabelPair.find((x) => String(x.value) === String(val)) as SelectValueLabelPair).label;
+			}
+			return val;
 		}
 		if (type === "tag-input") {
-			if (value) {
-				return value.map((v) => v.label).join(",");
-			} else {
-				return "";
-			}
+			if (!selectValueLabelPair) return "";
+			return value
+				.map((v) => {
+					let val = "";
+					const tmp = selectValueLabelPair.find((x) => String(x.value) === String(v)) as SelectValueLabelPair;
+					if (tmp) {
+						val = tmp.label;
+					}
+					return val;
+				})
+				.join(",");
 		}
 		if (type === "email") {
 			return <a href={`mailto:${value}`}>{value}</a>;
@@ -257,7 +276,6 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 		if (tableHeaders.length === 0) {
 			return <></>;
 		}
-
 		return (
 			<div className="onedash-table">
 				<div className="table-toolbox">
@@ -297,7 +315,8 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 											headerRowEntry.type,
 											tableRow[headerRowEntry.columnName],
 											headerRowEntry.formattingFunction as any,
-											true
+											true,
+											headerRowEntry.selectValueLabelPair
 										)}
 									</div>
 								))}
@@ -339,7 +358,11 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 													{header.type === "select" && typeof header.selectValueLabelPair === "object" && (
 														<OneDashSelect
 															name={header.columnName}
-															value={this.state.selectedEntry[header.columnName]}
+															value={
+																this.state.selectedEntry[header.columnName]
+																	? this.state.selectedEntry[header.columnName]
+																	: "invalid-input"
+															}
 															options={header.selectValueLabelPair || []}
 															placeholder="Wählen Sie eine Option"
 															required={
@@ -352,7 +375,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 															preventDuplicates
 															name={header.columnName}
 															tags={header.selectValueLabelPair}
-															selectedTags={this.state.selectedEntry[header.columnName]}
+															value={this.state.selectedEntry[header.columnName]}
 														/>
 													)}
 													{header.type !== "select" && header.type !== "tag-input" && (
@@ -373,7 +396,9 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 													{this.formatOutput(
 														header.type,
 														this.state.selectedEntry[header.columnName],
-														header.formattingFunction as any
+														header.formattingFunction as any,
+														false,
+														header.selectValueLabelPair
 													)}
 												</>
 											)}

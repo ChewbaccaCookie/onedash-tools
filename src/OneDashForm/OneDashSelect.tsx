@@ -7,11 +7,13 @@ export interface ValueLabelPair {
 	label: string;
 	value: any;
 }
-
+/**
+ * Value is key value
+ */
 interface OneDashSelectProps extends OneDashInputProps {
 	options: ValueLabelPair[];
 	name: string;
-	value?: ValueLabelPair;
+	value?: any;
 	onChange?: (value: any) => void;
 }
 
@@ -23,16 +25,15 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 	state = {
 		renderRangeDatePicker: false,
 		value: undefined as any,
-		valid: false,
+		valid: true,
 		focus: false,
 		options: [] as SelectValueLabelPair[],
 	};
 	public getInputValue = () => {
 		const value = this.state.value;
-		const entry = this.state.options.find((o) => String(o.value) === value);
 		return {
 			name: this.props.name,
-			value: entry,
+			value,
 		};
 	};
 	public validateInput = () => {
@@ -83,13 +84,12 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 	inputChange = (e: any) => {
 		const value = e.target.value;
 		if (value !== "invalid-input" || !this.props.required) {
-			const entry = this.state.options.find((o) => o.value === value);
 			this.setState(
 				{
 					value,
 				},
 				() => {
-					if (this.props.onChange) this.props.onChange(entry);
+					if (this.props.onChange) this.props.onChange(value);
 				}
 			);
 		}
@@ -100,7 +100,7 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 		this.setState({ options });
 	};
 	private loadSelected = () => {
-		const value = this.props.value ? this.props.value.value : undefined;
+		const value = this.props.value ? String(this.props.value) : undefined;
 		this.setState({ value });
 	};
 
@@ -109,9 +109,9 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 		this.loadSelected();
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(lastProps: OneDashSelectProps) {
 		// Default Value is defined
-		if (this.props.value && this.props.value.value !== this.state.value) {
+		if (this.props.value !== lastProps.value) {
 			this.loadSelected();
 		}
 	}

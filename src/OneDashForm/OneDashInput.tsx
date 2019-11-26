@@ -25,7 +25,7 @@ export interface OneDashInputProps {
 	minLength?: number;
 	maxLength?: number;
 	showHint?: boolean;
-	value?: string | Dayjs[] | SelectValueLabelPair;
+	value?: string | Dayjs[];
 	requiredNotVisible?: boolean;
 	onChange?: Function;
 	placeholder?: string;

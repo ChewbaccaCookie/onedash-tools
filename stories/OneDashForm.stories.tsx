@@ -56,6 +56,7 @@ storiesOf("Form", module)
 				<OneDashSelect
 					name="select"
 					label="Select"
+					value="option-1"
 					options={[
 						{ label: "Option 1", value: "option-1" },
 						{ label: "Option 2", value: "option-2" },
@@ -71,6 +72,7 @@ storiesOf("Form", module)
 				<OneDashTagInput
 					name="select"
 					label="Tag Input"
+					value={["option-1"]}
 					tags={[
 						{ label: "Option 1", value: "option-1" },
 						{ label: "Option 2", value: "option-2" },
@@ -85,6 +87,7 @@ storiesOf("Form", module)
 				<OneDashTagInput
 					name="select"
 					label="Tag Input"
+					value={["option-1"]}
 					tags={[
 						{ label: "Option 1", value: "option-1" },
 						{ label: "Option 2", value: "option-2" },
