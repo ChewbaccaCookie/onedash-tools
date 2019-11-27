@@ -121,7 +121,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 	}
 	public resetInput = () => {
 		this.setState({
-			value: this.props.value || "",
+			value: "",
 			valid: true,
 		});
 	};
