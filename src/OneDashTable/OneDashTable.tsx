@@ -29,7 +29,7 @@ export interface OneDashTableProps {
 	searchable?: boolean;
 	orderable?: boolean;
 	onSave?: (entry: any, tableValues: any[]) => void;
-	onDelete?: any;
+	onDelete?: (rowId: any, rowValues: any) => void;
 	onClick?: Function;
 }
 
@@ -212,9 +212,10 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 			this.currentId = "";
 			return;
 		}
+		const tableRow = this.state.tableValues.find((v) => v.id === this.currentId);
 		let tableValues = this.state.tableValues;
 		tableValues = tableValues.filter((tv) => tv.id !== this.currentId);
-		if (this.props.onDelete) this.props.onDelete(this.currentId);
+		if (this.props.onDelete) this.props.onDelete(this.currentId, tableRow);
 		this.setState({ tableValues });
 	};
 
