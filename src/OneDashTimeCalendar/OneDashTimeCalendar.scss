@@ -1,0 +1,85 @@
+@import "../styles/colors.scss";
+
+.onedash-time-calendar {
+	border-radius: 4px;
+	border: 2px solid $timeCalendarBorder;
+	.onedash-calendar-content {
+		&__days {
+			display: flex;
+
+			.onedash-time-legend {
+				&__header {
+					text-align: center;
+					height: 35px;
+					padding: 10px 5px;
+					background: $timeCalendarHeaderBackground;
+					border-bottom: 2px solid $timeCalendarBorder;
+					font-weight: bold;
+					font-size: 1rem;
+				}
+				&__cell {
+					height: 21px;
+
+					cursor: pointer;
+					transition: $timeCalendarTransition;
+					text-align: center;
+				}
+			}
+			.onedash-day {
+				flex-grow: 1;
+				background: $timeCalendarNotWorking;
+				border-left: 2px solid $timeCalendarBorder;
+				&:first-of-type {
+					border-left: none;
+				}
+
+				&__header {
+					text-align: center;
+					height: 35px;
+					padding: 10px 5px;
+					margin-bottom: 10px;
+					background: $timeCalendarHeaderBackground;
+					border-bottom: 2px solid $timeCalendarBorder;
+					transition: $timeCalendarTransition;
+					cursor: pointer;
+					&:hover {
+						background: $timeCalendarBooked;
+					}
+
+					span {
+						display: inline-block;
+						font-size: 0.9rem;
+
+						&.bold {
+							font-weight: bold;
+							font-size: 1rem;
+						}
+					}
+				}
+
+				&__content {
+					.onedash-cell {
+						height: 20px;
+						border-bottom: 1px solid $timeCalendarBorder;
+						cursor: pointer;
+						transition: $timeCalendarTransition;
+						background: white;
+
+						&:hover,
+						&.selected {
+							background: $timeCalendarBooked;
+						}
+						&.hover {
+							background: transparentize($timeCalendarBooked, 0.5);
+						}
+
+						&.non-working {
+							background: $timeCalendarNotWorking;
+							pointer-events: none;
+						}
+					}
+				}
+			}
+		}
+	}
+}

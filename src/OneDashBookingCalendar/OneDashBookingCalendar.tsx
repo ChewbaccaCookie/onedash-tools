@@ -7,11 +7,6 @@ import OneDashForm from "../OneDashForm/OneDashForm";
 import OneDashInput from "../OneDashForm/OneDashInput";
 import dayjs from "dayjs";
 
-export interface Appointment {
-	timestamp_from: string | number;
-	timestamp_to: string | number;
-}
-
 interface OneDashCalendarProps {
 	showLegend?: boolean;
 	appointments?: Appointment[];
