@@ -108,9 +108,10 @@ class OneDashForm extends React.Component<OneDashFormProps, OneDashFormState> {
 	onSubmit = (e: any) => {
 		const values = this.mapData();
 		if (this.props.validateOnSubmit) {
-			if (this.validateInputs()) {
+			if (this.validateInputs() === true) {
 				if (this.props.onSubmit) this.props.onSubmit(values, this);
 			} else {
+				e.preventDefault();
 				return;
 			}
 		}
