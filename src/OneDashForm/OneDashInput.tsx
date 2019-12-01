@@ -35,6 +35,7 @@ export interface OneDashInputProps {
 	readonly?: boolean;
 	disabled?: boolean;
 	validOnEnabled?: boolean;
+	className?: string;
 }
 
 class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> {
@@ -340,6 +341,9 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		}
 		if (!this.state.valid) {
 			classList += " input-invalid";
+		}
+		if (this.props.className) {
+			classList += " " + this.props.className;
 		}
 		return classList;
 	};
