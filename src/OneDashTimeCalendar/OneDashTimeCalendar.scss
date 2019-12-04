@@ -83,7 +83,7 @@
 					user-select: none;
 					cursor: pointer;
 					&:hover {
-						background: $timeCalendarSelected;
+						background: $timeCalendarDaySelected;
 					}
 
 					span {
@@ -121,6 +121,10 @@
 							&__primary {
 								background: $timeCalendarBookedPrimary;
 								border-bottom: 1px solid $timeCalendarBookedPrimary;
+							}
+							&.full-day {
+								background: $timeCalendarBookedFullDay;
+								border-bottom: 1px solid $timeCalendarBookedFullDay;
 							}
 						}
 

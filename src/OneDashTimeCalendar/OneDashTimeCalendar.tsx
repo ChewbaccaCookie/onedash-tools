@@ -13,6 +13,7 @@ export interface OneDashTimeCalendarProps {
 	appointments?: Appointment[];
 	addAppointment?: (appointment: Appointment) => void;
 	removeAppointment?: (appointment: Appointment) => void;
+	changeAppointment?: (appointment: Appointment) => void;
 	onStartDateChanged?: (startDate: timeStamp, endDate: timeStamp) => void;
 	workingSchema: WorkingSchema;
 	startDate?: timeStamp;
@@ -60,7 +61,9 @@ class OneDashTimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	loadAppointments = () => {
 		const appointments = this.props.appointments;
 		if (appointments) {
-			appointments.forEach((a, i) => (a.id = i));
+			appointments.forEach((a, i) => {
+				if (!a.id) a.id = i;
+			});
 			this.setState({ appointments });
 		}
 	};
@@ -84,15 +87,16 @@ class OneDashTimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	}
 
 	addAppointment = (app: Appointment) => {
+		if (this.props.addAppointment) this.props.addAppointment(app);
 		let appointments = this.state.appointments;
-
 		if (app && appointments) {
+			app.id = Math.round(Math.random() * 1000000);
 			appointments = appointments.concat(app);
-			appointments.forEach((a, i) => (a.id = i));
 			this.setState({ appointments });
 		}
 	};
 	deleteAppointment = (app: Appointment) => {
+		if (this.props.removeAppointment) this.props.removeAppointment(app);
 		const appointments = this.state.appointments;
 		if (app && appointments) {
 			const i = appointments.indexOf(app);
@@ -104,6 +108,7 @@ class OneDashTimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 		const appointments = this.state.appointments;
 		const index = appointments.findIndex((a) => a.id === id);
 		appointments[index] = app;
+		if (this.props.changeAppointment) this.props.changeAppointment(appointments[index]);
 		this.setState({ appointments });
 	};
 

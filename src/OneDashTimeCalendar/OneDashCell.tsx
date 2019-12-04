@@ -30,9 +30,14 @@ class OneDashCell extends Component<OneDashCellProps> {
 		}
 		if (this.props.appointment) {
 			// An appointment is available => Cell will be styled
-			if (this.props.appointment.type === "appointment") {
+			switch (this.props.appointment.type) {
+			case "appointment":
 				className += " booked booked__primary";
-			} else {
+				break;
+			case "full-day":
+				className += " booked full-day";
+				break;
+			default:
 				className += " booked";
 			}
 		}

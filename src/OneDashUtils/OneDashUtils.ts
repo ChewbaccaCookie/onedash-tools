@@ -21,4 +21,14 @@ export default class OneDashUtils {
 			.toDate()
 			.getTime();
 	};
+
+	static setTime = (date: Dayjs | number, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) => {
+		return dayjs(date)
+			.set("h", hours)
+			.set("m", minutes)
+			.set("s", seconds)
+			.set("millisecond", milliseconds)
+			.toDate()
+			.getTime();
+	};
 }

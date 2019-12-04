@@ -32,7 +32,9 @@ interface Appointment {
 	timestamp_to: string | number;
 	repeatWeekly?: "1" | "0";
 	description?: string;
-	type?: "out-of-office" | "appointment";
+	type?: "out-of-office" | "appointment" | "full-day";
+	fullDayDate?: string;
+	fullDay?: "1" | "0";
 }
 interface NonWorkingDay {
 	date: timeStamp;

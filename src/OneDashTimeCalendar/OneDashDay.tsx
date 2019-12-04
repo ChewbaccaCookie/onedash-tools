@@ -225,12 +225,29 @@ class OneDashDay extends Component<OneDashDayProps> {
 		}
 	};
 
+	toggleFullDay = () => {
+		const fDate = dayjs(this.props.date).format("dd.mm.yyyy");
+
+		const app = this.props.appointments.find((a) => a.fullDayDate === fDate);
+		if (app) {
+			this.props.onDelete(app);
+		} else {
+			this.props.onAddAppointment({
+				fullDay: "1",
+				fullDayDate: fDate,
+				timestamp_from: OneDashUtils.setTime(this.props.date),
+				timestamp_to: OneDashUtils.setTime(this.props.date, 23, 59, 59, 999),
+				type: "full-day",
+			});
+		}
+	};
+
 	render() {
 		const timeCells = this.state.timeCells;
 
 		return (
 			<div className={this.generateClassName()}>
-				<div className="onedash-day__header">
+				<div className="onedash-day__header" onClick={this.toggleFullDay}>
 					<span className="bold">{this.generateDayName()}</span>
 					<span>{this.generateDay()}</span>
 				</div>
