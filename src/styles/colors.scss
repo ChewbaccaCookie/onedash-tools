@@ -68,9 +68,14 @@ $timeCalendarSelected: #f1ae56;
 $timeCalendarBooked: #f17556;
 $timeCalendarBookedPrimary: #91f5a7;
 $timeCalendarTransition: 0.15s all ease-in-out;
-
+$timeCalendarPopoverBtnColor: #b64c22;
+$timeCalendarHeaderTextColor: #1d4d7a;
 // Spinner
 $spinnerColor: #e95a5a;
+
+// Popover
+$popoverBackground: white;
+$popoverShadow: 0 0px 5px rgba(0, 0, 0, 0.3);
 
 // IOS
 $iosWhiteBackground: #f2f2f7;

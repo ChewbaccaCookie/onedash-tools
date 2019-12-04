@@ -3,7 +3,44 @@
 .onedash-time-calendar {
 	border-radius: 4px;
 	border: 2px solid $timeCalendarBorder;
+	.onedash-calendar-header {
+		width: calc(100% - 10px);
+		padding: 5px;
+		border-bottom: 2px solid $timeCalendarBorder;
+		display: flex;
+		align-items: center;
+
+		&-controls {
+			display: flex;
+			justify-content: space-between;
+			flex-grow: 1;
+			margin: 5px;
+			color: $timeCalendarHeaderTextColor;
+			align-items: center;
+			button {
+				font-size: 1.4rem;
+				font-weight: bold;
+				background: none;
+				border: none;
+				cursor: pointer;
+			}
+			span {
+				font-weight: bold;
+				font-size: 1.2rem;
+			}
+		}
+	}
 	.onedash-calendar-content {
+		overflow-x: auto;
+		padding-bottom: 250px;
+		margin-bottom: -250px;
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			width: 0px;
+			height: 0px;
+		}
+
 		&__days {
 			display: flex;
 
@@ -50,7 +87,7 @@
 					}
 
 					span {
-						display: inline-block;
+						display: block;
 						font-size: 0.9rem;
 
 						&.bold {
@@ -65,7 +102,6 @@
 						height: 20px;
 						border-bottom: 1px solid $timeCalendarBorder;
 						cursor: pointer;
-						transition: $timeCalendarTransition;
 						background: white;
 
 						&:hover,
@@ -81,7 +117,7 @@
 						&.booked {
 							background: $timeCalendarBooked;
 							border-bottom: 1px solid $timeCalendarBooked;
-							cursor: url("cursor-delete.png") 16 16, pointer;
+
 							&__primary {
 								background: $timeCalendarBookedPrimary;
 								border-bottom: 1px solid $timeCalendarBookedPrimary;
@@ -92,6 +128,25 @@
 							background: $timeCalendarNotWorking;
 							pointer-events: none;
 							border-bottom: 1px solid $timeCalendarBorder;
+						}
+
+						& .onedash-popover__content {
+							&-title {
+								margin: 0px 10px;
+							}
+							.onedash-cell-popover-btn {
+								border: none;
+								margin: 10px;
+								padding: 0px;
+								background: none;
+								color: $timeCalendarPopoverBtnColor;
+								cursor: pointer;
+								font-weight: bold;
+								transition: 0.15s all ease-in-out;
+								&:hover {
+									opacity: 0.7;
+								}
+							}
 						}
 					}
 				}

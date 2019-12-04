@@ -12,6 +12,8 @@ export interface OneDashCalendarContentProps {
 	workingHours: WorkingDay[];
 	onAddAppointment: (appointment: Appointment) => void;
 	onDelete: (appointment: Appointment) => void;
+	onChange: (id, appointment: Appointment) => void;
+	type: TimeCalendarTypes;
 }
 
 export interface OneDashCalendarContentState {}
@@ -29,6 +31,7 @@ class OneDashCalendarContent extends Component<OneDashCalendarContentProps, OneD
 			.set("m", 0)
 			.set("s", 0);
 		const dayDiff = this.endDate.diff(this.startDate, "d");
+
 		let date = this.startDate.clone();
 		const days: number[] = [];
 
@@ -46,7 +49,9 @@ class OneDashCalendarContent extends Component<OneDashCalendarContentProps, OneD
 					<OneDashTimeLegend cellSize={this.props.cellSize} workingHours={this.props.workingHours} />
 					{days.map((day, i) => (
 						<OneDashDay
+							type={this.props.type}
 							onDelete={this.props.onDelete}
+							onChange={this.props.onChange}
 							onAddAppointment={this.props.onAddAppointment}
 							key={i}
 							dayOfInterval={i}

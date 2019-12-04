@@ -4,35 +4,49 @@ import OneDashCard from "../src/OneDashCard/OneDashCard";
 import OneDashTimeCalendar from "../src/OneDashTimeCalendar/OneDashTimeCalendar";
 import dayjs from "dayjs";
 
-interface WorkingDay {
-	days: number[];
-	startingHour: number;
-	startingMinute: number;
-	endHour: number;
-	endMinute: number;
+interface WorkingSchema {
+	numberOfDays: number;
+	workingDays: {
+		days: number[];
+		startingHour: number;
+		startingMinute: number;
+		endHour: number;
+		endMinute: number;
+	}[];
 }
 
-const workingHours: WorkingDay[] = [
-	{
-		days: [0, 1, 2, 3, 4],
-		startingHour: 8,
-		startingMinute: 0,
-		endHour: 12,
-		endMinute: 0,
-	},
-	{
-		days: [0, 1, 2, 3],
-		startingHour: 13,
-		startingMinute: 0,
-		endHour: 17,
-		endMinute: 0,
-	},
-];
+const workingSchema: WorkingSchema = {
+	numberOfDays: 7,
+	workingDays: [
+		{
+			days: [0, 1, 3, 4],
+			startingHour: 8,
+			startingMinute: 0,
+			endHour: 12,
+			endMinute: 0,
+		},
+		{
+			days: [2],
+			startingHour: 10,
+			startingMinute: 0,
+			endHour: 12,
+			endMinute: 0,
+		},
+		{
+			days: [0, 1, 2, 3],
+			startingHour: 13,
+			startingMinute: 0,
+			endHour: 17,
+			endMinute: 0,
+		},
+	],
+};
 
 interface Appointment {
 	timestamp_from: string | number;
 	timestamp_to: string | number;
 	type?: "out-of-office" | "appointment";
+	repeatWeekly?: "1" | "0";
 }
 const date = dayjs().startOf("week");
 const appointments: Appointment[] = [
@@ -69,23 +83,34 @@ const appointments: Appointment[] = [
 			.toDate()
 			.getTime(),
 		type: "out-of-office",
+		repeatWeekly: "1",
 	},
 ];
 
 storiesOf("Time Calendar", module)
 	.add("default", () => (
 		<OneDashCard maxWidth={800}>
-			<OneDashTimeCalendar appointments={[]} cellSize={30} startDate={new Date().getTime()} workingHours={workingHours} type="Week" />
+			<OneDashTimeCalendar appointments={[]} slotMinutes={30} startDate={new Date().getTime()} workingSchema={workingSchema} />
 		</OneDashCard>
 	))
 	.add("preselected appointments", () => (
 		<OneDashCard maxWidth={800}>
 			<OneDashTimeCalendar
 				appointments={appointments}
-				cellSize={30}
+				slotMinutes={30}
 				startDate={new Date().getTime()}
-				workingHours={workingHours}
-				type="Week"
+				workingSchema={workingSchema}
+			/>
+		</OneDashCard>
+	))
+	.add("monthly view", () => (
+		<OneDashCard maxWidth={1200}>
+			<OneDashTimeCalendar
+				appointments={appointments}
+				slotMinutes={30}
+				startDate={new Date().getTime()}
+				workingSchema={workingSchema}
+				defaultType="month"
 			/>
 		</OneDashCard>
 	));

@@ -12,6 +12,7 @@ class OneDashTimeLegend extends Component<OneDashTimeLegendProps> {
 		const earliestTime = this.props.workingHours.sort((a, b) => a.startingHour - b.startingHour)[0];
 		const latestTimeSort = this.props.workingHours.sort((a, b) => a.endHour - b.endHour);
 		const latestTime = latestTimeSort[latestTimeSort.length - 1];
+		if (!latestTime) return [];
 		const timeCells: TimeCell[] = [];
 		const minuteNum = dayjs()
 			.set("h", latestTime.endHour)

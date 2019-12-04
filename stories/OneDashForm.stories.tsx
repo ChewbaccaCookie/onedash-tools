@@ -18,6 +18,15 @@ storiesOf("Form", module)
 			</OneDashForm>
 		</OneDashCard>
 	))
+	.add("plain style", () => (
+		<OneDashCard>
+			<OneDashForm styling="none" onSubmit={action("Submit")}>
+				<OneDashInput name="firstName" label="Vorname"></OneDashInput>
+				<OneDashInput name="lastName" label="Nachname"></OneDashInput>
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
 	.add("number", () => (
 		<OneDashCard>
 			<OneDashForm onSubmit={action("Submit")}>

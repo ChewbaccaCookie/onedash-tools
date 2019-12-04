@@ -3,6 +3,7 @@ import * as React from "react";
 import { Component } from "react";
 import dayjs from "dayjs";
 import OneDashCell from "./OneDashCell";
+import { OneDashUtils } from "..";
 
 export interface OneDashDayProps {
 	//Weekly 0 - 6; Monthly 0 - 30
@@ -15,6 +16,8 @@ export interface OneDashDayProps {
 	isNonWorkingDay?: boolean;
 	onAddAppointment: (appointment: Appointment) => void;
 	onDelete: (appointment: Appointment) => void;
+	onChange: (id: number, appointment: Appointment) => void;
+	type: TimeCalendarTypes;
 }
 
 class OneDashDay extends Component<OneDashDayProps> {
@@ -26,8 +29,11 @@ class OneDashDay extends Component<OneDashDayProps> {
 	};
 	generateTimeCells = () => {
 		const timeCells: TimeCell[] = [];
+
+		this.setState({ timeCells });
 		let date = dayjs(this.props.date);
 		const workingHours = this.props.workingHours.filter((wh) => wh.days.includes(this.props.dayOfInterval));
+
 		if (workingHours.length === 0) return;
 		const earliestTime = this.props.workingHours.sort((a, b) => a.startingHour - b.startingHour)[0];
 
@@ -69,6 +75,7 @@ class OneDashDay extends Component<OneDashDayProps> {
 		const count = minuteNum / this.props.cellSize;
 
 		date = date.set("hour", start.startingHour).set("minute", start.startingMinute);
+
 		for (let i = 0; i < count; i++) {
 			const isWorking = this.props.workingHours.find((wh) => {
 				if (!wh.days.includes(this.props.dayOfInterval)) {
@@ -102,8 +109,20 @@ class OneDashDay extends Component<OneDashDayProps> {
 			const startDate = date.toDate().getTime();
 
 			//Search for a appointment which is matching
-			const appointment = this.props.appointments.find((a) => a.timestamp_from <= startDate && a.timestamp_to >= endDate);
-
+			const appointment = this.props.appointments.find((a) => {
+				if (a.repeatWeekly === "1") {
+					const dayOfWeek = dayjs(a.timestamp_from).day();
+					if (dayjs(startDate).day() === dayOfWeek) {
+						const u = OneDashUtils.removeDate;
+						const t = u(a.timestamp_from as number) <= u(startDate) && u(a.timestamp_to as number) >= u(endDate);
+						return t;
+					} else {
+						return false;
+					}
+				} else {
+					return a.timestamp_from <= startDate && a.timestamp_to >= endDate;
+				}
+			});
 			timeCells.push({
 				startDate: startDate,
 				endDate: endDate,
@@ -112,6 +131,7 @@ class OneDashDay extends Component<OneDashDayProps> {
 			});
 			date = date.add(this.props.cellSize, "minute");
 		}
+
 		this.setState({ timeCells });
 	};
 
@@ -146,10 +166,19 @@ class OneDashDay extends Component<OneDashDayProps> {
 		const timeCells = this.state.timeCells;
 		const endIndex = (e.target as any).getAttribute("data-index");
 
+		const timestampFrom =
+			timeCells[this.startingIndex].startDate <= timeCells[endIndex].startDate
+				? timeCells[this.startingIndex].startDate
+				: timeCells[endIndex].startDate;
+		const timestampTo =
+			timeCells[this.startingIndex].endDate >= timeCells[endIndex].endDate
+				? timeCells[this.startingIndex].endDate
+				: timeCells[endIndex].endDate;
+
 		// Add appointment on main element => Prop will be updated to display appointment
 		this.props.onAddAppointment({
-			timestamp_from: timeCells[this.startingIndex].startDate,
-			timestamp_to: timeCells[endIndex].endDate,
+			timestamp_from: timestampFrom,
+			timestamp_to: timestampTo,
 			type: "out-of-office",
 		});
 
@@ -169,7 +198,7 @@ class OneDashDay extends Component<OneDashDayProps> {
 			const currIndex = e.target.getAttribute("data-index");
 			const timeCells = this.state.timeCells;
 			timeCells.forEach((cell, index) => {
-				if (index > this.startingIndex && index < currIndex) {
+				if ((index > this.startingIndex && index < currIndex) || (index < this.startingIndex && index > currIndex)) {
 					cell.hover = true;
 				} else {
 					cell.hover = false;
@@ -179,19 +208,39 @@ class OneDashDay extends Component<OneDashDayProps> {
 		}
 	};
 
+	generateDayName = () => {
+		switch (this.props.type) {
+		case "month":
+			return dayjs(this.props.date).format("dd");
+		case "week":
+			return dayjs(this.props.date).format("dddd");
+		}
+	};
+	generateDay = () => {
+		switch (this.props.type) {
+		case "month":
+			return dayjs(this.props.date).format("DD");
+		case "week":
+			return dayjs(this.props.date).format("DD.MM.YYYY");
+		}
+	};
+
 	render() {
 		const timeCells = this.state.timeCells;
+
 		return (
 			<div className={this.generateClassName()}>
 				<div className="onedash-day__header">
-					<span className="bold">{dayjs(this.props.date).format("dddd")}</span>
-					<span>{dayjs(this.props.date).format("DD.MM.YYYY")}</span>
+					<span className="bold">{this.generateDayName()}</span>
+					<span>{this.generateDay()}</span>
 				</div>
 				<div className="onedash-day__content">
 					{timeCells &&
 						timeCells.map((cell, index) => (
 							<OneDashCell
+								onAdd={this.props.onAddAppointment}
 								onDelete={this.props.onDelete}
+								onChange={this.props.onChange}
 								index={index}
 								selected={cell.selected}
 								hover={cell.hover}
