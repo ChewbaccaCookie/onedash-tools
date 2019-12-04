@@ -110,7 +110,7 @@ class OneDashDay extends Component<OneDashDayProps> {
 
 			//Search for a appointment which is matching
 			const appointment = this.props.appointments.find((a) => {
-				if (a.repeatWeekly === "1") {
+				if (String(a.repeatWeekly) === "1") {
 					const dayOfWeek = dayjs(a.timestamp_from).day();
 					if (dayjs(startDate).day() === dayOfWeek) {
 						const u = OneDashUtils.removeDate;
