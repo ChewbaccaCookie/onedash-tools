@@ -87,10 +87,10 @@ class OneDashTimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	}
 
 	addAppointment = (app: Appointment) => {
-		if (this.props.addAppointment) this.props.addAppointment(app);
 		let appointments = this.state.appointments;
 		if (app && appointments) {
 			app.id = Math.round(Math.random() * 1000000);
+			if (this.props.addAppointment) this.props.addAppointment(app);
 			appointments = appointments.concat(app);
 			this.setState({ appointments });
 		}
