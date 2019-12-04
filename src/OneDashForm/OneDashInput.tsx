@@ -35,6 +35,8 @@ export interface OneDashInputProps {
 	readonly?: boolean;
 	disabled?: boolean;
 	validOnEnabled?: boolean;
+	className?: string;
+	styling?: OneDashStyles;
 }
 
 class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> {
@@ -335,11 +337,28 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		if (this.props.type === "submit") {
 			classList += " onedash-submit-container";
 		}
+		if (this.props.styling) {
+			switch (this.props.styling) {
+			case "none":
+				break;
+			case "default":
+				classList += " onedash-style-one";
+				break;
+			default:
+				classList += " onedash-style-" + this.props.styling;
+				break;
+			}
+		} else {
+			classList += " onedash-style-one";
+		}
 		if (this.props.iconRight) {
 			classList += " input-icon-right";
 		}
 		if (!this.state.valid) {
 			classList += " input-invalid";
+		}
+		if (this.props.className) {
+			classList += " " + this.props.className;
 		}
 		return classList;
 	};

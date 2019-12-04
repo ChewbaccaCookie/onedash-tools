@@ -12,6 +12,7 @@ export interface OneDashFormProps {
 	listStyleLabelToolTip?: string;
 	className?: string;
 	validateOnSubmit?: boolean;
+	styling?: OneDashStyles;
 }
 
 export interface InputNameValuePair {
@@ -45,7 +46,7 @@ class OneDashForm extends React.Component<OneDashFormProps, OneDashFormState> {
 			if (child.type === OneDashInput || child.type === OneDashSelect || child.type === OneDashTagInput) {
 				const newEl = React.cloneElement(
 					child,
-					{ ref: (el: any) => this.references.push(el), key: i, onFormChange: this.onChange },
+					{ ref: (el: any) => this.references.push(el), key: i, onFormChange: this.onChange, styling: this.props.styling },
 					childElements
 				);
 				elements.push(newEl);
@@ -108,9 +109,10 @@ class OneDashForm extends React.Component<OneDashFormProps, OneDashFormState> {
 	onSubmit = (e: any) => {
 		const values = this.mapData();
 		if (this.props.validateOnSubmit) {
-			if (this.validateInputs()) {
+			if (this.validateInputs() === true) {
 				if (this.props.onSubmit) this.props.onSubmit(values, this);
 			} else {
+				e.preventDefault();
 				return;
 			}
 		}

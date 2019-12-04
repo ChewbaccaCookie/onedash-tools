@@ -1,6 +1,6 @@
 {
   "name": "@onedash/tools",
-  "version": "2.0.15",
+  "version": "2.2.0",
   "description": "Official OneDash. tools for React",
   "author": "ChewbaccaCookie",
   "license": "UNLICENSED",
@@ -18,7 +18,7 @@
     "build": "rollup -c",
     "lint": "npx eslint src/*",
     "start": "rollup -c -w",
-    "deploy": "npx del-cli -f dist && npm run build && npx auto-bump && npm publish --registry https://npm.1bit.ddnss.de && npm run build-storybook",
+    "deploy": "npx del-cli -f dist && npm run build && npx auto-bump && npm publish --registry https://npm.onedash.dev && npm run build-storybook",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -c .storybook -o public && npx now"
   },
@@ -36,18 +36,18 @@
     "react-dom": "^16.12.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "5.2.6",
-    "@storybook/addon-info": "5.2.6",
-    "@storybook/addon-links": "5.2.6",
-    "@storybook/addon-storysource": "5.2.6",
-    "@storybook/addons": "5.2.6",
-    "@storybook/react": "5.2.6",
+    "@storybook/addon-actions": "5.2.8",
+    "@storybook/addon-info": "5.2.8",
+    "@storybook/addon-links": "5.2.8",
+    "@storybook/addon-storysource": "5.2.8",
+    "@storybook/addons": "5.2.8",
+    "@storybook/react": "5.2.8",
     "@svgr/rollup": "4.3.3",
     "@types/jest": "24.0.23",
     "@types/react": "16.9.13",
     "@types/react-dom": "16.9.4",
-    "@typescript-eslint/eslint-plugin": "2.8.0",
-    "@typescript-eslint/parser": "2.8.0",
+    "@typescript-eslint/eslint-plugin": "2.9.0",
+    "@typescript-eslint/parser": "2.9.0",
     "auto-bump": "0.0.10",
     "awesome-typescript-loader": "5.2.1",
     "babel-core": "6.26.3",
@@ -69,7 +69,7 @@
     "react-docgen-typescript-loader": "3.6.0",
     "react-dom": "16.12.0",
     "react-scripts-ts": "3.1.0",
-    "rollup": "1.27.5",
+    "rollup": "1.27.8",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
@@ -83,5 +83,11 @@
   "files": [
     "dist"
   ],
-  "autoBump": {}
+  "autoBump": {},
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "not IE_Mob 11",
+    "maintained node versions"
+  ]
 }
