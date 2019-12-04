@@ -8,6 +8,8 @@ import OneDashSpinner from "./OneDashSpinner/OneDashSpinner";
 import OneDashTable from "./OneDashTable/OneDashTable";
 import OneDashUtils from "./OneDashUtils/OneDashUtils";
 import PromptDialog from "./PromptDialog/PromptDialog";
+import OneDashTimeCalendar from "./OneDashTimeCalendar/OneDashTimeCalendar";
+import OneDashPopover from "./OneDashPopover/OneDashPopover";
 
 export {
 	OneDashBookingCalendar,
@@ -20,4 +22,6 @@ export {
 	OneDashTable,
 	OneDashUtils,
 	PromptDialog,
+	OneDashTimeCalendar,
+	OneDashPopover,
 };
