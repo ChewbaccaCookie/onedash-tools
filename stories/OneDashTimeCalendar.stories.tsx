@@ -45,8 +45,10 @@ const workingSchema: WorkingSchema = {
 interface Appointment {
 	timestamp_from: string | number;
 	timestamp_to: string | number;
-	type?: "out-of-office" | "appointment";
+	type?: "out-of-office" | "appointment" | "full-day";
 	repeatWeekly?: "1" | "0";
+	fullDayDate?: string;
+	fullDay?: "1" | "0";
 }
 const date = dayjs().startOf("week");
 const appointments: Appointment[] = [
@@ -84,6 +86,25 @@ const appointments: Appointment[] = [
 			.getTime(),
 		type: "out-of-office",
 		repeatWeekly: "1",
+	},
+	{
+		timestamp_from: date
+			.clone()
+			.add(1, "d")
+			.set("h", 0)
+			.set("m", 0)
+			.toDate()
+			.getTime(),
+		timestamp_to: date
+			.clone()
+			.add(1, "d")
+			.set("h", 23)
+			.set("m", 59)
+			.toDate()
+			.getTime(),
+		type: "full-day",
+		fullDay: "1",
+		fullDayDate: date.add(1, "d").format("DD.MM.YYYY"),
 	},
 ];
 

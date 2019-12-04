@@ -226,8 +226,7 @@ class OneDashDay extends Component<OneDashDayProps> {
 	};
 
 	toggleFullDay = () => {
-		const fDate = dayjs(this.props.date).format("dd.mm.yyyy");
-
+		const fDate = dayjs(this.props.date).format("DD.MM.YYYY");
 		const app = this.props.appointments.find((a) => a.fullDayDate === fDate);
 		if (app) {
 			this.props.onDelete(app);
