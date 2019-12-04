@@ -9,7 +9,7 @@ dayjs.locale("de");
 
 export interface OneDashTimeCalendarProps {
 	className?: string;
-	appointments: Appointment[];
+	appointments?: Appointment[];
 	addAppointment?: (appointment: Appointment) => void;
 	removeAppointment?: (appointment: Appointment) => void;
 	workingHours: WorkingDay[];
@@ -19,6 +19,9 @@ export interface OneDashTimeCalendarProps {
 }
 
 class OneDashTimeCalendar extends Component<OneDashTimeCalendarProps, any> {
+	state = {
+		appointments: [] as Appointment[],
+	};
 	getEndDate = (startDate: Dayjs) => {
 		let days = 0;
 		switch (this.props.type) {
@@ -44,6 +47,36 @@ class OneDashTimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 			return date.startOf("week");
 		}
 	};
+	loadAppointments = () => {
+		const appointments = this.props.appointments;
+		if (appointments) {
+			this.setState({ appointments });
+		}
+	};
+	componentDidMount() {
+		this.loadAppointments();
+	}
+	componentDidUpdate(lastProps: OneDashTimeCalendarProps) {
+		if (lastProps.appointments !== this.props.appointments) {
+			this.loadAppointments();
+		}
+	}
+
+	addAppointment = (app: Appointment) => {
+		let appointments = this.state.appointments;
+		if (app && appointments) {
+			appointments = appointments.concat(app);
+			this.setState({ appointments });
+		}
+	};
+	deleteAppointment = (app: Appointment) => {
+		const appointments = this.state.appointments;
+		if (app && appointments) {
+			const i = appointments.indexOf(app);
+			appointments.splice(i, 1);
+			this.setState({ appointments });
+		}
+	};
 	render() {
 		const startDate = this.getStartDate()
 			.toDate()
@@ -53,6 +86,9 @@ class OneDashTimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 			<div className="onedash-time-calendar">
 				<OneDashCalendarHeader currentDate={this.props.startDate} />
 				<OneDashCalendarContent
+					appointments={this.state.appointments}
+					onDelete={this.deleteAppointment}
+					onAddAppointment={this.addAppointment}
 					cellSize={this.props.cellSize}
 					startDate={startDate}
 					endDate={endDate}

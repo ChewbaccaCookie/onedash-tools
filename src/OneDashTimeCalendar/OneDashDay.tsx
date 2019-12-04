@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import { Component } from "react";
 import dayjs from "dayjs";
@@ -7,11 +8,13 @@ export interface OneDashDayProps {
 	//Weekly 0 - 6; Monthly 0 - 30
 	dayOfInterval: number;
 	date: timeStamp;
-	//How height should be the cell => e.g. 30min
+	//Height of the cell => e.g. 30 minutes
 	cellSize: number;
 	appointments: Appointment[];
 	workingHours: WorkingDay[];
 	isNonWorkingDay?: boolean;
+	onAddAppointment: (appointment: Appointment) => void;
+	onDelete: (appointment: Appointment) => void;
 }
 
 class OneDashDay extends Component<OneDashDayProps> {
@@ -19,6 +22,7 @@ class OneDashDay extends Component<OneDashDayProps> {
 	startingIndex = -1;
 	state = {
 		timeCells: [] as TimeCell[],
+		appointments: [] as Appointment[],
 	};
 	generateTimeCells = () => {
 		const timeCells: TimeCell[] = [];
@@ -89,14 +93,22 @@ class OneDashDay extends Component<OneDashDayProps> {
 						.isBefore(endTime)
 				);
 			});
+
+			const endDate = date
+				.clone()
+				.add(this.props.cellSize, "minute")
+				.toDate()
+				.getTime();
+			const startDate = date.toDate().getTime();
+
+			//Search for a appointment which is matching
+			const appointment = this.props.appointments.find((a) => a.timestamp_from <= startDate && a.timestamp_to >= endDate);
+
 			timeCells.push({
-				startDate: date.toDate().getTime(),
-				endDate: date
-					.clone()
-					.add(this.props.cellSize, "minute")
-					.toDate()
-					.getTime(),
+				startDate: startDate,
+				endDate: endDate,
 				isNonWorking: isWorking ? false : true,
+				appointment,
 			});
 			date = date.add(this.props.cellSize, "minute");
 		}
@@ -125,18 +137,29 @@ class OneDashDay extends Component<OneDashDayProps> {
 		timeCells[this.startingIndex].selected = true;
 		this.setState({ timeCells });
 	};
+
+	/**
+	 * Event which will be triggered when a user has selected a time range
+	 */
 	mouseUp = (e: React.SyntheticEvent<HTMLDivElement, MouseEvent>) => {
 		this.mouseClick = false;
 		const timeCells = this.state.timeCells;
 		const endIndex = (e.target as any).getAttribute("data-index");
-		console.log(endIndex);
 
+		// Add appointment on main element => Prop will be updated to display appointment
+		this.props.onAddAppointment({
+			timestamp_from: timeCells[this.startingIndex].startDate,
+			timestamp_to: timeCells[endIndex].endDate,
+			type: "out-of-office",
+		});
+
+		// Now Reset Styling =>
 		//Reset Hover
 		timeCells.forEach((cell) => {
 			cell.hover = false;
 		});
 
-		timeCells[this.startingIndex].selected = true;
+		timeCells[this.startingIndex].selected = false;
 		this.setState({ timeCells });
 		this.startingIndex = -1;
 	};
@@ -168,6 +191,7 @@ class OneDashDay extends Component<OneDashDayProps> {
 					{timeCells &&
 						timeCells.map((cell, index) => (
 							<OneDashCell
+								onDelete={this.props.onDelete}
 								index={index}
 								selected={cell.selected}
 								hover={cell.hover}
