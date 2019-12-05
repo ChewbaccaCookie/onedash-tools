@@ -45,6 +45,12 @@
 		&.input-invalid .onedash-input {
 			border: 1.5px solid $formValidationFail;
 		}
+		&.input-invalid .slider {
+			border: 1.5px solid $formValidationFail;
+			&::before {
+				background: $formValidationFail;
+			}
+		}
 
 		&.onedash-submit-container {
 			display: block;
