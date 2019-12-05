@@ -1,5 +1,12 @@
 @import "../styles/colors.scss";
 
+html,
+body {
+	&.scrollingDisabled {
+		overflow: hidden !important;
+	}
+}
+
 .dialog-container {
 	display: flex;
 	left: 0px;
