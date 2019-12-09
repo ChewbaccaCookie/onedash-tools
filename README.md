@@ -5,8 +5,8 @@
 ## NPM Einrichten
 
 ```bash
-npm set registry https://npm.1bit.ddnss.de
-npm login --registry https://npm.1bit.ddnss.de
+npm set registry https://npm.onedash.dev
+npm login --registry https://npm.onedash.dev
 ```
 
 ## Install
