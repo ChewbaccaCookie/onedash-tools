@@ -24,6 +24,25 @@ storiesOf("Form", module)
 				<OneDashInput name="firstName" label="Vorname"></OneDashInput>
 				<OneDashInput name="lastName" label="Nachname"></OneDashInput>
 				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+				<OneDashSelect
+					name="select"
+					label="Select"
+					onChange={action("Change")}
+					value="option-1"
+					options={[
+						{ label: "Option 1", value: "option-1" },
+						{ label: "Option 2", value: "option-2" },
+					]}
+				/>
+				<OneDashTagInput
+					name="select"
+					label="Tag Input"
+					value={["option-1"]}
+					tags={[
+						{ label: "Option 1", value: "option-1" },
+						{ label: "Option 2", value: "option-2" },
+					]}></OneDashTagInput>
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
 			</OneDashForm>
 		</OneDashCard>
 	))

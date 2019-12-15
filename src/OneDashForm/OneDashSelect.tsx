@@ -59,6 +59,20 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 		if (this.state.focus) {
 			classList += " focused";
 		}
+		if (this.props.styling) {
+			switch (this.props.styling) {
+			case "none":
+				break;
+			case "default":
+				classList += " onedash-style-one";
+				break;
+			default:
+				classList += " onedash-style-" + this.props.styling;
+				break;
+			}
+		} else {
+			classList += " onedash-style-one";
+		}
 		return classList;
 	};
 

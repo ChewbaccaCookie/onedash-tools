@@ -91,6 +91,25 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		});
 	}
 
+	buildClassName = () => {
+		let classList = "onedash-input-container onedash-tag-container";
+		if (this.props.styling) {
+			switch (this.props.styling) {
+			case "none":
+				break;
+			case "default":
+				classList += " onedash-style-one";
+				break;
+			default:
+				classList += " onedash-style-" + this.props.styling;
+				break;
+			}
+		} else {
+			classList += " onedash-style-one";
+		}
+		return classList;
+	};
+
 	render() {
 		let tags = this.state.tags;
 		if (this.props.preventDuplicates) {
@@ -106,7 +125,7 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		if (typeof this.props.tags === "string") return <></>;
 
 		return (
-			<div className="onedash-input-container onedash-tag-container">
+			<div className={this.buildClassName()}>
 				{this.props.label && (
 					<label className="onedash-label" htmlFor={this.id}>
 						{this.props.label}
