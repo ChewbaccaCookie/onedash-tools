@@ -3,7 +3,7 @@ import { Component } from "react";
 import OneDashPopover from "../OneDashPopover/OneDashPopover";
 import OneDashInput from "../OneDashForm/OneDashInput";
 import dayjs from "dayjs";
-import { OneDashUtils } from "..";
+import OneDashUtils from "../OneDashUtils/OneDashUtils";
 
 export interface OneDashCellProps extends TimeCell {
 	onMouseDown: (e: React.SyntheticEvent<HTMLDivElement, MouseEvent>) => void;
@@ -31,14 +31,14 @@ class OneDashCell extends Component<OneDashCellProps> {
 		if (this.props.appointment) {
 			// An appointment is available => Cell will be styled
 			switch (this.props.appointment.type) {
-			case "appointment":
-				className += " booked booked__primary";
-				break;
-			case "full-day":
-				className += " booked full-day";
-				break;
-			default:
-				className += " booked";
+				case "appointment":
+					className += " booked booked__primary";
+					break;
+				case "full-day":
+					className += " booked full-day";
+					break;
+				default:
+					className += " booked";
 			}
 		}
 		return className;

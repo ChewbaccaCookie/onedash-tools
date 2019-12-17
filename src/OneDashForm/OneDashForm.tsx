@@ -12,6 +12,7 @@ export interface OneDashFormProps {
 	listStyleLabelToolTip?: string;
 	className?: string;
 	validateOnSubmit?: boolean;
+	validateOnChange?: boolean;
 	styling?: OneDashStyles;
 }
 
@@ -90,7 +91,15 @@ class OneDashForm extends React.Component<OneDashFormProps, OneDashFormState> {
 
 	onChange = () => {
 		const values = this.mapData();
-		if (this.props.onChange) this.props.onChange(values, this);
+		if (this.props.onChange) {
+			if (this.props.validateOnChange === true) {
+				if (this.validateInputs() === true) {
+					this.props.onChange(values, this);
+				}
+			} else {
+				this.props.onChange(values, this);
+			}
+		}
 	};
 
 	private mapData = () => {

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { OneDashSelect } from "..";
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+import OneDashSelect from "../OneDashForm/OneDashSelect";
 dayjs.extend(weekOfYear);
 export interface OneDashCalendarHeaderProps {
 	currentDate: timeStamp;
@@ -15,20 +15,20 @@ class OneDashCalendarHeader extends React.Component<OneDashCalendarHeaderProps, 
 	changeStartDate = (next: boolean) => {
 		let date = dayjs();
 		switch (this.props.currentType) {
-		case "month":
-			if (next) {
-				date = dayjs(this.props.currentDate).add(1, "month");
-			} else {
-				date = dayjs(this.props.currentDate).subtract(1, "month");
-			}
-			break;
-		case "week":
-			if (next) {
-				date = dayjs(this.props.currentDate).add(1, "week");
-			} else {
-				date = dayjs(this.props.currentDate).subtract(1, "week");
-			}
-			break;
+			case "month":
+				if (next) {
+					date = dayjs(this.props.currentDate).add(1, "month");
+				} else {
+					date = dayjs(this.props.currentDate).subtract(1, "month");
+				}
+				break;
+			case "week":
+				if (next) {
+					date = dayjs(this.props.currentDate).add(1, "week");
+				} else {
+					date = dayjs(this.props.currentDate).subtract(1, "week");
+				}
+				break;
 		}
 		const newDate = date.toDate().getTime();
 		this.props.setStartDate(newDate);
@@ -36,12 +36,12 @@ class OneDashCalendarHeader extends React.Component<OneDashCalendarHeaderProps, 
 	generateName = () => {
 		let name = "";
 		switch (this.props.currentType) {
-		case "month":
-			name = dayjs(this.props.currentDate).format("MMMM YYYY");
-			break;
-		case "week":
-			name = "KW " + dayjs(this.props.currentDate).week() + " - " + dayjs(this.props.currentDate).format("YYYY");
-			break;
+			case "month":
+				name = dayjs(this.props.currentDate).format("MMMM YYYY");
+				break;
+			case "week":
+				name = "KW " + dayjs(this.props.currentDate).week() + " - " + dayjs(this.props.currentDate).format("YYYY");
+				break;
 		}
 		return name;
 	};

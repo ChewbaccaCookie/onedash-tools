@@ -3,7 +3,7 @@ import * as React from "react";
 import { Component } from "react";
 import dayjs from "dayjs";
 import OneDashCell from "./OneDashCell";
-import { OneDashUtils } from "..";
+import OneDashUtils from "../OneDashUtils/OneDashUtils";
 
 export interface OneDashDayProps {
 	//Weekly 0 - 6; Monthly 0 - 30
@@ -210,18 +210,18 @@ class OneDashDay extends Component<OneDashDayProps> {
 
 	generateDayName = () => {
 		switch (this.props.type) {
-		case "month":
-			return dayjs(this.props.date).format("dd");
-		case "week":
-			return dayjs(this.props.date).format("dddd");
+			case "month":
+				return dayjs(this.props.date).format("dd");
+			case "week":
+				return dayjs(this.props.date).format("dddd");
 		}
 	};
 	generateDay = () => {
 		switch (this.props.type) {
-		case "month":
-			return dayjs(this.props.date).format("DD");
-		case "week":
-			return dayjs(this.props.date).format("DD.MM.YYYY");
+			case "month":
+				return dayjs(this.props.date).format("DD");
+			case "week":
+				return dayjs(this.props.date).format("DD.MM.YYYY");
 		}
 	};
 

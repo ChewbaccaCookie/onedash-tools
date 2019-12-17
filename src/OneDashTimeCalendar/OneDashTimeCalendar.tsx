@@ -5,7 +5,7 @@ import OneDashCalendarContent from "./OneDashCalendarContent";
 import dayjs, { Dayjs } from "dayjs";
 import "./OneDashTimeCalendar.scss";
 import "dayjs/locale/de"; // load on demand
-import { OneDashUtils } from "..";
+import OneDashUtils from "../OneDashUtils/OneDashUtils";
 dayjs.locale("de");
 
 export interface OneDashTimeCalendarProps {
@@ -31,14 +31,14 @@ class OneDashTimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	};
 	getNumberOfDays = (startDate: Dayjs) => {
 		switch (this.state.type) {
-		case "month":
-			return startDate.daysInMonth();
-		case "week":
-			if (this.props.showWeekend) {
-				return 7;
-			} else {
-				return 5;
-			}
+			case "month":
+				return startDate.daysInMonth();
+			case "week":
+				if (this.props.showWeekend) {
+					return 7;
+				} else {
+					return 5;
+				}
 		}
 	};
 	getEndDate = (startDate: Dayjs) => {
@@ -52,10 +52,10 @@ class OneDashTimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	getStartDate = () => {
 		const date = dayjs(this.state.startDate);
 		switch (this.state.type) {
-		case "month":
-			return date.startOf("month");
-		case "week":
-			return date.startOf("week");
+			case "month":
+				return date.startOf("month");
+			case "week":
+				return date.startOf("week");
 		}
 	};
 	loadAppointments = () => {
