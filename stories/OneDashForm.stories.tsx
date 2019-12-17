@@ -117,4 +117,13 @@ storiesOf("Form", module)
 					]}></OneDashTagInput>
 			</OneDashForm>
 		</OneDashCard>
+	))
+	.add("validate", () => (
+		<OneDashCard>
+			<OneDashForm validateOnSubmit onSubmit={action("Submit")}>
+				<OneDashInput required label="Boolean" name="boolean" type="boolean" />
+				<OneDashInput required label="Boolean" name="boolean2" type="boolean" />
+				<OneDashInput type="submit" name="submit" value="Abschicken"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
 	));

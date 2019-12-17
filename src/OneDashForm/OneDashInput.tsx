@@ -34,7 +34,6 @@ export interface OneDashInputProps {
 	iconRight?: string;
 	readonly?: boolean;
 	disabled?: boolean;
-	validOnEnabled?: boolean;
 	className?: string;
 	styling?: OneDashStyles;
 }
@@ -67,7 +66,10 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 
 	public validateInput = () => {
 		let valid = true;
-		if (this.props.required && this.state.value.length === 0) {
+		if (
+			(this.props.required === true && this.state.value.length === 0) ||
+			(this.props.type === "boolean" && this.props.required === true && this.state.value === "0")
+		) {
 			valid = false;
 		}
 		if (this.props.minLength && this.state.value.length < this.props.minLength) {
@@ -87,6 +89,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		if (this.props.type === "date-range") {
 			value = [e, value2];
 		} else if (this.props.type === "boolean") {
+			if (e.target.checked === true) this.removeInvalid();
 			value = e.target.checked === true ? "1" : "0";
 		} else if (this.props.type === "number") {
 			value = e.target.value ? e.target.value : 0;

@@ -9,13 +9,18 @@ class OneDashDialog extends Component<DialogProps> {
 	};
 	toggleScrollLock = () => {
 		const body = document.querySelector("body");
-		if (body) {
+		const html = document.querySelector("html");
+		if (body && html) {
 			if (this.state.isOpen) {
 				body.classList.add("scrollingDisabled");
 				body.classList.remove("scrollingEnabled");
+				html.classList.add("scrollingDisabled");
+				html.classList.remove("scrollingEnabled");
 			} else {
 				body.classList.add("scrollingEnabled");
 				body.classList.remove("scrollingDisabled");
+				html.classList.add("scrollingEnabled");
+				html.classList.remove("scrollingDisabled");
 			}
 		}
 	};
@@ -28,8 +33,7 @@ class OneDashDialog extends Component<DialogProps> {
 		);
 	};
 	public close = (forceClose?: any) => {
-		if ((typeof forceClose !== "boolean" || forceClose === false) && !this.props.closeable && !this.props.closeByX)
-			return;
+		if ((typeof forceClose !== "boolean" || forceClose === false) && !this.props.closeable && !this.props.closeByX) return;
 		this.setState({
 			dialogCloses: true,
 		});
