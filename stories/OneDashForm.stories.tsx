@@ -4,9 +4,30 @@ import "../src/styles/default.scss";
 import { action } from "@storybook/addon-actions";
 import OneDashForm from "../src/OneDashForm/OneDashForm";
 import OneDashInput from "../src/OneDashForm/OneDashInput";
-import OneDashSelect from "../src/OneDashForm/OneDashSelect";
+import OneDashSelect, { ValueLabelPair } from "../src/OneDashForm/OneDashSelect";
 import OneDashTagInput from "../src/OneDashForm/OneDashTagInput";
 import OneDashCard from "../src/OneDashCard/OneDashCard";
+
+function timeout(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const selectOptions = [
+	{ label: "Option 1", value: "option-1" },
+	{ label: "Option 2", value: "option-2" },
+	{ label: "Option 3", value: "option-3" },
+	{ label: "Option 4", value: "option-4" },
+	{ label: "Adamsapfel", value: "adamsapfel" },
+	{ label: "Arabien", value: "arabien" },
+	{ label: "Ananassaft", value: "ananassaft" },
+];
+const loadOptionsAsync = (inputString: string) => {
+	return new Promise<ValueLabelPair[]>(async (resolve) => {
+		await timeout(500);
+		const values = selectOptions.filter((o) => o.label.indexOf(inputString) !== -1);
+		resolve(values);
+	});
+};
 
 storiesOf("Form", module)
 	.add("text", () => (
@@ -24,24 +45,8 @@ storiesOf("Form", module)
 				<OneDashInput name="firstName" label="Vorname"></OneDashInput>
 				<OneDashInput name="lastName" label="Nachname"></OneDashInput>
 				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
-				<OneDashSelect
-					name="select"
-					label="Select"
-					onChange={action("Change")}
-					value="option-1"
-					options={[
-						{ label: "Option 1", value: "option-1" },
-						{ label: "Option 2", value: "option-2" },
-					]}
-				/>
-				<OneDashTagInput
-					name="select"
-					label="Tag Input"
-					value={["option-1"]}
-					tags={[
-						{ label: "Option 1", value: "option-1" },
-						{ label: "Option 2", value: "option-2" },
-					]}></OneDashTagInput>
+				<OneDashSelect name="select" label="Select" onChange={action("Change")} value="option-1" options={selectOptions} />
+				<OneDashTagInput name="select" label="Tag Input" value={["option-1"]} tags={selectOptions}></OneDashTagInput>
 				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
 			</OneDashForm>
 		</OneDashCard>
@@ -78,13 +83,38 @@ storiesOf("Form", module)
 			</OneDashForm>
 		</OneDashCard>
 	))
+	.add("date range picker", () => (
+		<OneDashCard>
+			<OneDashForm onSubmit={action("Submit")}>
+				<OneDashInput name="text" label="Anfangsdatum" label2="Enddatum" type="date-range"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
 	.add("select", () => (
 		<OneDashCard>
 			<OneDashForm onSubmit={action("Submit")}>
+				<OneDashSelect name="select" label="Select" value="option-1" isSearchable={false} options={selectOptions} />
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
+	.add("select validate", () => (
+		<OneDashCard>
+			<OneDashForm validateOnSubmit onSubmit={action("Submit")}>
+				<OneDashSelect required name="select" label="Select" isSearchable={false} options={selectOptions} />
+				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
+			</OneDashForm>
+		</OneDashCard>
+	))
+	.add("select async", () => (
+		<OneDashCard>
+			<OneDashForm validateOnSubmit onSubmit={action("Submit")}>
 				<OneDashSelect
+					async
+					required
 					name="select"
 					label="Select"
-					value="option-1"
+					loadOptions={loadOptionsAsync}
 					options={[
 						{ label: "Option 1", value: "option-1" },
 						{ label: "Option 2", value: "option-2" },
@@ -96,29 +126,25 @@ storiesOf("Form", module)
 	))
 	.add("select onchange", () => (
 		<OneDashCard>
+			<OneDashSelect name="select" label="Select" onChange={action("Change")} value="option-1" options={selectOptions} />
+		</OneDashCard>
+	))
+	.add("select native", () => (
+		<OneDashCard>
 			<OneDashSelect
 				name="select"
 				label="Select"
 				onChange={action("Change")}
 				value="option-1"
-				options={[
-					{ label: "Option 1", value: "option-1" },
-					{ label: "Option 2", value: "option-2" },
-				]}
+				native={true}
+				options={selectOptions}
 			/>
 		</OneDashCard>
 	))
 	.add("tag input", () => (
 		<OneDashCard>
 			<OneDashForm onSubmit={action("Submit")}>
-				<OneDashTagInput
-					name="select"
-					label="Tag Input"
-					value={["option-1"]}
-					tags={[
-						{ label: "Option 1", value: "option-1" },
-						{ label: "Option 2", value: "option-2" },
-					]}></OneDashTagInput>
+				<OneDashTagInput name="select" label="Tag Input" value={["option-1"]} tags={selectOptions}></OneDashTagInput>
 				<OneDashInput name="submit" type="submit" value="Absenden"></OneDashInput>
 			</OneDashForm>
 		</OneDashCard>
@@ -126,14 +152,7 @@ storiesOf("Form", module)
 	.add("onchange", () => (
 		<OneDashCard>
 			<OneDashForm onChange={action("Change")}>
-				<OneDashTagInput
-					name="select"
-					label="Tag Input"
-					value={["option-1"]}
-					tags={[
-						{ label: "Option 1", value: "option-1" },
-						{ label: "Option 2", value: "option-2" },
-					]}></OneDashTagInput>
+				<OneDashTagInput name="select" label="Tag Input" value={["option-1"]} tags={selectOptions}></OneDashTagInput>
 			</OneDashForm>
 		</OneDashCard>
 	))

@@ -118,7 +118,7 @@
 
 			&:focus {
 				outline: none;
-				border: 1.5px solid $formBorderFocus;
+				border: 1.5px solid $formBorderFocus !important;
 			}
 		}
 
@@ -148,6 +148,13 @@
 		width: 64px;
 		height: 34px;
 		margin: 2.5px 0px;
+
+		&:focus {
+			outline: none;
+			.slider {
+				border: 1.5px solid $formBorderFocus;
+			}
+		}
 
 		/* Hide default HTML checkbox */
 		input {
@@ -257,7 +264,8 @@
 		&.onedash-submit-button {
 			background: $formSubmitPrimary;
 			border: 2px solid $formSubmitPrimary;
-			&:hover {
+			&:hover,
+			&:focus {
 				.text {
 					color: $formSubmitPrimary;
 				}
@@ -279,7 +287,9 @@
 				}
 			}
 		}
-		&:hover {
+		&:hover,
+		&:focus {
+			outline: none;
 			background: none;
 			.text {
 				color: $formSubmitPrimary;

@@ -2,6 +2,7 @@ import React from "react";
 import OneDashUtils from "../OneDashUtils/OneDashUtils";
 import Cleave from "cleave.js/react";
 import { RangeDatePicker } from "@y0c/react-datepicker";
+import "@y0c/react-datepicker/assets/styles/calendar.scss";
 import dayjs, { Dayjs } from "dayjs";
 
 export interface OneDashInputProps {
@@ -181,153 +182,154 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			return <div className="onedash-input readonly">{this.state.value}</div>;
 		}
 		switch (this.props.type) {
-		case "textarea":
-			return (
-				<textarea
-					disabled={this.props.disabled}
-					ref={this.selectRef}
-					placeholder={this.props.placeholder}
-					onChange={this.inputChange}
-					value={this.state.value}
-					onFocus={this.removeInvalid}
-					className="onedash-input onedash-textarea-input"></textarea>
-			);
-		case "boolean":
-			const checked = String(this.state.value) === "1" ? true : false;
-			return (
-				<label className="onedash-switch">
+			case "textarea":
+				return (
+					<textarea
+						disabled={this.props.disabled}
+						ref={this.selectRef}
+						placeholder={this.props.placeholder}
+						onChange={this.inputChange}
+						value={this.state.value}
+						onFocus={this.removeInvalid}
+						className="onedash-input onedash-textarea-input"></textarea>
+				);
+			case "boolean":
+				const checked = String(this.state.value) === "1" ? true : false;
+				return (
+					<label tabIndex={0} className="onedash-switch">
+						<input
+							tabIndex={-1}
+							disabled={this.props.disabled}
+							ref={this.selectRef}
+							id={this.id}
+							type="checkbox"
+							checked={checked}
+							onChange={this.inputChange}
+						/>
+						<span className="slider"></span>
+					</label>
+				);
+			case "password":
+				return (
 					<input
 						disabled={this.props.disabled}
 						ref={this.selectRef}
+						placeholder={this.props.placeholder}
+						onChange={this.inputChange}
+						className="onedash-input"
+						autoComplete="page-password"
+						type="password"
+						value={this.state.value}
 						id={this.id}
-						type="checkbox"
-						checked={checked}
-						onChange={this.inputChange}
-					/>
-					<span className="slider"></span>
-				</label>
-			);
-		case "password":
-			return (
-				<input
-					disabled={this.props.disabled}
-					ref={this.selectRef}
-					placeholder={this.props.placeholder}
-					onChange={this.inputChange}
-					className="onedash-input"
-					autoComplete="page-password"
-					type="password"
-					value={this.state.value}
-					id={this.id}
-					onFocus={this.removeInvalid}
-				/>
-			);
-		case "date-range":
-			if (this.state.renderRangeDatePicker) {
-				return (
-					<RangeDatePicker
-						startPlaceholder={this.props.placeholder}
-						endPlaceholder={this.props.placeholder2}
-						dateFormat="DD.MM.YYYY"
-						className="form-input"
-						onChange={this.inputChange}
-						showMonthCnt={1}
-						disableDay={this.disableDay}
-						initialStartDate={this.state.value[0] as any}
-						initialEndDate={this.state.value[1] as any}
-						startDay={this.state.value[0] as any}
-						endDay={this.state.value[1] as any}
-						readOnly={this.props.readonly}
+						onFocus={this.removeInvalid}
 					/>
 				);
-			} else {
-				return <></>;
-			}
-		case "submit":
-			return (
-				<button disabled={this.props.disabled} className="onedash-button onedash-submit-button" type="submit">
-					<span className="text">{this.props.value} </span>
-				</button>
-			);
-		case "cancel":
-			return (
-				<button disabled={this.props.disabled} className="onedash-button onedash-cancel-button" type="reset">
-					<span className="text">{this.props.value} </span>
-				</button>
-			);
-		case "euro":
-			return (
-				<Cleave
-					disabled={this.props.disabled}
-					options={{
-						prefix: "€ ",
-						numeral: true,
-						numeralThousandsGroupStyle: "thousand",
-						numeralDecimalMark: ",",
-						delimiter: ".",
-					}}
-					className="onedash-input onedash-input-euro"
-					onChange={this.inputChange}
-					value={this.state.value}
-					onBlur={this.formatPrice}
-					placeholder={this.props.placeholder}
-					onFocus={this.removeInvalid}
-				/>
-			);
-		case "percent":
-			return (
-				<Cleave
-					disabled={this.props.disabled}
-					options={{ prefix: "% ", numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 0 }}
-					className="onedash-input onedash-input-euro"
-					onChange={this.inputChange}
-					value={this.state.value}
-					placeholder={this.props.placeholder}
-					onFocus={this.removeInvalid}
-				/>
-			);
-		case "number":
-			return (
-				<input
-					disabled={this.props.disabled}
-					ref={this.selectRef}
-					placeholder={this.props.placeholder}
-					value={this.state.value}
-					onChange={this.inputChange}
-					className="onedash-input"
-					type="number"
-					id={this.id}
-					onFocus={this.removeInvalid}
-				/>
-			);
-		case "tel":
-			return (
-				<input
-					disabled={this.props.disabled}
-					ref={this.selectRef}
-					placeholder={this.props.placeholder}
-					value={this.state.value}
-					onChange={this.inputChange}
-					className="onedash-input"
-					type="tel"
-					id={this.id}
-					onFocus={this.removeInvalid}
-				/>
-			);
-		default:
-			return (
-				<input
-					disabled={this.props.disabled}
-					ref={this.selectRef}
-					placeholder={this.props.placeholder}
-					value={this.state.value}
-					onChange={this.inputChange}
-					className="onedash-input"
-					type="text"
-					id={this.id}
-					onFocus={this.removeInvalid}
-				/>
-			);
+			case "date-range":
+				if (this.state.renderRangeDatePicker) {
+					return (
+						<RangeDatePicker
+							startPlaceholder={this.props.placeholder}
+							endPlaceholder={this.props.placeholder2}
+							dateFormat="DD.MM.YYYY"
+							className="form-input"
+							onChange={this.inputChange}
+							showMonthCnt={1}
+							disableDay={this.disableDay}
+							initialStartDate={this.state.value[0] as any}
+							initialEndDate={this.state.value[1] as any}
+							startDay={this.state.value[0] as any}
+							endDay={this.state.value[1] as any}
+							readOnly={this.props.readonly}
+						/>
+					);
+				} else {
+					return <></>;
+				}
+			case "submit":
+				return (
+					<button disabled={this.props.disabled} className="onedash-button onedash-submit-button" type="submit">
+						<span className="text">{this.props.value} </span>
+					</button>
+				);
+			case "cancel":
+				return (
+					<button disabled={this.props.disabled} className="onedash-button onedash-cancel-button" type="reset">
+						<span className="text">{this.props.value} </span>
+					</button>
+				);
+			case "euro":
+				return (
+					<Cleave
+						disabled={this.props.disabled}
+						options={{
+							prefix: "€ ",
+							numeral: true,
+							numeralThousandsGroupStyle: "thousand",
+							numeralDecimalMark: ",",
+							delimiter: ".",
+						}}
+						className="onedash-input onedash-input-euro"
+						onChange={this.inputChange}
+						value={this.state.value}
+						onBlur={this.formatPrice}
+						placeholder={this.props.placeholder}
+						onFocus={this.removeInvalid}
+					/>
+				);
+			case "percent":
+				return (
+					<Cleave
+						disabled={this.props.disabled}
+						options={{ prefix: "% ", numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 0 }}
+						className="onedash-input onedash-input-euro"
+						onChange={this.inputChange}
+						value={this.state.value}
+						placeholder={this.props.placeholder}
+						onFocus={this.removeInvalid}
+					/>
+				);
+			case "number":
+				return (
+					<input
+						disabled={this.props.disabled}
+						ref={this.selectRef}
+						placeholder={this.props.placeholder}
+						value={this.state.value}
+						onChange={this.inputChange}
+						className="onedash-input"
+						type="number"
+						id={this.id}
+						onFocus={this.removeInvalid}
+					/>
+				);
+			case "tel":
+				return (
+					<input
+						disabled={this.props.disabled}
+						ref={this.selectRef}
+						placeholder={this.props.placeholder}
+						value={this.state.value}
+						onChange={this.inputChange}
+						className="onedash-input"
+						type="tel"
+						id={this.id}
+						onFocus={this.removeInvalid}
+					/>
+				);
+			default:
+				return (
+					<input
+						disabled={this.props.disabled}
+						ref={this.selectRef}
+						placeholder={this.props.placeholder}
+						value={this.state.value}
+						onChange={this.inputChange}
+						className="onedash-input"
+						type="text"
+						id={this.id}
+						onFocus={this.removeInvalid}
+					/>
+				);
 		}
 	};
 
@@ -342,14 +344,14 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		}
 		if (this.props.styling) {
 			switch (this.props.styling) {
-			case "none":
-				break;
-			case "default":
-				classList += " onedash-style-one";
-				break;
-			default:
-				classList += " onedash-style-" + this.props.styling;
-				break;
+				case "none":
+					break;
+				case "default":
+					classList += " onedash-style-one";
+					break;
+				default:
+					classList += " onedash-style-" + this.props.styling;
+					break;
 			}
 		} else {
 			classList += " onedash-style-one";
