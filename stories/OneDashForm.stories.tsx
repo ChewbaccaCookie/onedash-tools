@@ -22,6 +22,7 @@ const selectOptions = [
 	{ label: "Ananassaft", value: "ananassaft" },
 ];
 const loadOptionsAsync = (inputString: string) => {
+	action("Search")(inputString);
 	return new Promise<ValueLabelPair[]>(async (resolve) => {
 		await timeout(500);
 		const values = selectOptions.filter((o) => o.label.indexOf(inputString) !== -1);
@@ -114,6 +115,7 @@ storiesOf("Form", module)
 					required
 					name="select"
 					label="Select"
+					timeout={400}
 					loadOptions={loadOptionsAsync}
 					options={[
 						{ label: "Option 1", value: "option-1" },

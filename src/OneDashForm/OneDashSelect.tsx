@@ -21,10 +21,16 @@ interface OneDashSelectProps extends OneDashInputProps {
 	native?: boolean;
 	async?: boolean;
 	loadOptions?: (inputValue) => Promise<ValueLabelPair[]>;
+	preventDuplicateSearch?: boolean;
+	timeout?: number;
 }
 
 export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 	id = OneDashUtils.generateGuid();
+	isLoading = false;
+	searchWaiting = false;
+	latestSearchString = "";
+	timeout: number | NodeJS.Timeout | null = null;
 
 	selectRef = React.createRef<HTMLSelectElement>();
 
@@ -119,6 +125,34 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 				}
 			);
 		}
+	};
+	private timeoutFunc = (ms: number) => {
+		return new Promise((resolve) => (this.timeout = setTimeout(resolve, ms)));
+	};
+
+	private loadAsyncOptions = (searchString: string) => {
+		this.latestSearchString = searchString;
+
+		return new Promise<ValueLabelPair[]>(async (resolve) => {
+			if (this.props.timeout) {
+				if (this.timeout) clearTimeout(this.timeout as NodeJS.Timeout);
+				await this.timeoutFunc(this.props.timeout);
+				this.timeout = null;
+			}
+			if (!this.isLoading) {
+				this.isLoading = true;
+				(this.props.loadOptions as any)(searchString).then((values) => {
+					resolve(values);
+					this.isLoading = false;
+					if (this.searchWaiting) {
+						this.searchWaiting = false;
+						this.loadAsyncOptions(this.latestSearchString);
+					}
+				});
+			} else {
+				this.searchWaiting = true;
+			}
+		});
 	};
 
 	private loadOptions = () => {
@@ -245,7 +279,7 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 							value={this.props.options.find((o) => o.value === this.state.value)}
 							onFocus={this.onFocus}
 							onBlur={this.onBlur}
-							loadOptions={this.props.loadOptions}
+							loadOptions={this.loadAsyncOptions}
 							onChange={(e) => this.inputChange(e, false)}
 							className="onedash-select"
 							id={this.id}
