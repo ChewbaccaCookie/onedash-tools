@@ -12,7 +12,7 @@ type formattingFunction = (value: any, shortForm?: boolean) => any;
 export type tableHeader = {
 	title: string;
 	columnName: string;
-	type: "number" | "text" | "password" | "select" | "tag-input" | "boolean" | "email";
+	type: "number" | "text" | "password" | "select" | "tag-input" | "boolean" | "email" | "readOnly";
 	selectValueLabelPair?: SelectValueLabelPair[];
 	visible: boolean | 0 | 1;
 	formattingFunction?: formattingFunction;
@@ -131,7 +131,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 				},
 				this.props.onClick
 					? () => {
-						this.props.onClick && this.props.onClick(selectedEntry);
+							this.props.onClick && this.props.onClick(selectedEntry);
 					  }
 					: this.openDialog
 			);
@@ -241,6 +241,14 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 			return formattingFunction(value, shortForm);
 		}
 
+		if (type === "boolean") {
+			if (Number(value) === 1) {
+				return "✅";
+			} else {
+				return "🟥";
+			}
+		}
+
 		if (type === "select") {
 			let val = value;
 			if (selectValueLabelPair && selectValueLabelPair.find((x) => String(x.value) === String(val))) {
@@ -259,7 +267,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 					}
 					return val;
 				})
-				.join(",");
+				.join(", ");
 		}
 		if (type === "email") {
 			return <a href={`mailto:${value}`}>{value}</a>;
@@ -351,7 +359,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 									<div>
 										{((this.state.selectedEntry[header.columnName] &&
 											this.state.selectedEntry[header.columnName].length > 0) ||
-											this.props.editable) && (
+											this.props.editable || header.type === "readOnly") && (
 											<div key={index} className={this.buildDialogClasses()}>
 												<div className="detail-title">{header.title}</div>
 												<div className="detail-value">
@@ -359,44 +367,57 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 														<>
 															{header.type === "select" &&
 																typeof header.selectValueLabelPair === "object" && (
-																<OneDashSelect
-																	name={header.columnName}
-																	value={
-																		this.state.selectedEntry[header.columnName]
-																			? this.state.selectedEntry[header.columnName]
-																			: "invalid-input"
-																	}
-																	options={header.selectValueLabelPair || []}
-																	placeholder="Wählen Sie eine Option"
-																	required={
-																		header.columnNotNull && Number(header.columnNotNull) === 1
-																			? true
-																			: false
-																	}
-																/>
-															)}
+																	<OneDashSelect
+																		name={header.columnName}
+																		value={
+																			this.state.selectedEntry[header.columnName]
+																				? this.state.selectedEntry[header.columnName]
+																				: "invalid-input"
+																		}
+																		options={header.selectValueLabelPair || []}
+																		placeholder="Wählen Sie eine Option"
+																		required={
+																			header.columnNotNull && Number(header.columnNotNull) === 1
+																				? true
+																				: false
+																		}
+																	/>
+																)}
 															{header.type === "tag-input" &&
 																typeof header.selectValueLabelPair === "object" && (
-																<OneDashTagInput
-																	preventDuplicates
-																	name={header.columnName}
-																	tags={header.selectValueLabelPair}
-																	value={this.state.selectedEntry[header.columnName]}
-																/>
+																	<OneDashTagInput
+																		preventDuplicates
+																		name={header.columnName}
+																		tags={header.selectValueLabelPair}
+																		value={this.state.selectedEntry[header.columnName]}
+																	/>
+																)}
+															{header.type !== "readOnly" && (
+																<>
+																	{this.formatOutput(
+																		header.type,
+																		this.state.selectedEntry,
+																		header.formattingFunction as any,
+																		false,
+																		header.selectValueLabelPair
+																	)}
+																</>
 															)}
-															{header.type !== "select" && header.type !== "tag-input" && (
-																<OneDashInput
-																	type={header.type}
-																	required={
-																		header.columnNotNull && Number(header.columnNotNull) === 1
-																			? true
-																			: false
-																	}
-																	maxLength={header.columnLength}
-																	value={this.state.selectedEntry[header.columnName]}
-																	name={header.columnName}
-																/>
-															)}
+															{header.type !== "select" &&
+																header.type !== "tag-input" &&
+																header.type !== "readOnly" && (
+																	<OneDashInput
+																		type={header.type}
+																		required={
+																			header.columnNotNull && Number(header.columnNotNull) === 1
+																				? true
+																				: false
+																		}
+																		maxLength={header.columnLength}
+																		value={this.state.selectedEntry[header.columnName]}
+																		name={header.columnName}
+																	/>
+																)}
 														</>
 													)}
 													{!this.props.editable && (
