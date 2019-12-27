@@ -41,7 +41,7 @@ class OneDashForm extends React.Component<OneDashFormProps, OneDashFormState> {
 		React.Children.forEach(children, (child, i) => {
 			if (!child) return;
 			let childElements = [] as any[];
-			if (child.props && child.props.children && typeof child.props.children === "object") {
+			if (child.props && child.props.children && React.isValidElement(child.props.children)) {
 				childElements = this.cloneChildren(child.props.children, []);
 			}
 			if (child.type === OneDashInput || child.type === OneDashSelect || child.type === OneDashTagInput) {
