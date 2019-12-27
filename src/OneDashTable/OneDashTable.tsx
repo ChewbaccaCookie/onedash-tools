@@ -238,7 +238,11 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 		selectValueLabelPair?: SelectValueLabelPair[]
 	) => {
 		if (formattingFunction) {
-			return formattingFunction(value, shortForm);
+			const formatted = formattingFunction(value, shortForm);
+			if (React.isValidElement(formatted) === false) {
+				throw new Error("Child has to be a React object!");
+			}
+			return formatted;
 		}
 
 		if (type === "boolean") {
@@ -271,9 +275,12 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 		}
 		if (type === "email") {
 			return <a href={`mailto:${value}`}>{value}</a>;
-		} else {
-			return value;
 		}
+
+		if (React.isValidElement(value) === false && typeof value === "object") {
+			throw new Error("Child has to be a React object! " + JSON.stringify(value));
+		}
+		return value;
 	};
 	render() {
 		const { tableHeaders, tableValues } = this.state;
@@ -359,7 +366,8 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 									<div>
 										{((this.state.selectedEntry[header.columnName] &&
 											this.state.selectedEntry[header.columnName].length > 0) ||
-											this.props.editable || header.type === "readOnly") && (
+											this.props.editable ||
+											header.type === "readOnly") && (
 											<div key={index} className={this.buildDialogClasses()}>
 												<div className="detail-title">{header.title}</div>
 												<div className="detail-value">
@@ -392,7 +400,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 																		value={this.state.selectedEntry[header.columnName]}
 																	/>
 																)}
-															{header.type !== "readOnly" && (
+															{header.type === "readOnly" && (
 																<>
 																	{this.formatOutput(
 																		header.type,
