@@ -8,6 +8,7 @@ export interface OneDashTagInputProps extends OneDashInputProps {
 	tags: SelectValueLabelPair[];
 	preventDuplicates?: boolean;
 	value?: any[];
+	minQueryLength?: number;
 }
 
 class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
@@ -95,14 +96,14 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		let classList = "onedash-input-container onedash-tag-container";
 		if (this.props.styling) {
 			switch (this.props.styling) {
-			case "none":
-				break;
-			case "default":
-				classList += " onedash-style-one";
-				break;
-			default:
-				classList += " onedash-style-" + this.props.styling;
-				break;
+				case "none":
+					break;
+				case "default":
+					classList += " onedash-style-one";
+					break;
+				default:
+					classList += " onedash-style-" + this.props.styling;
+					break;
 			}
 		} else {
 			classList += " onedash-style-one";
@@ -134,6 +135,7 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 				)}
 				<div className="onedash-tag-input">
 					<ReactTags
+						minQueryLength={this.props.minQueryLength}
 						autofocus={false}
 						placeholder={this.props.placeholder ? this.props.placeholder : "Geben Sie ein Tag ein"}
 						tags={this.state.value}
