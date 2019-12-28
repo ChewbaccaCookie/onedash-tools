@@ -3,6 +3,7 @@ import OneDashCard from "./OneDashCard/OneDashCard";
 import OneDashDialog from "./OneDashDialog/OneDashDialog";
 import OneDashForm from "./OneDashForm/OneDashForm";
 import OneDashInput from "./OneDashForm/OneDashInput";
+import OneDashTagInput from "./OneDashForm/OneDashTagInput";
 import OneDashSelect from "./OneDashForm/OneDashSelect";
 import OneDashSpinner from "./OneDashSpinner/OneDashSpinner";
 import OneDashTable from "./OneDashTable/OneDashTable";
@@ -24,4 +25,5 @@ export {
 	PromptDialog,
 	OneDashTimeCalendar,
 	OneDashPopover,
+	OneDashTagInput,
 };
