@@ -19,6 +19,7 @@ class OneDashTagInput extends OneDashInput<OneDashTagInputProps> {
 		renderRangeDatePicker: true,
 		tags: [] as Tag[],
 		valid: true,
+		focus: false,
 	};
 
 	public getInputValue = () => {
