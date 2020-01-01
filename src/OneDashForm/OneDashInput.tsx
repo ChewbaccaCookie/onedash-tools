@@ -48,6 +48,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		value: "",
 		renderRangeDatePicker: true,
 		valid: true,
+		focus: false,
 	};
 
 	public getInputValue = (): { name: string; value: any | any[] } => {
@@ -131,10 +132,24 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			valid: true,
 		});
 	};
+	onFocus = () => {
+		this.setState({
+			valid: true,
+			focus: true,
+		});
+		this.removeInvalid();
+	};
+
+	onBlur = () => {
+		this.setState({
+			focus: false,
+		});
+	};
 
 	public focus = () => {
 		if (this.selectRef.current) {
 			this.selectRef.current.focus();
+			this.onFocus();
 		}
 	};
 
@@ -165,6 +180,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		this.setState({
 			value: val,
 		});
+		this.onBlur();
 	};
 	removeInvalid = () => {
 		this.setState({
@@ -190,7 +206,8 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 						placeholder={this.props.placeholder}
 						onChange={this.inputChange}
 						value={this.state.value}
-						onFocus={this.removeInvalid}
+						onFocus={this.onFocus}
+						onBlur={this.onBlur}
 						className="onedash-input onedash-textarea-input"></textarea>
 				);
 			case "boolean":
@@ -198,12 +215,14 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 				return (
 					<label tabIndex={0} className="onedash-switch">
 						<input
+							onFocus={this.onFocus}
 							tabIndex={-1}
 							disabled={this.props.disabled}
 							ref={this.selectRef}
 							id={this.id}
 							type="checkbox"
 							checked={checked}
+							onBlur={this.onBlur}
 							onChange={this.inputChange}
 						/>
 						<span className="slider"></span>
@@ -221,7 +240,8 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 						type="password"
 						value={this.state.value}
 						id={this.id}
-						onFocus={this.removeInvalid}
+						onBlur={this.onBlur}
+						onFocus={this.onFocus}
 					/>
 				);
 			case "date-range":
@@ -273,7 +293,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 						value={this.state.value}
 						onBlur={this.formatPrice}
 						placeholder={this.props.placeholder}
-						onFocus={this.removeInvalid}
+						onFocus={this.onFocus}
 					/>
 				);
 			case "percent":
@@ -285,12 +305,13 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 						onChange={this.inputChange}
 						value={this.state.value}
 						placeholder={this.props.placeholder}
-						onFocus={this.removeInvalid}
+						onFocus={this.onFocus}
 					/>
 				);
 			case "number":
 				return (
 					<input
+						onBlur={this.onBlur}
 						disabled={this.props.disabled}
 						ref={this.selectRef}
 						placeholder={this.props.placeholder}
@@ -299,12 +320,13 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 						className="onedash-input"
 						type="number"
 						id={this.id}
-						onFocus={this.removeInvalid}
+						onFocus={this.onFocus}
 					/>
 				);
 			case "tel":
 				return (
 					<input
+						onBlur={this.onBlur}
 						disabled={this.props.disabled}
 						ref={this.selectRef}
 						placeholder={this.props.placeholder}
@@ -313,12 +335,13 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 						className="onedash-input"
 						type="tel"
 						id={this.id}
-						onFocus={this.removeInvalid}
+						onFocus={this.onFocus}
 					/>
 				);
 			default:
 				return (
 					<input
+						onBlur={this.onBlur}
 						disabled={this.props.disabled}
 						ref={this.selectRef}
 						placeholder={this.props.placeholder}
@@ -327,7 +350,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 						className="onedash-input"
 						type="text"
 						id={this.id}
-						onFocus={this.removeInvalid}
+						onFocus={this.onFocus}
 					/>
 				);
 		}
@@ -355,6 +378,10 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			}
 		} else {
 			classList += " onedash-style-one";
+		}
+
+		if (this.state.focus) {
+			classList += " focused";
 		}
 		if (this.props.iconRight) {
 			classList += " input-icon-right";

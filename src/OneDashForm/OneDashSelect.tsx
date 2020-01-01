@@ -92,6 +92,7 @@ export default class OneDashSelect extends OneDashInput<OneDashSelectProps> {
 	public focus = () => {
 		if (this.selectRef.current) {
 			this.selectRef.current.focus();
+			this.onFocus();
 		}
 	};
 	onFocus = () => {
