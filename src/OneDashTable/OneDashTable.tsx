@@ -177,6 +177,8 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 		if (form && form.validateInputs()) {
 			const data = form.getData();
 			data.id = this.state.selectedEntry.id;
+			console.log(data);
+
 			if (data.id !== undefined) {
 				const objIndex = tableValues.findIndex((tValue) => tValue.id === data.id);
 				tableValues[objIndex] = data;
