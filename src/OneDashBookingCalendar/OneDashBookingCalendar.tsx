@@ -66,8 +66,6 @@ export default class OneDashBookingCalendar extends Component<OneDashCalendarPro
 			this.setState({ selectedValueRange: [new Date(), new Date()] });
 		}
 		const form = this.detailForm.current;
-		console.log("reset");
-
 		if (form) form.resetForm();
 	};
 
