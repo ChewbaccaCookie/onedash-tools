@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { Component } from "react";
 import "./OneDashTable.scss";
 import OneDashForm from "../OneDashForm/OneDashForm";
@@ -31,6 +32,7 @@ export interface OneDashTableProps {
 	onSave?: (entry: any, tableValues: any[]) => void;
 	onDelete?: (rowId: any, rowValues: any) => void;
 	onClick?: Function;
+	formStyling?: OneDashStyles;
 }
 
 export interface OneDashTableState {
@@ -135,6 +137,8 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 					  }
 					: this.openDialog
 			);
+		} else {
+			console.error("Clicked element has not been found. Do you have forgotten to add an id?");
 		}
 	};
 	openDialog = () => {
@@ -294,7 +298,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 			<div className="onedash-table">
 				<div className="table-toolbox">
 					{this.props.searchable && (
-						<OneDashForm onChange={this.filterEntries}>
+						<OneDashForm styling={this.props.formStyling} onChange={this.filterEntries}>
 							<OneDashInput name="search" placeholder="Suche nach Eintrag ..." iconRight="fas fa-search" />
 						</OneDashForm>
 					)}
@@ -359,7 +363,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 					ref={this.entryDialog}
 					title="Details"
 					onSaveButtonClick={this.props.editable ? this.saveEntry : undefined}>
-					<OneDashForm ref={this.entryDialogForm}>
+					<OneDashForm styling={this.props.formStyling} ref={this.entryDialogForm}>
 						{this.props.tableHeaders.map((header, index) => (
 							<div key={index}>
 								{!header.isId && (

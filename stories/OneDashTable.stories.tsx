@@ -5,11 +5,17 @@ import OneDashCard from "../src/OneDashCard/OneDashCard";
 import OneDashTable from "../src/OneDashTable/OneDashTable";
 import { action } from "@storybook/addon-actions";
 import { TABLE_VALUES } from "./constTableValues";
-const { basicHeaders, basicValues, selectValues, selectHeaders, tagValues, tagHeaders } = TABLE_VALUES;
+const { basicHeaders, basicValues, selectValues, selectHeaders, tagValues, tagHeaders, testTableValues, testTableHeader } = TABLE_VALUES;
+
 storiesOf("Table", module)
 	.add("default", () => (
 		<OneDashCard>
 			<OneDashTable tableHeaders={basicHeaders} tableValues={basicValues} />
+		</OneDashCard>
+	))
+	.add("missing id in values", () => (
+		<OneDashCard>
+			<OneDashTable tableHeaders={testTableHeader} tableValues={testTableValues} />
 		</OneDashCard>
 	))
 	.add("search", () => (

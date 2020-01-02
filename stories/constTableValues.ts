@@ -33,6 +33,35 @@ export const TABLE_VALUES = {
 		},
 	] as any[],
 
+	testTableHeader: [
+		{
+			columnName: "name",
+			title: "Name",
+			type: "text",
+			visible: true,
+		},
+		{
+			columnName: "unit",
+			title: "Menge",
+			type: "text",
+			visible: true,
+		},
+		{
+			columnName: "price",
+			title: "Preis in EUR",
+			type: "text",
+			visible: true,
+		},
+	] as any[],
+
+	testTableValues: [
+		{
+			name: "Fanta / Cola / Sprite",
+			price: "2,30€",
+			unit: "0.3 Ltr.",
+		},
+	] as any[],
+
 	tagHeaders: [
 		{
 			columnName: "plz",
