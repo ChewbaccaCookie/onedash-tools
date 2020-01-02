@@ -386,6 +386,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 																				? this.state.selectedEntry[header.columnName]
 																				: "invalid-input"
 																		}
+																		styling={this.props.formStyling}
 																		options={header.selectValueLabelPair || []}
 																		placeholder="Wählen Sie eine Option"
 																		required={
@@ -398,6 +399,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 															{header.type === "tag-input" &&
 																typeof header.selectValueLabelPair === "object" && (
 																	<OneDashTagInput
+																		styling={this.props.formStyling}
 																		preventDuplicates
 																		name={header.columnName}
 																		tags={header.selectValueLabelPair}
@@ -419,6 +421,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 																header.type !== "tag-input" &&
 																header.type !== "readOnly" && (
 																	<OneDashInput
+																		styling={this.props.formStyling}
 																		type={header.type}
 																		required={
 																			header.columnNotNull && Number(header.columnNotNull) === 1
