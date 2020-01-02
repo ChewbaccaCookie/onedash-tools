@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import OneDashUtils from "../OneDashUtils/OneDashUtils";
 import Cleave from "cleave.js/react";
@@ -43,7 +44,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 	id = OneDashUtils.generateGuid();
 
 	selectRef = React.createRef<any>();
-
+	reset = false;
 	state = {
 		value: "",
 		renderRangeDatePicker: true,
@@ -89,7 +90,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 	inputChange = (e: any, value2?: any) => {
 		let value;
 		if (this.props.type === "date-range") {
-			value = [e, value2];
+			if (e && value2) value = [e, value2];
 		} else if (this.props.type === "boolean") {
 			if (e.target.checked === true) this.removeInvalid();
 			value = e.target.checked === true ? "1" : "0";
@@ -98,37 +99,52 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		} else {
 			value = e.target.value;
 		}
+		this.reset = false;
 
 		if (this.props.type === "euro") {
 			value = value.replace("€", "");
 		}
-		this.setState(
-			{
-				value: value,
-			},
-			() => {
-				if (this.props.onChange) this.props.onChange(value);
-				if (this.props.onFormChange) this.props.onFormChange();
-			}
-		);
+		if (value) {
+			this.setState(
+				{
+					value: value,
+				},
+				() => {
+					if (this.props.onChange) this.props.onChange(value);
+					if (this.props.onFormChange) this.props.onFormChange();
+				}
+			);
+		}
+	};
+
+	dateTimeReset = (date: Dayjs) => {
+		return date
+			.clone()
+			.set("h", 0)
+			.set("m", 0)
+			.set("s", 0)
+			.set("millisecond", 0);
 	};
 
 	componentDidMount() {
-		this.initValue(this.props.value);
+		this.setState({ value: this.formatValue(this.props.value) });
 	}
-	componentDidUpdate(lastProps: OneDashInputProps) {
-		if (this.props.value !== lastProps.value) {
-			this.initValue(this.props.value);
-
-			this.setState({ renderRangeDatePicker: false });
+	componentDidUpdate(_lastProps: OneDashInputProps) {
+		const t = JSON.stringify;
+		if (
+			(t(this.formatValue(this.props.value)) !== t(this.state.value) && this.reset === true) ||
+			_lastProps.value !== this.props.value
+		) {
+			this.setState({ renderRangeDatePicker: false, value: this.formatValue(this.props.value) });
 			setTimeout(() => {
 				this.setState({ renderRangeDatePicker: true });
 			}, 20);
 		}
 	}
 	public resetInput = () => {
+		this.reset = true;
 		this.setState({
-			value: "",
+			value: this.formatValue(),
 			valid: true,
 		});
 	};
@@ -153,35 +169,40 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		}
 	};
 
-	initValue = (value: any) => {
+	formatValue = (value?: any) => {
 		if (value) {
 			if (this.props.type === "euro") {
-				this.formatPrice({ target: { value } });
+				let val = String(value)
+					.replace("€", "")
+					.replace(",", ".");
+				if (val.length === 0 || val === "undefined") {
+					val = "0";
+				}
+				val = String(Number(val).toFixed(2)).replace(".", ",");
+				return val;
 			} else {
-				this.setState({
-					value,
-				});
+				return value;
 			}
 		} else {
-			if (this.props.type === "boolean") this.setState({ value: "0" });
-			if (this.props.type === "number") this.setState({ value: 0 });
-			if (this.props.type === "date-range") this.setState({ value: [dayjs(), dayjs()] });
+			if (this.props.type === "boolean") {
+				return "0";
+			}
+			if (this.props.type === "number") {
+				return 0;
+			}
+			if (this.props.type === "date-range") {
+				return [undefined, undefined];
+			}
 		}
 	};
 
 	formatPrice = (e: any) => {
-		let val = String(e.target.value)
-			.replace("€", "")
-			.replace(",", ".");
-		if (val.length === 0 || val === "undefined") {
-			val = "0";
-		}
-		val = String(Number(val).toFixed(2)).replace(".", ",");
 		this.setState({
-			value: val,
+			value: this.formatValue(e.target.value),
 		});
 		this.onBlur();
 	};
+
 	removeInvalid = () => {
 		this.setState({
 			valid: true,

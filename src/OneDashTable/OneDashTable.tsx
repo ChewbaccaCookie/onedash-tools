@@ -177,8 +177,6 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 		if (form && form.validateInputs()) {
 			const data = form.getData();
 			data.id = this.state.selectedEntry.id;
-			console.log(data);
-
 			if (data.id !== undefined) {
 				const objIndex = tableValues.findIndex((tValue) => tValue.id === data.id);
 				tableValues[objIndex] = data;
@@ -327,7 +325,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 								index={tableRow.orderIndex || index}
 								onClick={this.showEntryDetails}
 								entryId={tableRow.id}
-								className="row"
+								className="row onedash-table-row"
 								isOrderable={this.props.orderable}>
 								{tableHeaders.map((headerRowEntry, index) => (
 									<div key={index} className="cell" data-title={headerRowEntry.title}>
@@ -388,6 +386,7 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 																				? this.state.selectedEntry[header.columnName]
 																				: "invalid-input"
 																		}
+																		native
 																		styling={this.props.formStyling}
 																		options={header.selectValueLabelPair || []}
 																		placeholder="Wählen Sie eine Option"

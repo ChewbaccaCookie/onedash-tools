@@ -141,7 +141,7 @@
 	.row {
 		display: table-row;
 		background: #fff;
-		transition: $tableTransition;
+		transition: 0.15s background ease-in-out;
 	}
 
 	.row.header {
@@ -273,6 +273,28 @@
 		}
 		.row .cell:nth-child(1) {
 			padding-left: 5px;
+		}
+	}
+}
+
+.onedash-table-row {
+	display: flex;
+	background: #fff;
+	transition: 0.15s background ease-in-out;
+	border-bottom: 1px solid #ebebeb;
+	font-family: "Raleway";
+	font-size: 15px;
+	.cell {
+		font-size: 15px;
+		color: #393939;
+		line-height: 1.2;
+		font-weight: unset !important;
+		padding: 10px;
+
+		&.cell-icon {
+			width: 20px;
+			text-align: center;
+			transition: 0.15s all ease-in-out;
 		}
 	}
 }
