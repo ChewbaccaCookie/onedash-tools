@@ -95,16 +95,18 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			if (e.target.checked === true) this.removeInvalid();
 			value = e.target.checked === true ? "1" : "0";
 		} else if (this.props.type === "number") {
-			value = e.target.value ? e.target.value : 0;
+			value = e.target.value !== undefined ? e.target.value : 0;
 		} else {
 			value = e.target.value;
 		}
+		console.log(value);
+
 		this.reset = false;
 
 		if (this.props.type === "euro") {
 			value = value.replace("€", "");
 		}
-		if (value) {
+		if (value !== undefined) {
 			this.setState(
 				{
 					value: value,
