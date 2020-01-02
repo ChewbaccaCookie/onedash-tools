@@ -64,11 +64,11 @@ export default class OneDashBookingCalendar extends Component<OneDashCalendarPro
 			}
 		} else {
 			this.setState({ selectedValueRange: [new Date(), new Date()] });
-			/*showNotification({
-				type: "E",
-				message: "Der angegebende Zeitraum überschneidet sich mit anderen Buchungen"
-			});*/
 		}
+		const form = this.detailForm.current;
+		console.log("reset");
+
+		if (form) form.resetForm();
 	};
 
 	formatCalendar = (calendarTile: CalendarTileProperties) => {
@@ -79,14 +79,14 @@ export default class OneDashBookingCalendar extends Component<OneDashCalendarPro
 		) as any;
 		if (appointment && calendarTile.view === "month") {
 			switch (appointment.status) {
-			case "mailConfirmed":
-				return "day-pending day-booked";
-			case "pending":
-				return "day-pending day-pending";
-			case "rejected":
-				return "";
-			default:
-				return "day-confirmed day-booked";
+				case "mailConfirmed":
+					return "day-pending day-booked";
+				case "pending":
+					return "day-pending day-pending";
+				case "rejected":
+					return "";
+				default:
+					return "day-confirmed day-booked";
 			}
 		} else {
 			return "";
@@ -125,6 +125,7 @@ export default class OneDashBookingCalendar extends Component<OneDashCalendarPro
 					ref={this.detailDialog}
 					closeable={true}
 					isOpen={false}
+					maxWidth={500}
 					title="Buchung erstellen">
 					<OneDashForm ref={this.detailForm}>
 						<OneDashInput

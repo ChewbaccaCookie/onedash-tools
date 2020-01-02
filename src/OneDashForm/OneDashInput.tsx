@@ -70,7 +70,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 	public validateInput = () => {
 		let valid = true;
 		if (
-			(this.props.required === true && this.state.value.length === 0) ||
+			(this.props.required === true && this.state?.value?.length === 0) ||
 			(this.props.type === "boolean" && this.props.required === true && this.state.value === "0")
 		) {
 			valid = false;
@@ -99,8 +99,6 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		} else {
 			value = e.target.value;
 		}
-		console.log(value);
-
 		this.reset = false;
 
 		if (this.props.type === "euro") {
@@ -109,7 +107,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		if (value !== undefined) {
 			this.setState(
 				{
-					value: value,
+					value,
 				},
 				() => {
 					if (this.props.onChange) this.props.onChange(value);
@@ -144,11 +142,13 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 		}
 	}
 	public resetInput = () => {
-		this.reset = true;
-		this.setState({
-			value: this.formatValue(),
-			valid: true,
-		});
+		this.setState(
+			{
+				value: this.formatValue(),
+				valid: true,
+			},
+			() => (this.reset = true)
+		);
 	};
 	onFocus = () => {
 		this.setState({
@@ -195,6 +195,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 			if (this.props.type === "date-range") {
 				return [undefined, undefined];
 			}
+			return "";
 		}
 	};
 
