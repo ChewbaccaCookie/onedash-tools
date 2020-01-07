@@ -31,7 +31,7 @@ export interface OneDashTableProps {
 	orderable?: boolean;
 	onSave?: (entry: any, tableValues: any[]) => void;
 	onDelete?: (rowId: any, rowValues: any) => void;
-	onClick?: Function;
+	onClick?: Function | { click: Function; openDialog?: boolean };
 	formStyling?: OneDashStyles;
 }
 
@@ -131,11 +131,22 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 				{
 					selectedEntry,
 				},
-				this.props.onClick
-					? () => {
+				() => {
+					if (this.props.onClick) {
+						if (typeof this.props.onClick === "function") {
 							this.props.onClick && this.props.onClick(selectedEntry);
-					  }
-					: this.openDialog
+						} else {
+							if (this.props.onClick.click) {
+								this.props.onClick.click(selectedEntry);
+								this.props.onClick.openDialog && this.openDialog();
+							} else {
+								this.openDialog();
+							}
+						}
+					} else {
+						this.openDialog();
+					}
+				}
 			);
 		} else {
 			console.error("Clicked element has not been found. Do you have forgotten to add an id?");
