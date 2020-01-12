@@ -47,4 +47,20 @@ storiesOf("Table", module)
 		<OneDashCard>
 			<OneDashTable searchable editable onSave={action("Add")} tableHeaders={tagHeaders} tableValues={tagValues} />
 		</OneDashCard>
+	))
+	.add("onClick Attribute", () => (
+		<OneDashCard>
+			<OneDashTable
+				onClick={{
+					click: () => {
+						console.log("Standard");
+					},
+					openDialog: true,
+				}}
+				searchable
+				editable
+				onSave={action("Add")}
+				tableHeaders={tagHeaders}
+				tableValues={tagValues}></OneDashTable>
+		</OneDashCard>
 	));
