@@ -33,6 +33,7 @@ export interface OneDashInputProps {
 	onFormChange?: Function;
 	placeholder?: string;
 	placeholder2?: string;
+	dateDisableDay?: (date: Dayjs) => boolean;
 	iconRight?: string;
 	readonly?: boolean;
 	disabled?: boolean;
@@ -278,7 +279,7 @@ class OneDashInput<T extends OneDashInputProps> extends React.Component<T, any> 
 							className="form-input"
 							onChange={this.inputChange}
 							showMonthCnt={1}
-							disableDay={this.disableDay}
+							disableDay={this.props.dateDisableDay ? this.props.dateDisableDay : this.disableDay}
 							initialStartDate={this.state.value[0] as any}
 							initialEndDate={this.state.value[1] as any}
 							startDay={this.state.value[0] as any}
