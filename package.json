@@ -61,7 +61,7 @@
 		"eslint-config-prettier": "6.7.0",
 		"eslint-plugin-import": "2.18.2",
 		"eslint-plugin-prettier": "3.1.1",
-		"eslint-plugin-react": "7.17.0",
+		"eslint-plugin-react": "7.18.3",
 		"gh-pages": "2.1.1",
 		"node-sass": "4.13.0",
 		"now": "^16.7.0",
