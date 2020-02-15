@@ -1,13 +1,16 @@
 interface GenericInputProps {
 	name: string;
+	label?: string;
 	placeholder?: string;
 	readonly?: boolean;
-	style?: any;
+	style?: styles;
 	className?: string | string[];
 	disabled?: boolean;
 	value?: any;
-	_change: () => any;
-	onChange: () => any;
+	_change?: (obj: { value: any; name: string }) => any;
+	onChange?: (value: any) => any;
+	onBlur?: (value: any) => any;
+	onValidate?: (value: any) => boolean;
 }
 interface GenericInputState {
 	value?: any;

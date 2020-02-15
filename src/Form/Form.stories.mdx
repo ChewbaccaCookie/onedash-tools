@@ -1,0 +1,65 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import Input from "./Input/Input";
+import StyleLoader from "../Utils/StyleLoader";
+import { setStyle } from "../Utils/Settings";
+import { withKnobs, select, boolean, text, number } from "@storybook/addon-knobs";
+
+<Meta title="Input" decorators={[withKnobs]} component={Input} />
+
+# Inputs
+
+## Basic Input (Text, Number, Password, Email)
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+<Preview>
+	<Story name="Default Input">
+		<StyleLoader>
+			<Input
+				value={text("Value", "Lorem Ipsum")}
+				minLength={number("Mininimal length", 4)}
+				className="text-input"
+				name="name-input"
+				required={boolean("Required", true)}
+				label={text("Label", "Name")}
+				type={select(
+					"Type",
+					{
+						text: "text",
+						number: "number",
+						password: "password",
+					},
+					"text"
+				)}
+			/>
+		</StyleLoader>
+	</Story>
+</Preview>
+
+## Select
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+<Preview>
+	<Story name="Select Input">
+		<StyleLoader>
+			<Input
+				value={text("Value", "Lorem Ipsum")}
+				minLength={number("Mininimal length", 4)}
+				className="text-input"
+				name="name-input"
+				required={boolean("Required", true)}
+				label={text("Label", "Name")}
+				type={select(
+					"Type",
+					{
+						text: "text",
+						number: "number",
+						password: "password",
+					},
+					"text"
+				)}
+			/>
+		</StyleLoader>
+	</Story>
+</Preview>

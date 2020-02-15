@@ -1,9 +1,3 @@
-import { configure, addParameters } from "@storybook/react";
-import { themes } from "@storybook/theming";
+import { configure } from "@storybook/react";
 
-addParameters({
-	options: {
-		theme: themes.dark,
-	},
-});
-configure(require.context("../stories", true, /\.stories\.tsx$/), module);
+configure(require.context("../src", true, /\.stories\.tsx$/), module);

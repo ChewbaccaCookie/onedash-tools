@@ -1,0 +1,20 @@
+.onedash-input-container.style-twenty {
+	display: inline-block;
+	margin: 10px;
+	margin-top: 18px;
+	position: relative;
+	max-width: var(--tools-input-width);
+	width: calc(100% - 20px);
+
+	& * {
+		font-family: var(--tools-font-family);
+	}
+
+	& > .label {
+		color: var(--tools-text);
+		font-size: 0.9rem;
+		position: absolute;
+		top: -14px;
+		left: 0;
+	}
+}

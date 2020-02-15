@@ -1,14 +1,4 @@
 import Input from "./Form/Input/Input";
-
-/**
- * Default Settings
- */
-const settings = {
-	style: "none",
-};
-
-const setStyle = (style: styles) => {
-	settings.style = style;
-};
+import { setStyle } from "./Utils/Settings";
 
 export { Input, setStyle };

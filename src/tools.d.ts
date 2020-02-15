@@ -1,1 +1,1 @@
-type styles = "none" | "minimal" | "2019";
+type styles = "none" | "minimal" | "twenty";

@@ -1,19 +1,23 @@
-import React, { Component } from "react";
+import React from "react";
 import Utils from "../../Utils/Utils";
+import SETTINGS from "../../Utils/Settings";
 
-abstract class GenericInput<T extends GenericInputProps, S extends GenericInputState> extends Component<T, any, S> {
+import "./styles/twenty.scss";
+
+abstract class GenericInput<T extends GenericInputProps, S extends GenericInputState> extends React.Component<T, any, S> {
 	protected id = Utils.generateGuid();
 	protected reference: any;
 	protected resetted = false;
 
 	state = {
-		value: undefined,
-		valid: false,
+		value: undefined as undefined | string | number,
+		valid: true,
 		focus: false,
 	};
 
 	public validate = () => {
-		return this._validate();
+		const valid = this.props.onValidate ? this.props.onValidate(this.state.value) : true;
+		return valid && this._validate();
 	};
 
 	public reset = () => {
@@ -37,6 +41,34 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 			focus: true,
 			valid: true,
 		});
+	};
+
+	protected onBlur = () => {
+		this.validate();
+		this.setState({
+			focus: false,
+		});
+		if (this.props.onBlur) this.props.onBlur(this.getValue());
+	};
+
+	protected buildClassList = () => {
+		let classList = "onedash-input-container";
+		if (this.props.style) {
+			classList += " style-" + this.props.style;
+		} else {
+			classList += " style-" + SETTINGS.style;
+		}
+
+		if (this.state.focus) {
+			classList += " focused";
+		}
+		if (!this.state.valid) {
+			classList += " input-invalid";
+		}
+		if (this.props.className) {
+			classList += " " + this.props.className;
+		}
+		return classList;
 	};
 
 	protected abstract _validate = (): boolean => {
