@@ -15,8 +15,7 @@
     "onedash-tools.code-workspace": true,
     "README.md": true,
     "renovate.json": true,
-    "rollup.config.js": true,
-    "tsconfig.json": true
+    "rollup.config.js": true
   },
   "jest.autoEnable": false
 }
