@@ -28,6 +28,7 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 	};
 
 	public reset = () => {
+		if (this.props.readonly) return;
 		this.resetted = false;
 		this.setState({
 			value: undefined,
