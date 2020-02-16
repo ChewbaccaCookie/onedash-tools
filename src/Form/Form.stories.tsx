@@ -26,6 +26,8 @@ const selectOptions = [
 
 export const defaultInput = () => {
 	const label = text("Label", "Geben Sie ein");
+	const disabled = boolean("Disabled", false);
+	const readOnly = boolean("ReadOnly", false);
 	return (
 		<StyleLoader>
 			<Input
@@ -33,6 +35,8 @@ export const defaultInput = () => {
 				minLength={number("Mininimal length", 4)}
 				className="text-input"
 				name="name-input"
+				disabled={disabled}
+				readonly={readOnly}
 				required={boolean("Required", true)}
 				label={label}
 				type={sel(
@@ -54,6 +58,8 @@ export const defaultInput = () => {
 export const select = () => {
 	const required = boolean("Required", true);
 	const native = boolean("Native", false);
+	const disabled = boolean("Disabled", false);
+	const readOnly = boolean("ReadOnly", false);
 	const label = text("Label", "Wählen Sie");
 	return (
 		<StyleLoader>
@@ -62,6 +68,8 @@ export const select = () => {
 					{ label: "Farbe 1", value: "farbe1" },
 					{ label: "Farbe 2", value: "farbe2" },
 				]}
+				disabled={disabled}
+				readonly={readOnly}
 				className="select-input"
 				name="select-input"
 				required={required}
@@ -102,8 +110,11 @@ export const form = () => {
 		<StyleLoader>
 			<Form
 				onChange={action("form-change")}
+				onSubmit={action("form-submit")}
 				validateOnChange={boolean("Valdiate on Change", true)}
-				validateOnSubmit={boolean("Valdiate on Submit", true)}>
+				validateOnSubmit={boolean("Valdiate on Submit", true)}
+				submitText="Absenden"
+				resetText="Zurücksetzen">
 				<fieldset style={{ margin: "10px", borderRadius: "5px", borderColor: "#ebebeb", borderStyle: "solid" }}>
 					<h2 style={{ fontFamily: "Raleway" }}>Allgemeine Angaben</h2>
 					<Select
@@ -119,6 +130,7 @@ export const form = () => {
 					<Select
 						label="Titel"
 						native
+						disabled
 						name="title"
 						options={[
 							{ label: "Dr.", value: "dr" },
@@ -133,6 +145,8 @@ export const form = () => {
 					<h2 style={{ fontFamily: "Raleway" }}>Weitere Angaben</h2>
 					<Input required name="email" type="email" label="Ihre Email - Adresse" />
 					<Input required name="tel" type="tel" label="Ihre Telefonnummer" />
+					<Input required name="address" type="text" disabled label="Ihre Adresse" />
+					<Input required name="land" value="Deutschland" type="text" readonly label="Land" />
 				</fieldset>
 			</Form>
 		</StyleLoader>

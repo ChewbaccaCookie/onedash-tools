@@ -23,6 +23,10 @@
 			outline: none;
 			border: 1.5px solid var(--tools-blue);
 		}
+
+		&:disabled {
+			background: var(--tools-light-gray);
+		}
 	}
 
 	& > .onedash-select {
@@ -39,6 +43,13 @@
 			transition: 0.15s all ease-in-out;
 			position: relative;
 			box-shadow: none;
+		}
+
+		&.onedash-select--is-disabled {
+			background: var(--tools-light-gray);
+			& > .onedash-select__control {
+				border-color: var(--tools-gray) !important;
+			}
 		}
 	}
 }

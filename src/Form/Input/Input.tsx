@@ -98,18 +98,35 @@ class Input extends GenericInput<InputProps, any> {
 						{this.props.required === true && !this.props.settings?.requiredNotVisible && <span className="required">*</span>}
 					</label>
 				)}
-				<input
-					className="component"
-					placeholder={this.props.placeholder}
-					onFocus={this.onFocus}
-					ref={this.reference}
-					type={this.props.type ? this.props.type : "text"}
-					id={this.id}
-					onChange={this.inputChange}
-					value={this.state.value ? this.state.value : ""}
-					onBlur={this.onBlur}
-					autoComplete={this.props.autoComplete}
-				/>
+				{!this.props.readonly ? (
+					<input
+						disabled={this.props.disabled}
+						className="component"
+						placeholder={this.props.placeholder}
+						onFocus={this.onFocus}
+						ref={this.reference}
+						type={this.props.type ? this.props.type : "text"}
+						id={this.id}
+						onChange={this.inputChange}
+						value={this.state.value ? this.state.value : ""}
+						onBlur={this.onBlur}
+						autoComplete={this.props.autoComplete}
+					/>
+				) : (
+					<>
+						{this.props.type === "email" && (
+							<a className="read-only" href={`mailto:${this.state.value}`}>
+								{this.state.value}
+							</a>
+						)}
+						{this.props.type === "tel" && (
+							<a className="read-only" href={`tel:${this.state.value}`}>
+								{this.state.value}
+							</a>
+						)}
+						{this.props.type !== "email" && this.props.type !== "tel" && <p className="read-only">{this.state.value}</p>}
+					</>
+				)}
 			</div>
 		);
 	}

@@ -15,12 +15,22 @@ const TWENTY_THEME = {
 		 */
 		"tools-background": "white",
 		"tools-text": "#393939",
+		"tools-white": "white",
 		"tools-blue": "#007aff",
 		"tools-failure": "#e56038",
 		"tools-success": "#7fcc76",
 		"tools-gray": "#c7c7c7",
 		"tools-light-gray": "#ebebeb",
 		"tools-light-blue": "#007bff7a",
+
+		"tools-btn-primary": "#007bff",
+		"tools-btn-secondary": "#6c757d",
+		"tools-btn-success": "#60dd83",
+		"tools-btn-danger": "#db4c39",
+		"tools-btn-warning": "#ffc107",
+		"tools-btn-info": "#218199",
+		"tools-btn-light": "#f8f9fa",
+		"tools-btn-dark": "#343a40",
 	},
 
 	all: {

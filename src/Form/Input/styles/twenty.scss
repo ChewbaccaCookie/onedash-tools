@@ -10,6 +10,11 @@
 			outline: none;
 			border-color: var(--tools-blue);
 		}
+
+		&:disabled {
+			background: var(--tools-light-gray);
+			border-color: var(--tools-gray) !important;
+		}
 	}
 
 	&.input-invalid > input {

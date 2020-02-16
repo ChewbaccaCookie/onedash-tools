@@ -1,11 +1,14 @@
 import React from "react";
 import Input from "../Input/Input";
 import Select from "../Select/Select";
+import Button from "../Button/Button";
 
 export interface FormProps {
 	onSubmit?: (values: any, control: Form) => void;
 	onChange?: (values: any, control: Form) => void;
 	className?: string;
+	submitText?: string;
+	resetText?: string;
 	validateOnSubmit?: boolean;
 	validateOnChange?: boolean;
 	style?: styles;
@@ -63,7 +66,7 @@ class Form extends React.Component<FormProps> {
 
 	public resetForm = () => {
 		this.references.forEach((ref) => {
-			if (ref) ref.resetInput();
+			if (ref) ref.reset();
 		});
 
 		if (this.references.length > 0) {
@@ -116,9 +119,9 @@ class Form extends React.Component<FormProps> {
 	};
 
 	buildClassName = () => {
-		let classes = "onedash-form ";
+		let classes = "onedash-form";
 		if (this.props.className) {
-			classes += this.props.className + " ";
+			classes += " " + this.props.className;
 		}
 		return classes;
 	};
@@ -128,6 +131,16 @@ class Form extends React.Component<FormProps> {
 		return (
 			<form className={this.buildClassName()} onSubmit={this.onSubmit}>
 				<div>{this.cloneChildren(this.props.children, [])}</div>
+				{this.props.resetText && (
+					<Button onClick={() => this.resetForm()} type="reset" mode="light">
+						{this.props.resetText}
+					</Button>
+				)}
+				{this.props.submitText && (
+					<Button type="submit" mode="primary">
+						{this.props.submitText}
+					</Button>
+				)}
 			</form>
 		);
 	}

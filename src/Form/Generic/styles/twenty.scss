@@ -6,16 +6,18 @@
 	max-width: var(--tools-input-width);
 	width: calc(100% - 20px);
 
+	& .required {
+		color: var(--tools-failure);
+		font-size: 1.4rem;
+	}
+
 	& * {
 		font-family: var(--tools-font-family);
 	}
 
-	& > .label {
+	& > .onedash-label {
 		color: var(--tools-text);
-		font-size: calc(var(--tools-font-size) - 0.1rem);
-		position: absolute;
-		top: -14px;
-		left: 0;
+		font-size: calc(var(--tools-font-size) - 0.05rem);
 	}
 
 	& > .component {
@@ -25,5 +27,13 @@
 		width: calc(100% - 28px);
 		font-weight: normal;
 		font-size: var(--tools-font-size);
+	}
+	& > .read-only {
+		display: block;
+		padding: 11.5px 0px;
+		margin: 0px;
+		width: calc(100%);
+		font-weight: normal;
+		font-size: calc(var(--tools-font-size) + 0.1rem);
 	}
 }

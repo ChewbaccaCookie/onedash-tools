@@ -31,7 +31,7 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 		this.resetted = false;
 		this.setState({
 			value: undefined,
-			valid: false,
+			valid: true,
 		});
 	};
 

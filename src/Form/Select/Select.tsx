@@ -69,8 +69,6 @@ export default class Select extends GenericInput<SelectProps, any> {
 	private inputChange = (value: any, native: boolean) => {
 		this.resetted = false;
 		if (native) {
-			console.log(value);
-
 			value = value !== undefined ? JSON.parse(value) : value;
 		} else {
 			value = value.value;
@@ -106,15 +104,16 @@ export default class Select extends GenericInput<SelectProps, any> {
 
 	render() {
 		const options = this.props.options ? this.props.options : [];
-		if (!this.props.required && !options.find((x) => x.value === undefined)) {
+		if (!this.props.required && !options.find((x) => x.value === "none")) {
 			options.unshift({
 				label: "Keine Auswahl",
-				value: undefined,
+				value: "none",
 			});
 		}
 
 		const reactSelect = (
 			<ReactSelect
+				isDisabled={this.props.disabled}
 				classNamePrefix="onedash-select"
 				placeholder={this.props.placeholder ? this.props.placeholder : "Wählen Sie ..."}
 				options={options}
@@ -134,6 +133,7 @@ export default class Select extends GenericInput<SelectProps, any> {
 
 		const nativeSelect = (
 			<select
+				disabled={this.props.disabled}
 				onBlur={this.onBlur}
 				value={this.state.value !== undefined ? JSON.stringify(this.state.value) : undefined}
 				onFocus={this.onFocus}
@@ -156,41 +156,47 @@ export default class Select extends GenericInput<SelectProps, any> {
 						{this.props.required === true && !this.props.settings?.requiredNotVisible && <span className="required">*</span>}
 					</label>
 				)}
-
-				{!this.props.asyncLoad && (
+				{!this.props.readonly && (
 					<>
-						{this.props.native === undefined && (
+						{!this.props.asyncLoad && (
 							<>
-								<MediaRender type="desktop">{reactSelect}</MediaRender>
-								<MediaRender type="mobile">{nativeSelect}</MediaRender>
+								{this.props.native === undefined && (
+									<>
+										<MediaRender type="desktop">{reactSelect}</MediaRender>
+										<MediaRender type="mobile">{nativeSelect}</MediaRender>
+									</>
+								)}
+								{this.props.native === true && <>{nativeSelect}</>}
+								{this.props.native === false && <>{reactSelect}</>}
 							</>
 						)}
-						{this.props.native === true && <>{nativeSelect}</>}
-						{this.props.native === false && <>{reactSelect}</>}
+
+						{this.props.asyncLoad && (
+							<AsyncSelect
+								isDisabled={this.props.disabled}
+								classNamePrefix="onedash-select"
+								placeholder={this.props.placeholder ? this.props.placeholder : "Wählen Sie ..."}
+								defaultOptions={this.props.options}
+								value={options.find((o) => o.value === this.props.value)}
+								onFocus={this.onFocus}
+								onBlur={this.onBlur}
+								loadOptions={this.loadAsyncOptions}
+								onChange={(event) => this.inputChange(event, false)}
+								className="onedash-select"
+								id={this.id}
+								isSearchable={this.props.settings?.searchable}
+								loadingMessage={() => "..."}
+								noOptionsMessage={(res) => {
+									return res.inputValue.length > 0 && res.inputValue.length < 200
+										? `${res.inputValue} wurde nicht gefunden`
+										: "...";
+								}}
+							/>
+						)}
 					</>
 				)}
 
-				{this.props.asyncLoad && (
-					<AsyncSelect
-						classNamePrefix="onedash-select"
-						placeholder={this.props.placeholder ? this.props.placeholder : "Wählen Sie ..."}
-						defaultOptions={this.props.options}
-						value={options.find((o) => o.value === this.props.value)}
-						onFocus={this.onFocus}
-						onBlur={this.onBlur}
-						loadOptions={this.loadAsyncOptions}
-						onChange={(event) => this.inputChange(event, false)}
-						className="onedash-select"
-						id={this.id}
-						isSearchable={this.props.settings?.searchable}
-						loadingMessage={() => "..."}
-						noOptionsMessage={(res) => {
-							return res.inputValue.length > 0 && res.inputValue.length < 200
-								? `${res.inputValue} wurde nicht gefunden`
-								: "...";
-						}}
-					/>
-				)}
+				{this.props.readonly && <p className="read-only">{options.find((x) => x.value === this.state.value)?.label}</p>}
 			</div>
 		);
 	}
