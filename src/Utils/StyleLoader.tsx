@@ -5,7 +5,8 @@ interface StyleLoaderProps {
 	theme?: "light" | "dark";
 }
 export default class StyleLoader extends React.Component<StyleLoaderProps> {
-	componentDidMount() {
+	constructor(props) {
+		super(props);
 		setStyle(this.props.style ? this.props.style : "twenty", this.props.theme ? this.props.theme : "light");
 	}
 	render() {

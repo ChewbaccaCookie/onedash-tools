@@ -1,4 +1,4 @@
-.onedash-input-container.style-twenty {
+.onedash-form-component.style-twenty {
 	display: inline-block;
 	margin: 10px;
 	margin-top: 18px;
@@ -12,9 +12,18 @@
 
 	& > .label {
 		color: var(--tools-text);
-		font-size: 0.9rem;
+		font-size: calc(var(--tools-font-size) - 0.1rem);
 		position: absolute;
 		top: -14px;
 		left: 0;
+	}
+
+	& > .component {
+		display: block;
+		padding: 10px 12.5px;
+		margin-top: 5px;
+		width: calc(100% - 28px);
+		font-weight: normal;
+		font-size: var(--tools-font-size);
 	}
 }

@@ -12,6 +12,10 @@ interface GenericInputProps {
 	onBlur?: (value: any) => any;
 	onValidate?: (value: any) => boolean;
 }
+interface ValueLabelPair {
+	label: string;
+	value: any;
+}
 interface GenericInputState {
 	value?: any;
 	valid: boolean;

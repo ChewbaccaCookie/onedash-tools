@@ -10,7 +10,7 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 	protected resetted = false;
 
 	state = {
-		value: undefined as undefined | string | number,
+		value: undefined as undefined | any,
 		valid: true,
 		focus: false,
 	};
@@ -18,6 +18,13 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 	public validate = () => {
 		const valid = this.props.onValidate ? this.props.onValidate(this.state.value) : true;
 		return valid && this._validate();
+	};
+
+	public focus = () => {
+		if (this.reference?.current?.focus) {
+			this.reference?.current?.focus();
+			this.onFocus();
+		}
 	};
 
 	public reset = () => {
@@ -30,9 +37,9 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 
 	public getValue = (validate?: boolean) => {
 		if ((validate && this.validate()) || !validate) {
-			return this.state.value;
+			return { name: this.props.name, value: this.state.value };
 		} else {
-			return false;
+			return undefined;
 		}
 	};
 
@@ -51,8 +58,8 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 		if (this.props.onBlur) this.props.onBlur(this.getValue());
 	};
 
-	protected buildClassList = () => {
-		let classList = "onedash-input-container";
+	protected buildClassList = (componentName: string) => {
+		let classList = `onedash-form-component ${componentName}`;
 		if (this.props.style) {
 			classList += " style-" + this.props.style;
 		} else {

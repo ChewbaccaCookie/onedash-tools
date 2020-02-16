@@ -1,14 +1,10 @@
-.onedash-input-container.style-twenty {
+.onedash-input.style-twenty {
 	& > input {
-		display: block;
 		border: 1.5px solid var(--tools-gray);
 		color: var(--tools-text);
 		border-radius: var(--tools-border-radius);
-		padding: 10px 12.5px;
 		transition: 0.15s all ease-in-out;
 		background: var(--tools-background);
-		margin-top: 5px;
-		width: calc(100% - 28px);
 
 		&:focus {
 			outline: none;

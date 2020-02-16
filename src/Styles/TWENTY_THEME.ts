@@ -20,12 +20,14 @@ const TWENTY_THEME = {
 		"tools-success": "#7fcc76",
 		"tools-gray": "#c7c7c7",
 		"tools-light-gray": "#ebebeb",
+		"tools-light-blue": "#007bff7a",
 	},
 
 	all: {
 		"tools-border-radius": "4px",
 		"tools-input-width": "250px",
 		"tools-font-family": "Raleway",
+		"tools-font-size": "0.9rem",
 	},
 };
 
