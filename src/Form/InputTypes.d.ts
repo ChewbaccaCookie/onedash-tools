@@ -8,7 +8,7 @@ interface GenericInputProps {
 	disabled?: boolean;
 	value?: any;
 	_change?: (obj: { value: any; name: string }) => any;
-	onChange?: (value: any) => any;
+	onChange?: (obj: { value: any; name: string }) => any;
 	onBlur?: (value: any) => any;
 	onValidate?: (value: any) => boolean;
 }

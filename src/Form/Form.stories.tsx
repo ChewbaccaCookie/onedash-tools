@@ -5,6 +5,8 @@ import Form from "./Form/Form";
 import { action } from "@storybook/addon-actions";
 import StyleLoader from "../Utils/StyleLoader";
 import { withKnobs, select as sel, boolean, text, number } from "@storybook/addon-knobs";
+import Button from "./Button/Button";
+import TagInput from "./TagInput/TagInput";
 function timeout(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -83,7 +85,9 @@ export const select = () => {
 export const selectAsync = () => {
 	const required = boolean("Required", true);
 	const native = boolean("Native", false);
+	const disabled = boolean("Disabled", false);
 	const label = text("Label", "Wählen Sie");
+	const readOnly = boolean("Read Only", false);
 
 	const loadOptions = async (inputString: string) => {
 		return new Promise<ValueLabelPair[]>(async (resolve) => {
@@ -94,12 +98,69 @@ export const selectAsync = () => {
 	return (
 		<StyleLoader>
 			<Select
+				readonly={readOnly}
 				asyncLoad={loadOptions}
+				disabled={disabled}
 				className="select-input"
 				name="select-input"
 				required={required}
 				native={native}
 				label={label}
+			/>
+		</StyleLoader>
+	);
+};
+
+export const buttons = () => {
+	return (
+		<StyleLoader>
+			<Button onClick={action("Default")}>Default</Button>
+			<Button onClick={action("Warning")} mode="warning">
+				Warning
+			</Button>
+			<Button onClick={action("Danger")} mode="danger">
+				Danger
+			</Button>
+			<Button onClick={action("Dark")} mode="dark">
+				Dark
+			</Button>
+			<Button onClick={action("Info")} mode="info">
+				Info
+			</Button>
+			<Button onClick={action("Link")} mode="link">
+				Link
+			</Button>
+			<Button onClick={action("Primary")} mode="primary">
+				Primary
+			</Button>
+			<Button onClick={action("Secondary")} mode="secondary">
+				Secondary
+			</Button>
+			<Button onClick={action("Success")} mode="success">
+				Success
+			</Button>
+		</StyleLoader>
+	);
+};
+
+export const tagInput = () => {
+	const disabled = boolean("Disabled", false);
+	const required = boolean("Required", true);
+	const readOnly = boolean("Read Only", false);
+	const label = text("Label", "Tag input");
+
+	return (
+		<StyleLoader>
+			<TagInput
+				label={label}
+				required={required}
+				name="tag-input"
+				disabled={disabled}
+				readonly={readOnly}
+				tags={[
+					{ label: "Farbe 1", value: "farbe1" },
+					{ label: "Farbe 2", value: "farbe2" },
+				]}
 			/>
 		</StyleLoader>
 	);
@@ -145,8 +206,9 @@ export const form = () => {
 					<h2 style={{ fontFamily: "Raleway" }}>Weitere Angaben</h2>
 					<Input required name="email" type="email" label="Ihre Email - Adresse" />
 					<Input required name="tel" type="tel" label="Ihre Telefonnummer" />
-					<Input required name="address" type="text" disabled label="Ihre Adresse" />
+					<Input name="address" type="text" disabled label="Ihre Adresse" />
 					<Input required name="land" value="Deutschland" type="text" readonly label="Land" />
+					<TagInput label="Lieblingsfarben" required name="tag-input" tags={[{ label: "Blau", value: "blue" }]} />
 				</fieldset>
 			</Form>
 		</StyleLoader>

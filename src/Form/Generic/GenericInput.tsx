@@ -73,6 +73,9 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 		if (!this.state.valid) {
 			classList += " input-invalid";
 		}
+		if (this.props.disabled) {
+			classList += " disabled";
+		}
 		if (this.props.className) {
 			classList += " " + this.props.className;
 		}

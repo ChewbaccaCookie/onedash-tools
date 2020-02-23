@@ -7,8 +7,8 @@ import AsyncSelect from "react-select/async";
 import "./styles/twenty.scss";
 
 interface SelectSettings {
-	requiredNotVisible: boolean;
-	searchTimeout: number;
+	requiredNotVisible?: boolean;
+	searchTimeout?: number;
 	searchable?: boolean;
 }
 
