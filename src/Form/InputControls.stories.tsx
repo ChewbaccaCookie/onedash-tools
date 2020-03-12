@@ -12,7 +12,7 @@ function timeout(ms) {
 }
 
 export default {
-	title: "Form/Input",
+	title: "InputControls",
 	decorators: [withKnobs],
 };
 
@@ -26,7 +26,7 @@ const selectOptions = [
 	{ label: "Ananassaft", value: "ananassaft" },
 ];
 
-export const defaultInput = () => {
+export const card = () => {
 	const label = text("Label", "Geben Sie ein");
 	const disabled = boolean("Disabled", false);
 	const readOnly = boolean("ReadOnly", false);

@@ -1,8 +1,28 @@
+/**
+ * Thats a comment
+ */
+
 interface GenericInputProps {
+	/**
+	 * Name of the component.
+	 */
 	name: string;
+
+	/**
+	 * Optional name of the input
+	 */
 	label?: string;
+
+	/**
+	 * Optional placeholder
+	 */
 	placeholder?: string;
+
+	/**
+	 * Boolean which determines whether the input is read only
+	 */
 	readonly?: boolean;
+
 	style?: styles;
 	className?: string | string[];
 	disabled?: boolean;
@@ -12,10 +32,7 @@ interface GenericInputProps {
 	onBlur?: (value: any) => any;
 	onValidate?: (value: any) => boolean;
 }
-interface ValueLabelPair {
-	label: string;
-	value: any;
-}
+
 interface GenericInputState {
 	value?: any;
 	valid: boolean;

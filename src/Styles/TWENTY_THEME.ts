@@ -14,9 +14,11 @@ const TWENTY_THEME = {
 		 * Default Colors
 		 */
 		"tools-background": "white",
+		"tools-card-bg": "white",
 		"tools-text": "#393939",
 		"tools-white": "white",
 		"tools-blue": "#007aff",
+		"tools-dark-blue": "#13447a",
 		"tools-failure": "#e56038",
 		"tools-success": "#7fcc76",
 		"tools-gray": "#c7c7c7",
@@ -38,6 +40,7 @@ const TWENTY_THEME = {
 		"tools-input-width": "250px",
 		"tools-font-family": "Raleway",
 		"tools-font-size": "0.9rem",
+		"tools-card-shadow": "1px 1px 6px rgba(0, 0, 0, 0.16)",
 	},
 };
 
