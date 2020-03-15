@@ -30,6 +30,8 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 	public reset = () => {
 		if (this.props.readonly) return;
 		this.resetted = false;
+		if (this.props.onChange) this.props.onChange({ name: this.props.name, value: undefined });
+		if (this.props._change) this.props._change({ name: this.props.name, value: undefined });
 		this.setState({
 			value: undefined,
 			valid: true,
@@ -66,9 +68,15 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 		} else {
 			classList += " style-" + SETTINGS.style;
 		}
+		if (this.state.value && this.state.value.length > 0) {
+			classList += " filled";
+		}
 
 		if (this.state.focus) {
 			classList += " focused";
+		}
+		if (this.props.label && this.props.label.length > 0) {
+			classList += " has-label";
 		}
 		if (!this.state.valid) {
 			classList += " input-invalid";

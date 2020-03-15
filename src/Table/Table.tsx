@@ -1,13 +1,24 @@
 import React, { Component } from "react";
-import { useTable, Column, useSortBy, useBlockLayout, useResizeColumns } from "react-table";
+import { useTable, Column, useSortBy, useResizeColumns, useFlexLayout, Row } from "react-table";
 import "./styles/twenty.scss";
 import SETTINGS from "../Utils/Settings";
+import Input from "../Form/Input/Input";
+import Button from "../Form/Button/Button";
 
 export default class Table extends Component<TableProps> {
+	state = {
+		searchFilter: "",
+	};
 	private getClasses = () => {
 		let classList = "onedash-table";
 		if (this.props.className) {
 			classList += " " + this.props.className;
+		}
+		if (this.props.disabled) {
+			classList += " disabled";
+		}
+		if (this.props.editable) {
+			classList += " editable";
 		}
 		if (this.props.style) {
 			classList += " style-" + this.props.style;
@@ -15,6 +26,35 @@ export default class Table extends Component<TableProps> {
 			classList += " style-" + SETTINGS.style;
 		}
 		return classList;
+	};
+
+	filterData = () => {
+		const sF = this.state.searchFilter;
+		let data = this.props.tableValues.filter((x) => {
+			let found = sF?.length > 0 ? false : true;
+			Object.keys(x).map((columnName) => {
+				if (String(x[columnName]).indexOf(sF) !== -1) {
+					found = true;
+				}
+			});
+
+			return found;
+		});
+		if (data.length === 0) {
+			data = ["not-found"];
+		}
+
+		return data;
+	};
+
+	onRowClick = (row) => {
+		const original = row.original;
+		let openDialog = true;
+		if (this.props.onRowClick) {
+			this.props.onRowClick.event(original);
+			openDialog = this.props.onRowClick.openDialog ? this.props.onRowClick.openDialog : true;
+		}
+		console.log(openDialog);
 	};
 	render() {
 		const columns: Column<any>[] = this.props.tableHeaders
@@ -27,7 +67,20 @@ export default class Table extends Component<TableProps> {
 			});
 		return (
 			<div style={this.props.cssStyles} className={this.getClasses()}>
-				<GenericTable data={this.props.tableValues} columns={columns} />
+				<div className="table-toolbar">
+					<div className="left">
+						{this.props.searchable && (
+							<Input
+								disabled={this.props.disabled}
+								type="search"
+								onChange={(searchFilter) => this.setState({ searchFilter: searchFilter.value })}
+								name="search"
+								placeholder="Suchen ..."></Input>
+						)}
+					</div>
+					<div className="right">{this.props.editable && <Button disabled={this.props.disabled}>Neuer Eintrag</Button>}</div>
+				</div>
+				<GenericTable data={this.filterData()} onRowClick={this.onRowClick} columns={columns} />
 			</div>
 		);
 	}
@@ -36,8 +89,9 @@ export default class Table extends Component<TableProps> {
 interface GenericTableProps {
 	columns: Column<any>[];
 	data: any[];
+	onRowClick: (row: Row<any>) => void;
 }
-function GenericTable({ columns, data }: GenericTableProps) {
+function GenericTable({ columns, data, onRowClick }: GenericTableProps) {
 	const defaultColumn = React.useMemo(
 		() => ({
 			minWidth: 30,
@@ -47,50 +101,64 @@ function GenericTable({ columns, data }: GenericTableProps) {
 		[]
 	);
 
-	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+	const { getTableProps, headerGroups, rows, prepareRow } = useTable(
 		{
 			columns,
 			data,
 			defaultColumn,
 		},
-		useSortBy,
-		useBlockLayout,
-		useResizeColumns
+		useResizeColumns,
+		useFlexLayout,
+		useSortBy
 	);
 
-	// Render the UI for your table
 	return (
-		<table {...getTableProps()}>
-			<thead>
+		<div {...getTableProps()} className="table">
+			<div>
 				{headerGroups.map((headerGroup, i) => (
-					<tr key={i} {...headerGroup.getHeaderGroupProps()}>
-						{headerGroup.headers.map((column: any, index) => (
-							<th key={index} {...column.getHeaderProps(column.getSortByToggleProps())}>
+					<div
+						key={i}
+						{...headerGroup.getHeaderGroupProps({
+							// style: { paddingRight: '15px' },
+						})}
+						className="tr">
+						{headerGroup.headers.map((column: any, ii) => (
+							<div key={ii} {...column.getHeaderProps(column.getSortByToggleProps())} className="th">
 								{column.render("Header")}
-								<span>{column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}</span>
+								<span
+									className={
+										column.isSorted ? (column.isSortedDesc ? " sorting-icon down" : " sorting-icon up") : "sorting-icon"
+									}></span>
 
 								<div {...column.getResizerProps()} className={`resizer ${column.isResizing ? "isResizing" : ""}`} />
-							</th>
+							</div>
 						))}
-					</tr>
+					</div>
 				))}
-			</thead>
-			<tbody {...getTableBodyProps()}>
-				{rows.map((row, i) => {
-					prepareRow(row);
-					return (
-						<tr key={i} {...row.getRowProps()}>
-							{row.cells.map((cell, index) => {
-								return (
-									<td key={index} {...cell.getCellProps()}>
-										{cell.render("Cell")}
-									</td>
-								);
-							})}
-						</tr>
-					);
-				})}
-			</tbody>
-		</table>
+			</div>
+			<div className="tbody">
+				{!(rows.length === 1 && rows[0].original === "not-found") &&
+					rows.map((row, i) => {
+						prepareRow(row);
+						return (
+							<div onClick={() => onRowClick(row)} key={i} {...row.getRowProps()} className="tr">
+								{row.cells.map((cell, ii) => {
+									return (
+										<div key={{ ii }} {...cell.getCellProps()} className="td">
+											{cell.render("Cell")}
+										</div>
+									);
+								})}
+							</div>
+						);
+					})}
+
+				{rows.length === 1 && rows[0].original === "not-found" && (
+					<div className="tr full-size">
+						<div className="td">Es konnte kein Eintrag gefunden werden</div>
+					</div>
+				)}
+			</div>
+		</div>
 	);
 }

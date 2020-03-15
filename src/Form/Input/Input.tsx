@@ -14,7 +14,7 @@ interface InputProps extends GenericInputProps {
 	minLength?: number;
 	maxLength?: number;
 	settings?: InputSettings;
-	type?: "text" | "password" | "number" | "email" | "tel" | "textarea";
+	type?: "text" | "password" | "number" | "email" | "tel" | "textarea" | "search";
 }
 
 class Input extends GenericInput<InputProps, any> {
@@ -99,19 +99,27 @@ class Input extends GenericInput<InputProps, any> {
 					</label>
 				)}
 				{!this.props.readonly ? (
-					<input
-						disabled={this.props.disabled}
-						className="component"
-						placeholder={this.props.placeholder}
-						onFocus={this.onFocus}
-						ref={this.reference}
-						type={this.props.type ? this.props.type : "text"}
-						id={this.id}
-						onChange={this.inputChange}
-						value={this.state.value ? this.state.value : ""}
-						onBlur={this.onBlur}
-						autoComplete={this.props.autoComplete}
-					/>
+					<>
+						<input
+							disabled={this.props.disabled}
+							className="component"
+							placeholder={this.props.placeholder}
+							onFocus={this.onFocus}
+							ref={this.reference}
+							type={this.props.type ? this.props.type : "text"}
+							id={this.id}
+							onChange={this.inputChange}
+							value={this.state.value ? this.state.value : ""}
+							onBlur={this.onBlur}
+							autoComplete={this.props.autoComplete}
+						/>
+						{this.props.type === "search" && (
+							<div className="search-icon" onClick={this.reset}>
+								<div className="search-icon__circle"></div>
+								<div className="search-icon__rectangle"></div>
+							</div>
+						)}
+					</>
 				) : (
 					<>
 						{this.props.type === "email" && (

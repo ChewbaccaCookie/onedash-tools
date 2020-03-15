@@ -1,7 +1,6 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
 import StyleLoader from "../Utils/StyleLoader";
-import { withKnobs, select as sel, boolean, text, number } from "@storybook/addon-knobs";
+import { withKnobs, select as sel, boolean } from "@storybook/addon-knobs";
 import Table from "./Table";
 import Card from "../Card/Card";
 
@@ -37,17 +36,116 @@ const tableValues = [
 	},
 	{
 		id: 2,
+		plz: "12323",
+		ort: "Mannheim",
+	},
+	{
+		id: 3,
+		plz: "54342",
+		ort: "Mannheim",
+	},
+	{
+		id: 4,
+		plz: "32152",
+		ort: "Mannheim",
+	},
+	{
+		id: 5,
+		plz: "67834",
+		ort: "Mannheim",
+	},
+	{
+		id: 6,
+		plz: "03927",
+		ort: "Mannheim",
+	},
+	{
+		id: 7,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 8,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 9,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 10,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 11,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 12,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 13,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 14,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 15,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 16,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 17,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 18,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 19,
+		plz: "68169",
+		ort: "Mannheim",
+	},
+	{
+		id: 20,
 		plz: "68169",
 		ort: "Mannheim",
 	},
 ] as any[];
 
-export const card = () => {
+export const defaultTable = () => {
 	const disabled = boolean("Disabled", false);
+	const editable = boolean("Editable", true);
+	const searchable = boolean("Searchable", true);
+	const maxElements = Number(sel("Anzahl zeilen", ["0", "5", "10", "15", "20"], "15"));
 	return (
 		<StyleLoader>
-			<Card>
-				<Table disabled={disabled} tableHeaders={tableHeaders} tableValues={tableValues} />
+			<Card maxWidth={900}>
+				<Table
+					searchable={searchable}
+					editable={editable}
+					disabled={disabled}
+					tableHeaders={tableHeaders}
+					tableValues={tableValues.slice(0, maxElements)}
+				/>
 			</Card>
 		</StyleLoader>
 	);

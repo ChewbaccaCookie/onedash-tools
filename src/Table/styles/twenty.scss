@@ -3,27 +3,121 @@
 	width: 100%;
 	position: relative;
 
-	table {
-		width: 100%;
+	&.editable .tbody .tr {
+		cursor: pointer;
+	}
+
+	&.disabled {
+		pointer-events: none;
+		user-select: none;
+		opacity: 0.8;
+	}
+
+	.table-toolbar {
+		display: flex;
+		justify-content: space-between;
+		.onedash-form-component {
+			margin-top: 10px;
+		}
+	}
+
+	.table {
 		display: inline-block;
 		border-spacing: 0;
-		border: 1px solid black;
+		border-radius: var(--tools-border-radius);
+		margin: 10px;
+		margin-top: 0px;
+		width: calc(100% - 20px);
 
-		tr:last-child td {
+		.tr:last-child .td {
 			border-bottom: 0;
 		}
 
-		th,
-		td {
+		& > div:not(.tbody) {
+			border-radius: var(--tools-border-radius) var(--tools-border-radius) 0px 0px;
+			background: var(--tools-table-header-background);
+			color: var(--tools-table-header-text);
+			border-bottom: 1px solid var(--tools-table-header-border);
+			border-right: 1px solid var(--tools-table-header-border);
+			& > .tr {
+				position: relative;
+				font-weight: bold;
+				width: calc(100% - var(--tools-scrollbar-width));
+			}
+		}
+
+		.tbody {
+			max-height: 300px;
+			overflow-y: scroll;
+			scroll-behavior: auto;
+
+			&::-webkit-scrollbar {
+				width: var(--tools-scrollbar-width);
+			}
+			& {
+				scrollbar-width: var(--tools-scrollbar-width);
+				scrollbar-color: var(--tools-scrollbar-thumb) var(--tools-scrollbar-bg);
+			}
+			&::-webkit-scrollbar-track {
+				background: var(--tools-scrollbar-bg);
+			}
+			&::-webkit-scrollbar-thumb {
+				background-color: var(--tools-scrollbar-thumb);
+				border-radius: 6px;
+				border: 3px solid var(--tools-scrollbar-bg);
+			}
+
+			.tr {
+				background: var(--tools-table-body-bg);
+				&.full-size {
+					width: 100%;
+					.td {
+						width: calc(100% - 0.5rem - 8px);
+						text-align: center;
+					}
+				}
+
+				&:hover {
+					background: var(--tools-table-body-hover);
+				}
+			}
+		}
+
+		.td {
+			border-bottom: 1px solid var(--tools-table-border);
+			border-right: 1px solid var(--tools-table-border);
+		}
+
+		.th,
+		.td {
 			margin: 0;
 			padding: 0.5rem;
-			border-bottom: 1px solid black;
-			border-right: 1px solid black;
 
-			/* The secret sauce */
-			/* Each cell should grow equally */
+			.sorting-icon {
+				width: 0;
+				height: 0;
+				display: block;
+				position: absolute;
+				top: 13px;
+				right: 11px;
+
+				&.up,
+				&.down {
+					border-left: 5px solid transparent;
+					border-right: 5px solid transparent;
+					border-top: 10px solid var(--tools-table-sort);
+				}
+
+				&.down {
+					transition: 0.15s transform ease-in-out;
+				}
+
+				&.up {
+					transform: rotate(180deg);
+				}
+			}
+
 			width: 1%;
-			/* But "collapsed" cells should be as small as possible */
 			&.collapse {
 				width: 0.0000000001%;
 			}

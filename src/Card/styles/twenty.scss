@@ -5,6 +5,7 @@
 	padding: 30px;
 	max-width: 600px;
 	width: calc(100% - 80px);
+	color: var(--tools-text);
 
 	& * {
 		font-family: var(--tools-font-family);
@@ -19,7 +20,7 @@
 	}
 
 	.card-headding {
-		color: var(--tools-dark-blue);
+		color: var(--tools-dark-primary);
 		font-weight: lighter;
 		margin-bottom: 10px;
 		border-bottom: 1px solid var(--tools-gray);

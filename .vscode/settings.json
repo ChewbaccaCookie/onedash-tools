@@ -6,8 +6,6 @@
     "build": true,
     "package-lock.json": true,
     ".travis.yml": true,
-    ".prettierrc": true,
-    ".gitignore": true,
     ".eslintrc": true,
     ".eslintignore": true,
     ".editorconfig": true,

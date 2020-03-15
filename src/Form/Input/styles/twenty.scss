@@ -1,19 +1,93 @@
 .onedash-input.style-twenty {
+	&.has-label {
+		&.filled .search-icon {
+			top: 36px;
+		}
+		.search-icon {
+			top: 27px;
+		}
+	}
+	&.filled .search-icon {
+		cursor: pointer;
+		top: 18px;
+		&__circle {
+			width: 20px;
+			height: 0px;
+			transform: rotate(-45deg);
+			border: 1px solid var(--tools-gray);
+		}
+		&__rectangle {
+			width: 20px;
+			height: 0px;
+			border: 1px solid var(--tools-gray);
+			right: 2px;
+			bottom: 5.75px;
+		}
+
+		&:hover {
+			.search-icon__circle,
+			.search-icon__rectangle {
+				border-color: var(--tools-failure);
+			}
+		}
+	}
 	& > input {
 		border: 1.5px solid var(--tools-gray);
 		color: var(--tools-text);
 		border-radius: var(--tools-border-radius);
 		transition: 0.15s all ease-in-out;
-		background: var(--tools-background);
+		background: var(--tools-input-background);
+
+		&[type="search"] {
+			padding-right: 45px;
+		}
+
+		&[type="search"]::-webkit-search-decoration,
+		&[type="search"]::-webkit-search-cancel-button,
+		&[type="search"]::-webkit-search-results-button,
+		&[type="search"]::-webkit-search-results-decoration {
+			display: none;
+		}
 
 		&:focus {
 			outline: none;
-			border-color: var(--tools-blue);
+			border-color: var(--tools-primary);
 		}
 
 		&:disabled {
 			background: var(--tools-light-gray);
 			border-color: var(--tools-gray) !important;
+		}
+	}
+
+	.search-icon {
+		width: 25px;
+		margin: 0 auto;
+		padding: 6.25px 0;
+		text-align: center;
+		position: absolute;
+		top: 9px;
+		right: 40px;
+		transition: 0.15s all ease-in-out;
+
+		&__circle {
+			width: 12.5px;
+			height: 12.5px;
+			border: 2px solid var(--tools-gray);
+			border-radius: 12.5px;
+			transition: 0.15s all ease-in-out;
+		}
+
+		&__rectangle {
+			position: absolute;
+			right: 0;
+			bottom: 3.75px;
+			width: 8.75px;
+			transform: rotate(45deg);
+			border: 1px solid var(--tools-gray);
+			border-top-right-radius: 2px;
+			border-bottom-right-radius: 2px;
+			transition: 0.15s all ease-in-out;
 		}
 	}
 

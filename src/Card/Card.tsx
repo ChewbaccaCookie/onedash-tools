@@ -7,6 +7,7 @@ export interface CardProps {
 	style?: styles;
 	className?: string;
 	title?: string;
+	maxWidth?: number;
 }
 
 class Card extends Component<CardProps, any> {
@@ -23,8 +24,11 @@ class Card extends Component<CardProps, any> {
 		return classList;
 	};
 	render() {
+		const styles = this.props.cssStyles ? this.props.cssStyles : {};
+		if (this.props.maxWidth) styles.maxWidth = this.props.maxWidth;
+
 		return (
-			<div style={this.props.cssStyles} className={this.getClasses()}>
+			<div style={styles} className={this.getClasses()}>
 				{this.props.title && <h2 className="card-headding">{this.props.title}</h2>}
 
 				<div className="card-content">{this.props.children}</div>

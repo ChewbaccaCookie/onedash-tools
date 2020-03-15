@@ -38,7 +38,7 @@
 	}
 
 	.react-tags.is-focused {
-		border-color: var(--tools-blue);
+		border-color: var(--tools-primary);
 	}
 
 	.react-tags__selected {
@@ -51,7 +51,7 @@
 		display: inline-block;
 		box-sizing: border-box;
 		cursor: pointer;
-		border: 2px solid var(--tools-blue);
+		border: 2px solid var(--tools-primary);
 		border-radius: 4px;
 		background: none;
 		/* match the font styles */
@@ -103,7 +103,7 @@
 		padding: 0;
 		list-style: none;
 		background: white;
-		border: 1.5px solid var(--tools-blue);
+		border: 1.5px solid var(--tools-primary);
 		border-radius: 4px;
 		box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.16);
 	}

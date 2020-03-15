@@ -5,10 +5,15 @@ interface TableProps {
 	tableValues: any[];
 	editable?: boolean;
 	searchable?: boolean;
+
+	// Not implemented yet!
 	orderable?: boolean;
 	onSave?: (entry: any, tableValues: any[]) => void;
 	onDelete?: (rowId: any, rowValues: any) => void;
-	onClick?: Function | { click: Function; openDialog?: boolean };
+	onAddClick?: { event: () => void; openDialog?: boolean };
+
+	// Will be triggered when a user clicks on the row
+	onRowClick?: { event: (row: any) => void; openDialog?: boolean };
 	cssStyles?: React.CSSProperties;
 	className?: string;
 	style?: styles;

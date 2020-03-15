@@ -31,4 +31,25 @@ export default class Utils {
 			.toDate()
 			.getTime();
 	};
+
+	static lockScrolling = () => {
+		const body = document.querySelector("body");
+		const html = document.querySelector("html");
+		if (html && body) {
+			body.classList.add("scrolling-locked");
+			body.classList.remove("scrolling-unlocked");
+			html.classList.add("scrolling-locked");
+			html.classList.remove("scrolling-unlocked");
+		}
+	};
+	static unlockScrolling = () => {
+		const body = document.querySelector("body");
+		const html = document.querySelector("html");
+		if (html && body) {
+			body.classList.remove("scrolling-locked");
+			body.classList.add("scrolling-unlocked");
+			html.classList.remove("scrolling-locked");
+			html.classList.add("scrolling-unlocked");
+		}
+	};
 }

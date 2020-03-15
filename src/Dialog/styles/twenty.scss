@@ -1,0 +1,220 @@
+html,
+body {
+	&.scrollingDisabled {
+		overflow: hidden !important;
+	}
+}
+
+.style-twenty.onedash-dialog {
+	display: none;
+	& * {
+		font-family: var(--tools-font-family);
+	}
+	&.dialog-visible {
+		display: block;
+	}
+
+	.dialog-bg {
+		background: transparent;
+		animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		left: 0;
+		top: 0;
+		z-index: 50000;
+	}
+
+	&.prompt {
+		.dialog-wrapper {
+			.dialog {
+				.dialog-title {
+					border-bottom: none;
+					font-weight: bold;
+					margin-bottom: 0px;
+				}
+				.dialog-content {
+					p {
+						margin: 0px 0px 10px 0px;
+					}
+				}
+			}
+		}
+	}
+
+	.dialog-wrapper {
+		position: fixed;
+		z-index: 100000;
+		width: 100vw;
+		height: 100vh;
+		left: 0;
+		top: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.dialog {
+			background: var(--tools-dialog-bg);
+			border-radius: var(--tools-border-radius);
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			position: relative;
+			color: var(--tools-text);
+			width: calc(100% - 100px);
+			animation: scaleIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+
+			.dialog-title {
+				width: 100%;
+				color: var(--tools-dark-primary);
+				border-bottom: 1px solid var(--tools-dark-primary);
+				border-radius: 1px;
+				margin-bottom: 10px;
+				margin-top: 5px;
+				padding-bottom: 10px;
+				font-weight: bold;
+			}
+			.dialog-close {
+				position: absolute;
+				right: 30px;
+				top: 25px;
+				width: 20px;
+				height: 20px;
+				cursor: pointer;
+				& > span {
+					margin-top: 10px;
+					width: 20px;
+					position: absolute;
+					border: 1px solid var(--tools-text);
+					border-radius: 1px;
+					display: block;
+					transition: 0.15s transform ease-in-out;
+					&:nth-child(1) {
+						transform: rotate(45deg);
+					}
+					&:nth-child(2) {
+						transform: rotate(-45deg);
+					}
+				}
+				&:hover {
+					& > span:nth-child(1) {
+						transform: rotate(90deg);
+					}
+					& > span:nth-child(2) {
+						transform: rotate(0deg);
+					}
+				}
+			}
+
+			.dialog-content {
+				max-height: calc(90vh - 200px);
+				overflow-y: auto;
+				margin-bottom: 20px;
+				&::-webkit-scrollbar {
+					width: var(--tools-scrollbar-width);
+				}
+				& {
+					scrollbar-width: var(--tools-scrollbar-width);
+					scrollbar-color: var(--tools-scrollbar-thumb) var(--tools-scrollbar-bg);
+				}
+				&::-webkit-scrollbar-track {
+					background: var(--tools-scrollbar-bg);
+				}
+				&::-webkit-scrollbar-thumb {
+					background-color: var(--tools-scrollbar-thumb);
+					border-radius: 6px;
+					border: 3px solid var(--tools-scrollbar-bg);
+				}
+			}
+
+			.dialog-footer {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: -10px;
+				margin-top: -20px;
+			}
+
+			& > div:first-of-type {
+				margin: 0px 10px;
+			}
+		}
+	}
+
+	&.dialog-closes {
+		.dialog {
+			animation: scaleDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+		}
+		.dialog-bg {
+			animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+		}
+	}
+}
+
+@keyframes scaleDown {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(0);
+		opacity: 0.1;
+	}
+}
+@keyframes scaleIn {
+	0% {
+		transform: scale(0);
+		opacity: 0.1;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		background: transparent;
+	}
+	100% {
+		background: var(--tools-dialog-background);
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		background: var(--tools-dialog-background);
+	}
+	100% {
+		background: transparent;
+	}
+}
+
+/**
+    transform:scale(1);
+    .modal-background {
+      background:rgba(0,0,0,.0);
+      animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+      .modal {
+        opacity:0;
+        animation: scaleUp .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+      }
+    }
+    + .content {
+      animation: scaleBack .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
+    &.out {
+      animation: quickScaleDown 0s .5s linear forwards;
+      .modal-background {
+        animation: fadeOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        .modal {
+           animation: scaleDown .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        }
+      }
+      + .content {
+        animation: scaleForward .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+      }
+    }
+
+
+**/
