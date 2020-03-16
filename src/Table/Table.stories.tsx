@@ -135,12 +135,14 @@ export const defaultTable = () => {
 	const disabled = boolean("Disabled", false);
 	const editable = boolean("Editable", true);
 	const searchable = boolean("Searchable", true);
+	const orderable = boolean("Orderable", true);
 	const maxElements = Number(sel("Anzahl zeilen", ["0", "5", "10", "15", "20"], "15"));
 	return (
 		<StyleLoader>
 			<Card maxWidth={900}>
 				<Table
 					searchable={searchable}
+					orderable={orderable}
 					editable={editable}
 					disabled={disabled}
 					tableHeaders={tableHeaders}

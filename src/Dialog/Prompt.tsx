@@ -41,7 +41,7 @@ export default function Prompt({ isOpen, dialogRef, accept, cancel, title, text 
 			className="prompt"
 			title={title}
 			buttons={buttons}
-			settings={{ showX: false }}>
+			settings={{ showX: false, maxWidth: 500 }}>
 			<p>{text}</p>
 		</Dialog>
 	);

@@ -23,7 +23,8 @@ export default class TagInput extends GenericInput<TagInputProps, any> {
 
 	protected _validate = () => {
 		let valid = true;
-		if ((this.props.required && this.state.value?.length === 0) || (this.props.required && !this.state.value)) valid = false;
+		if ((this.props.required && this.state.value?.length === 0) || (this.props.required && !this.state.value))
+			valid = false;
 		this.setState({ valid });
 		return valid;
 	};
@@ -82,12 +83,14 @@ export default class TagInput extends GenericInput<TagInputProps, any> {
 				{this.props.label && (
 					<label className="onedash-label" htmlFor={this.id}>
 						{this.props.label}
-						{this.props.required === true && !this.props.settings?.requiredNotVisible && <span className="required">*</span>}
+						{this.props.required === true && !this.props.settings?.requiredNotVisible && (
+							<span className="required">*</span>
+						)}
 					</label>
 				)}
 				{!this.props.readonly && (
 					<ReactTags
-						minQueryLength={this.props.settings?.minQueryLength ? this.props.settings?.minQueryLength : 2}
+						minQueryLength={this.props.settings?.minQueryLength ? this.props.settings?.minQueryLength : 0}
 						autofocus={false}
 						placeholder={this.props.placeholder ? this.props.placeholder : "Geben Sie ein Tag ein"}
 						allowBackspace={false}

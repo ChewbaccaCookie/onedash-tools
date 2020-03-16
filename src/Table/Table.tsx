@@ -1,14 +1,17 @@
+/* eslint-disable react/display-name */
 import React, { Component } from "react";
 import { useTable, Column, useSortBy, useResizeColumns, useFlexLayout, Row } from "react-table";
 import "./styles/twenty.scss";
 import SETTINGS from "../Utils/Settings";
 import Input from "../Form/Input/Input";
 import Button from "../Form/Button/Button";
+import { SortableElement, SortableHandle, SortableContainer } from "react-sortable-hoc";
 
 export default class Table extends Component<TableProps> {
 	state = {
 		searchFilter: "",
 	};
+
 	private getClasses = () => {
 		let classList = "onedash-table";
 		if (this.props.className) {
@@ -56,6 +59,7 @@ export default class Table extends Component<TableProps> {
 		}
 		console.log(openDialog);
 	};
+
 	render() {
 		const columns: Column<any>[] = this.props.tableHeaders
 			.filter((x) => x.visible !== 0 && x.visible !== false)
@@ -78,9 +82,16 @@ export default class Table extends Component<TableProps> {
 								placeholder="Suchen ..."></Input>
 						)}
 					</div>
-					<div className="right">{this.props.editable && <Button disabled={this.props.disabled}>Neuer Eintrag</Button>}</div>
+					<div className="right">
+						{this.props.editable && <Button disabled={this.props.disabled}>Neuer Eintrag</Button>}
+					</div>
 				</div>
-				<GenericTable data={this.filterData()} onRowClick={this.onRowClick} columns={columns} />
+				<GenericTable
+					data={this.filterData()}
+					onRowClick={this.onRowClick}
+					columns={columns}
+					orderable={this.props.orderable && this.state.searchFilter === "" ? true : false}
+				/>
 			</div>
 		);
 	}
@@ -90,12 +101,13 @@ interface GenericTableProps {
 	columns: Column<any>[];
 	data: any[];
 	onRowClick: (row: Row<any>) => void;
+	orderable?: boolean;
 }
-function GenericTable({ columns, data, onRowClick }: GenericTableProps) {
+function GenericTable({ columns, data, orderable, onRowClick }: GenericTableProps) {
+	const tableBody = React.createRef<HTMLDivElement>();
 	const defaultColumn = React.useMemo(
 		() => ({
-			minWidth: 30,
-			width: 150,
+			minWidth: 25,
 			maxWidth: 400,
 		}),
 		[]
@@ -109,7 +121,25 @@ function GenericTable({ columns, data, onRowClick }: GenericTableProps) {
 		},
 		useResizeColumns,
 		useFlexLayout,
-		useSortBy
+		useSortBy,
+		(hooks) => {
+			if (orderable) {
+				hooks.visibleColumns.push((columns: any) => [
+					// Let's make a column for selection
+					{
+						width: 25,
+						id: "order-icon",
+						Header: () => <div></div>,
+						Cell: () => (
+							<div className="td drag-handle-wrapper" style={{ width: 30 }}>
+								<DragHandle />
+							</div>
+						),
+					},
+					...columns,
+				]);
+			}
+		}
 	);
 
 	return (
@@ -127,38 +157,70 @@ function GenericTable({ columns, data, onRowClick }: GenericTableProps) {
 								{column.render("Header")}
 								<span
 									className={
-										column.isSorted ? (column.isSortedDesc ? " sorting-icon down" : " sorting-icon up") : "sorting-icon"
+										column.isSorted
+											? column.isSortedDesc
+												? " sorting-icon down"
+												: " sorting-icon up"
+											: "sorting-icon"
 									}></span>
 
-								<div {...column.getResizerProps()} className={`resizer ${column.isResizing ? "isResizing" : ""}`} />
+								<div
+									{...column.getResizerProps()}
+									className={`resizer ${column.isResizing ? "isResizing" : ""}`}
+								/>
 							</div>
 						))}
 					</div>
 				))}
 			</div>
-			<div className="tbody">
-				{!(rows.length === 1 && rows[0].original === "not-found") &&
-					rows.map((row, i) => {
-						prepareRow(row);
-						return (
-							<div onClick={() => onRowClick(row)} key={i} {...row.getRowProps()} className="tr">
-								{row.cells.map((cell, ii) => {
-									return (
-										<div key={{ ii }} {...cell.getCellProps()} className="td">
-											{cell.render("Cell")}
-										</div>
-									);
-								})}
-							</div>
-						);
-					})}
+			<div ref={tableBody} className="tbody">
+				<SortingContainer
+					helperContainer={tableBody.current ? tableBody.current : undefined}
+					useDragHandle={true}
+					lockAxis="y">
+					{!(rows.length === 1 && rows[0].original === "not-found") &&
+						rows.map((row, i) => {
+							prepareRow(row);
 
-				{rows.length === 1 && rows[0].original === "not-found" && (
-					<div className="tr full-size">
-						<div className="td">Es konnte kein Eintrag gefunden werden</div>
-					</div>
-				)}
+							return (
+								<SortableItem key={i} index={row.original.order || i}>
+									<div
+										onClick={(e: any) => {
+											if (
+												!e.target.classList.contains("drag-handle-wrapper") &&
+												!e.target.classList.contains("drag-handle")
+											)
+												onRowClick(row);
+										}}
+										{...row.getRowProps()}
+										className="tr">
+										{row.cells.map((cell, ii) => {
+											return (
+												<div key={{ ii }} {...cell.getCellProps()} className="td">
+													{cell.render("Cell")}
+												</div>
+											);
+										})}
+									</div>
+								</SortableItem>
+							);
+						})}
+
+					{rows.length === 1 && rows[0].original === "not-found" && (
+						<div className="tr full-size">
+							<div className="td">Es konnte kein Eintrag gefunden werden</div>
+						</div>
+					)}
+				</SortingContainer>
 			</div>
 		</div>
 	);
 }
+
+const DragHandle = SortableHandle(() => <span className="drag-handle"></span>);
+
+const SortableItem = SortableElement(({ children }) => <>{children}</>);
+
+const SortingContainer = SortableContainer(({ children }) => {
+	return <>{children}</>;
+});
