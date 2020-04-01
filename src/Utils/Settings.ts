@@ -1,23 +1,21 @@
-import TWENTY_THEME from "../Styles/TWENTY_THEME";
-
 /**
  * Default Settings
  */
-const SETTINGS = {
+const SETTINGS: { style: styles } = {
 	style: "none",
 };
 
-export const setStyle = (style: styles, theme: "light" | "dark") => {
-	SETTINGS.style = style;
-	if (style === "twenty") {
-		const t = TWENTY_THEME[theme];
-		Object.keys(t).forEach((key) => {
-			document.documentElement.style.setProperty(`--${key}`, t[key]);
-		});
-		Object.keys(TWENTY_THEME.all).forEach((key) => {
-			document.documentElement.style.setProperty(`--${key}`, TWENTY_THEME.all[key]);
-		});
-	}
+export const setStyle = (THEME: StyleLoaderStyle | undefined, theme: "light" | "dark") => {
+	console.log(THEME);
+
+	if (!THEME) return;
+	const t = THEME[theme];
+	Object.keys(t).forEach((key) => {
+		document.documentElement.style.setProperty(`--${key}`, t[key]);
+	});
+	Object.keys(THEME.all).forEach((key) => {
+		document.documentElement.style.setProperty(`--${key}`, THEME.all[key]);
+	});
 };
 
 export default SETTINGS;

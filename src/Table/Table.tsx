@@ -11,6 +11,16 @@ export default class Table extends Component<TableProps> {
 	state = {
 		searchFilter: "",
 	};
+	private getTemporaryRowClasses = () => {
+		let classList = "onedash-table-sorting-element";
+
+		if (this.props.style) {
+			classList += " style-" + this.props.style;
+		} else {
+			classList += " style-" + SETTINGS.style;
+		}
+		return classList;
+	};
 
 	private getClasses = () => {
 		let classList = "onedash-table";
@@ -36,7 +46,11 @@ export default class Table extends Component<TableProps> {
 		let data = this.props.tableValues.filter((x) => {
 			let found = sF?.length > 0 ? false : true;
 			Object.keys(x).map((columnName) => {
-				if (String(x[columnName]).indexOf(sF) !== -1) {
+				if (
+					String(x[columnName])
+						.toLowerCase()
+						.indexOf(sF?.toLowerCase()) !== -1
+				) {
 					found = true;
 				}
 			});
@@ -87,10 +101,17 @@ export default class Table extends Component<TableProps> {
 					</div>
 				</div>
 				<GenericTable
+					editable={this.props.editable}
+					tempClasses={this.getTemporaryRowClasses()}
 					data={this.filterData()}
 					onRowClick={this.onRowClick}
 					columns={columns}
-					orderable={this.props.orderable && this.state.searchFilter === "" ? true : false}
+					orderable={
+						this.props.orderable &&
+						(this.state.searchFilter === "" || this.state.searchFilter === undefined)
+							? true
+							: false
+					}
 				/>
 			</div>
 		);
@@ -102,9 +123,10 @@ interface GenericTableProps {
 	data: any[];
 	onRowClick: (row: Row<any>) => void;
 	orderable?: boolean;
+	editable?: boolean;
+	tempClasses: string;
 }
-function GenericTable({ columns, data, orderable, onRowClick }: GenericTableProps) {
-	const tableBody = React.createRef<HTMLDivElement>();
+function GenericTable({ columns, data, orderable, editable, onRowClick, tempClasses }: GenericTableProps) {
 	const defaultColumn = React.useMemo(
 		() => ({
 			minWidth: 25,
@@ -112,8 +134,48 @@ function GenericTable({ columns, data, orderable, onRowClick }: GenericTableProp
 		}),
 		[]
 	);
+	const orderHook = (hooks: any) => {
+		if (orderable === true) {
+			hooks.visibleColumns.push((columns: any) => [
+				// Let's make a column for selection
+				{
+					maxWidth: 25,
+					width: 25,
+					id: "order-icon",
+					Header: () => <div></div>,
+					Cell: () => (
+						<div className="td drag-handle-wrapper" style={{ width: "100%", height: "100%" }}>
+							<DragHandle />
+						</div>
+					),
+				},
+				...columns,
+			]);
+		}
+	};
+	const deleteHook = (hooks: any) => {
+		if (editable === true) {
+			hooks.visibleColumns.push((columns: any) => [
+				...columns,
+				{
+					maxWidth: 25,
+					width: 25,
+					id: "delete-icon",
+					Header: () => <div></div>,
+					Cell: () => (
+						<div className="trash-icon-wrapper" style={{ width: "100%", height: "100%" }}>
+							<span className="trash-icon">
+								<span />
+								<i />
+							</span>
+						</div>
+					),
+				},
+			]);
+		}
+	};
 
-	const { getTableProps, headerGroups, rows, prepareRow } = useTable(
+	const tableProps = useTable(
 		{
 			columns,
 			data,
@@ -121,79 +183,51 @@ function GenericTable({ columns, data, orderable, onRowClick }: GenericTableProp
 		},
 		useResizeColumns,
 		useFlexLayout,
-		useSortBy,
-		(hooks) => {
-			if (orderable) {
-				hooks.visibleColumns.push((columns: any) => [
-					// Let's make a column for selection
-					{
-						width: 25,
-						id: "order-icon",
-						Header: () => <div></div>,
-						Cell: () => (
-							<div className="td drag-handle-wrapper" style={{ width: 30 }}>
-								<DragHandle />
-							</div>
-						),
-					},
-					...columns,
-				]);
-			}
-		}
+		orderHook,
+		deleteHook,
+		useSortBy
 	);
 
-	return (
-		<div {...getTableProps()} className="table">
-			<div>
-				{headerGroups.map((headerGroup, i) => (
-					<div
-						key={i}
-						{...headerGroup.getHeaderGroupProps({
-							// style: { paddingRight: '15px' },
-						})}
-						className="tr">
-						{headerGroup.headers.map((column: any, ii) => (
-							<div key={ii} {...column.getHeaderProps(column.getSortByToggleProps())} className="th">
-								{column.render("Header")}
-								<span
-									className={
-										column.isSorted
-											? column.isSortedDesc
-												? " sorting-icon down"
-												: " sorting-icon up"
-											: "sorting-icon"
-									}></span>
+	const onClick = (e: any) => {
+		console.log(e.target.classList.contains("td"));
+		console.log(onRowClick);
+	};
 
-								<div
-									{...column.getResizerProps()}
-									className={`resizer ${column.isResizing ? "isResizing" : ""}`}
-								/>
-							</div>
-						))}
-					</div>
-				))}
-			</div>
-			<div ref={tableBody} className="tbody">
-				<SortingContainer
-					helperContainer={tableBody.current ? tableBody.current : undefined}
-					useDragHandle={true}
-					lockAxis="y">
-					{!(rows.length === 1 && rows[0].original === "not-found") &&
-						rows.map((row, i) => {
-							prepareRow(row);
+	if (orderable === false) {
+		return (
+			<div {...tableProps.getTableProps()} className="table">
+				<div>
+					{tableProps.headerGroups.map((headerGroup, i) => (
+						<div key={i} {...headerGroup.getHeaderGroupProps()} className="tr">
+							{headerGroup.headers.map((column: any, ii) => (
+								<div key={ii} {...column.getHeaderProps(column.getSortByToggleProps())} className="th">
+									{column.render("Header")}
+									<span
+										className={
+											column.isSorted
+												? column.isSortedDesc
+													? " sorting-icon down"
+													: " sorting-icon up"
+												: "sorting-icon"
+										}></span>
 
-							return (
-								<SortableItem key={i} index={row.original.order || i}>
 									<div
-										onClick={(e: any) => {
-											if (
-												!e.target.classList.contains("drag-handle-wrapper") &&
-												!e.target.classList.contains("drag-handle")
-											)
-												onRowClick(row);
-										}}
-										{...row.getRowProps()}
-										className="tr">
+										{...column.getResizerProps()}
+										className={`resizer ${column.isResizing ? "isResizing" : ""}`}
+									/>
+								</div>
+							))}
+						</div>
+					))}
+				</div>
+				<div className="tbody">
+					<div>
+						{!(tableProps.rows.length === 1 && tableProps.rows[0].original === "not-found") &&
+							tableProps.rows.map((row, i) => {
+								tableProps.prepareRow(row);
+
+								return (
+									<div key={i} onClick={onClick} {...row.getRowProps()} className="tr">
 										{row.cells.map((cell, ii) => {
 											return (
 												<div key={{ ii }} {...cell.getCellProps()} className="td">
@@ -202,19 +236,67 @@ function GenericTable({ columns, data, orderable, onRowClick }: GenericTableProp
 											);
 										})}
 									</div>
-								</SortableItem>
-							);
-						})}
+								);
+							})}
 
-					{rows.length === 1 && rows[0].original === "not-found" && (
-						<div className="tr full-size">
-							<div className="td">Es konnte kein Eintrag gefunden werden</div>
-						</div>
-					)}
-				</SortingContainer>
+						{tableProps.rows.length === 1 && tableProps.rows[0].original === "not-found" && (
+							<div className="tr full-size">
+								<div className="td">Es konnte kein Eintrag gefunden werden</div>
+							</div>
+						)}
+					</div>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	} else {
+		return (
+			<div {...tableProps.getTableProps()} className="table">
+				<div>
+					{tableProps.headerGroups.map((headerGroup, i) => (
+						<div key={i} {...headerGroup.getHeaderGroupProps()} className="tr">
+							{headerGroup.headers.map((column: any, ii) => (
+								<div key={ii} {...column.getHeaderProps()} className="th">
+									{column.render("Header")}
+									<div
+										{...column.getResizerProps()}
+										className={`resizer ${column.isResizing ? "isResizing" : ""}`}
+									/>
+								</div>
+							))}
+						</div>
+					))}
+				</div>
+				<div className="tbody">
+					<SortingContainer helperClass={tempClasses} useDragHandle={true} lockAxis="y">
+						{!(tableProps.rows.length === 1 && tableProps.rows[0].original === "not-found") &&
+							tableProps.rows.map((row, i) => {
+								tableProps.prepareRow(row);
+
+								return (
+									<SortableItem key={i} index={row.original.order || i}>
+										<div onClick={onClick} {...row.getRowProps()} className="tr">
+											{row.cells.map((cell, ii) => {
+												return (
+													<div key={{ ii }} {...cell.getCellProps()} className="td">
+														{cell.render("Cell")}
+													</div>
+												);
+											})}
+										</div>
+									</SortableItem>
+								);
+							})}
+
+						{tableProps.rows.length === 1 && tableProps.rows[0].original === "not-found" && (
+							<div className="tr full-size">
+								<div className="td">Es konnte kein Eintrag gefunden werden</div>
+							</div>
+						)}
+					</SortingContainer>
+				</div>
+			</div>
+		);
+	}
 }
 
 const DragHandle = SortableHandle(() => <span className="drag-handle"></span>);
@@ -222,5 +304,5 @@ const DragHandle = SortableHandle(() => <span className="drag-handle"></span>);
 const SortableItem = SortableElement(({ children }) => <>{children}</>);
 
 const SortingContainer = SortableContainer(({ children }) => {
-	return <>{children}</>;
+	return <div className="sorting-container">{children}</div>;
 });

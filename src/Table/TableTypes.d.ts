@@ -6,11 +6,11 @@ interface TableProps {
 	editable?: boolean;
 	searchable?: boolean;
 
-	// Not implemented yet!
 	orderable?: boolean;
 	onSave?: (entry: any, tableValues: any[]) => void;
 	onDelete?: (rowId: any, rowValues: any) => void;
 	onAddClick?: { event: () => void; openDialog?: boolean };
+	onOrderChange?: (lastOrderIndex: number, newOrderIndex: number) => void;
 
 	// Will be triggered when a user clicks on the row
 	onRowClick?: { event: (row: any) => void; openDialog?: boolean };

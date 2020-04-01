@@ -1,4 +1,4 @@
-const TWENTY_THEME = {
+const TWENTY_THEME: StyleLoaderStyle = {
 	dark: {
 		/**
 		 * Default Colors
@@ -8,6 +8,7 @@ const TWENTY_THEME = {
 		"tools-text": "white",
 		"tools-white": "black",
 		"tools-black": "white",
+		"tools-black-rgb": "255,255,255",
 
 		"tools-primary": "#ee4540",
 		"tools-dark-primary": "#ee4540",
@@ -38,6 +39,8 @@ const TWENTY_THEME = {
 
 		// Background of the dialog
 		"tools-dialog-bg": "#2d132c",
+
+		"tools-spinner-color": "white",
 	},
 	light: {
 		/**
@@ -48,6 +51,7 @@ const TWENTY_THEME = {
 		"tools-text": "#393939",
 		"tools-white": "white",
 		"tools-black": "black",
+		"tools-black-rgb": "0,0,0",
 
 		"tools-primary": "#007aff",
 		"tools-dark-primary": "#13447a",
@@ -78,6 +82,8 @@ const TWENTY_THEME = {
 
 		// Background of the dialog
 		"tools-dialog-bg": "white",
+
+		"tools-spinner-color": "white",
 	},
 
 	all: {
@@ -92,6 +98,7 @@ const TWENTY_THEME = {
 		"tools-font-family": "Raleway",
 		"tools-font-size": "0.9rem",
 		"tools-card-shadow": "1px 1px 6px rgba(0, 0, 0, 0.16)",
+		"tools-arrow-box-shadow": "0 0px 5px rgba(0, 0, 0, 0.3)",
 		"tools-scrollbar-width": "11px",
 	},
 };

@@ -46,6 +46,7 @@ interface ButtonProps {
 	className?: string;
 	onClick?: () => void;
 	disabled?: boolean;
+	cssStyles?: React.CSSProperties;
 }
 
 interface DialogProps {

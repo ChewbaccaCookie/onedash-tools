@@ -1,26 +1,33 @@
 import * as React from "react";
 import { Component } from "react";
-import "./OneDashPopover.scss";
+import "./styles/twenty.scss";
+import SETTINGS from "../Utils/Settings";
 
-export interface PopoverProps {
+export interface ArrowBoxProps {
 	className?: string;
 	isOpen?: boolean;
 	defaultOpen?: boolean;
 	title?: string;
+	style?: styles;
 }
 
-class OneDashPopover extends Component<PopoverProps> {
+class ArrowBox extends Component<ArrowBoxProps> {
 	state = {
 		isOpen: false,
 	};
 
 	buildClassName = () => {
-		let className = "onedash-popover";
+		let className = "onedash-arrow-box";
 		if (this.props.className) {
 			className += " " + this.props.className;
 		}
 		if (this.state.isOpen) {
 			className += " open";
+		}
+		if (this.props.style) {
+			className += " style-" + this.props.style;
+		} else {
+			className += " style-" + SETTINGS.style;
 		}
 		return className;
 	};
@@ -42,7 +49,7 @@ class OneDashPopover extends Component<PopoverProps> {
 		if (this.props.isOpen) this.open();
 		if (this.props.defaultOpen) this.open();
 	}
-	componentDidUpdate(lastProps: PopoverProps) {
+	componentDidUpdate(lastProps: ArrowBoxProps) {
 		if (this.props.isOpen !== lastProps.isOpen) {
 			if (this.props.isOpen) {
 				this.open();
@@ -57,11 +64,13 @@ class OneDashPopover extends Component<PopoverProps> {
 			<div className={this.buildClassName()}>
 				{this.state.isOpen && (
 					<>
-						<div className="onedash-popover__bg" onClick={this.close}></div>
-						<div className="onedash-popover__wrapper">
-							<div className="onedash-popover__content">
-								{this.props.title && <div className="onedash-popover__content-title">{this.props.title}</div>}
-								<div className="onedash-popover__content-children">{this.props.children}</div>
+						<div className="onedash-arrow-box__bg" onClick={this.close}></div>
+						<div className="onedash-arrow-box__wrapper">
+							<div className="onedash-arrow-box__content">
+								{this.props.title && (
+									<div className="onedash-arrow-box__content-title">{this.props.title}</div>
+								)}
+								<div className="onedash-arrow-box__content-children">{this.props.children}</div>
 							</div>
 						</div>
 					</>
@@ -71,4 +80,4 @@ class OneDashPopover extends Component<PopoverProps> {
 	}
 }
 
-export default OneDashPopover;
+export default ArrowBox;

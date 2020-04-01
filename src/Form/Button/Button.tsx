@@ -29,6 +29,7 @@ export default class Button extends React.Component<ButtonProps, any> {
 	render() {
 		return (
 			<button
+				style={this.props.cssStyles}
 				ref={this.button}
 				disabled={this.props.disabled}
 				onClick={this.onClick}

@@ -1,20 +1,14 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
-import { storiesOf } from "@storybook/react";
-import OneDashCard from "../src/OneDashCard/OneDashCard";
-import OneDashTimeCalendar from "../src/OneDashTimeCalendar/OneDashTimeCalendar";
+import { withKnobs, select, boolean } from "@storybook/addon-knobs";
+import Card from "../Card/Card";
+import TimeCalendar from "./TimeCalendar";
 import dayjs from "dayjs";
-
-interface WorkingSchema {
-	numberOfDays: number;
-	workingDays: {
-		days: number[];
-		startingHour: number;
-		startingMinute: number;
-		endHour: number;
-		endMinute: number;
-	}[];
-}
-
+import StyleLoader from "../Utils/StyleLoader";
+export default {
+	title: "Misc",
+	decorators: [withKnobs],
+};
 const workingSchema: WorkingSchema = {
 	numberOfDays: 7,
 	workingDays: [
@@ -41,15 +35,6 @@ const workingSchema: WorkingSchema = {
 		},
 	],
 };
-
-interface Appointment {
-	timestamp_from: string | number;
-	timestamp_to: string | number;
-	type?: "out-of-office" | "appointment" | "full-day";
-	repeatWeekly?: "1" | "0";
-	fullDayDate?: string;
-	fullDay?: "1" | "0";
-}
 const date = dayjs().startOf("week");
 const appointments: Appointment[] = [
 	{
@@ -108,30 +93,18 @@ const appointments: Appointment[] = [
 	},
 ];
 
-storiesOf("Time Calendar", module)
-	.add("default", () => (
-		<OneDashCard maxWidth={800}>
-			<OneDashTimeCalendar appointments={[]} slotMinutes={30} startDate={new Date().getTime()} workingSchema={workingSchema} />
-		</OneDashCard>
-	))
-	.add("preselected appointments", () => (
-		<OneDashCard maxWidth={800}>
-			<OneDashTimeCalendar
-				appointments={appointments}
-				slotMinutes={30}
-				startDate={new Date().getTime()}
-				workingSchema={workingSchema}
-			/>
-		</OneDashCard>
-	))
-	.add("monthly view", () => (
-		<OneDashCard maxWidth={1200}>
-			<OneDashTimeCalendar
-				appointments={appointments}
-				slotMinutes={30}
-				startDate={new Date().getTime()}
-				workingSchema={workingSchema}
-				defaultType="month"
-			/>
-		</OneDashCard>
-	));
+export const timeCalendar = () => {
+	return (
+		<StyleLoader>
+			<Card>
+				<TimeCalendar
+					appointments={appointments}
+					slotMinutes={30}
+					startDate={new Date().getTime()}
+					workingSchema={workingSchema}
+					defaultType="month"
+				/>
+			</Card>
+		</StyleLoader>
+	);
+};
