@@ -5,6 +5,8 @@ import MediaRender from "../../MediaRender/MediaRender";
 import ReactSelect from "react-select";
 import AsyncSelect from "react-select/async";
 import "./styles/twenty.scss";
+import { GenericInputProps } from "../InputTypes";
+import { ValueLabelPair } from "../../ToolTypes";
 
 interface SelectSettings {
 	requiredNotVisible?: boolean;

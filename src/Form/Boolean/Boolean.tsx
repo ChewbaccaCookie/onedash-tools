@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import GenericInput from "../Generic/GenericInput";
 import "./styles/twenty.scss";
+import { GenericInputProps } from "../InputTypes";
 interface BooleanSettings {
 	requiredNotVisible?: boolean;
 }

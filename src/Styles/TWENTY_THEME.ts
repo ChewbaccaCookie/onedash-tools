@@ -1,3 +1,5 @@
+import { StyleLoaderStyle } from "../ToolTypes";
+
 const TWENTY_THEME: StyleLoaderStyle = {
 	dark: {
 		/**

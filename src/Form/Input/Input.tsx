@@ -1,6 +1,7 @@
 import React from "react";
 import GenericInput from "../Generic/GenericInput";
 import "./styles/twenty.scss";
+import { GenericInputProps } from "../InputTypes";
 
 interface InputSettings {
 	requiredNotVisible: boolean;
@@ -18,7 +19,7 @@ interface InputProps extends GenericInputProps {
 }
 
 class Input extends GenericInput<InputProps, any> {
-	constructor(props) {
+	constructor(props: GenericInputProps) {
 		super(props);
 		this.reference = React.createRef<HTMLInputElement>();
 	}

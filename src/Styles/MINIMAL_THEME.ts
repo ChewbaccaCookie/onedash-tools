@@ -1,3 +1,5 @@
+import { StyleLoaderStyle } from "../ToolTypes";
+
 const MINIMAL_THEME: StyleLoaderStyle = {
 	light: {},
 	dark: {},

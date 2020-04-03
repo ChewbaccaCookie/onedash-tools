@@ -4,6 +4,7 @@ import "./style/twenty.scss";
 import Utils from "../Utils/Utils";
 import SETTINGS from "../Utils/Settings";
 import Button from "../Form/Button/Button";
+import { styles } from "../ToolTypes";
 
 export interface PopoverProps {
 	title: string;

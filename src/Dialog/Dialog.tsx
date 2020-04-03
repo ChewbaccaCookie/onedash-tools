@@ -3,6 +3,7 @@ import "./styles/twenty.scss";
 import SETTINGS from "../Utils/Settings";
 import Utils from "../Utils/Utils";
 import DButton from "./DialogButton";
+import { DialogProps, DialogButton } from "./DialogTypes";
 
 const defaultValues = {
 	maxWidth: 600,

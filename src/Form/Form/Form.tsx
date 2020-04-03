@@ -4,6 +4,7 @@ import Select from "../Select/Select";
 import Button from "../Button/Button";
 import TagInput from "../TagInput/TagInput";
 import Boolean from "../Boolean/Boolean";
+import { styles } from "../../ToolTypes";
 
 export interface FormProps {
 	onSubmit?: (values: any, control: Form) => void;

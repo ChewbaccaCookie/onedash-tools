@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles/twenty.scss";
 import SETTINGS from "../../Utils/Settings";
+import { ButtonProps } from "../InputTypes";
 
 export default class Button extends React.Component<ButtonProps, any> {
 	button = React.createRef<HTMLButtonElement>();

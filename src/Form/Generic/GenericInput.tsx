@@ -3,6 +3,7 @@ import Utils from "../../Utils/Utils";
 import SETTINGS from "../../Utils/Settings";
 
 import "./styles/twenty.scss";
+import { GenericInputProps, GenericInputState } from "../InputTypes";
 
 abstract class GenericInput<T extends GenericInputProps, S extends GenericInputState> extends React.Component<
 	T,

@@ -1,3 +1,5 @@
+import { StyleLoaderStyle, styles } from "../ToolTypes";
+
 /**
  * Default Settings
  */

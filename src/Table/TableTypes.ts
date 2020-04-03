@@ -1,6 +1,8 @@
-type formattingFunction = (value: any, shortForm?: boolean) => any;
+import { ValueLabelPair, styles } from "../ToolTypes";
 
-interface TableProps {
+export type formattingFunction = (value: any, shortForm?: boolean) => any;
+
+export interface TableProps {
 	tableHeaders: TableHeader[];
 	tableValues: { id: number | string; [key: string]: any }[];
 	editable?: boolean;
@@ -21,7 +23,7 @@ interface TableProps {
 	dialogMaxWidth?: number;
 }
 
-interface TableHeader {
+export interface TableHeader {
 	title: string;
 	columnName: string;
 	type: "number" | "text" | "password" | "select" | "tag-input" | "boolean" | "email";

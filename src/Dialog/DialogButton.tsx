@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "../Form/Button/Button";
+import { DialogButton } from "./DialogTypes";
 
 interface DButtonProps {
 	button: DialogButton;

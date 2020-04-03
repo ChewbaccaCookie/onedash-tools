@@ -2,6 +2,8 @@ import React from "react";
 import GenericInput from "../Generic/GenericInput";
 import ReactTags, { Tag } from "react-tag-autocomplete";
 import "./styles/twenty.scss";
+import { GenericInputProps } from "../InputTypes";
+import { ValueLabelPair } from "../../ToolTypes";
 
 interface TagInputSettings {
 	requiredNotVisible?: boolean;

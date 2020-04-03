@@ -2,6 +2,7 @@ import React from "react";
 import SETTINGS, { setStyle } from "./Settings";
 import TWENTY_THEME from "../Styles/TWENTY_THEME";
 import MINIMAL_THEME from "../Styles/MINIMAL_THEME";
+import { StyleLoaderStyle, styles } from "../ToolTypes";
 
 interface StyleLoaderProps {
 	toolStyle?: styles;

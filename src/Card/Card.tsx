@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./styles/twenty.scss";
 import SETTINGS from "../Utils/Settings";
+import { styles } from "../ToolTypes";
 
 export interface CardProps {
 	cssStyles?: React.CSSProperties;

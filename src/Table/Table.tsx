@@ -14,6 +14,9 @@ import TagInput from "../Form/TagInput/TagInput";
 import Boolean from "../Form/Boolean/Boolean";
 import Utils from "../Utils/Utils";
 import Form from "../Form/Form/Form";
+import { DialogButton } from "../Dialog/DialogTypes";
+import { TableProps, formattingFunction } from "./TableTypes";
+import { ValueLabelPair } from "../ToolTypes";
 
 export default class Table extends Component<TableProps> {
 	deleteRowData: any;
@@ -61,11 +64,7 @@ export default class Table extends Component<TableProps> {
 			this.props.tableValues.filter((x) => {
 				let found = sF?.length > 0 ? false : true;
 				Object.keys(x).map((columnName) => {
-					if (
-						String(x[columnName])
-							.toLowerCase()
-							.indexOf(sF?.toLowerCase()) !== -1
-					) {
+					if (String(x[columnName]).toLowerCase().indexOf(sF?.toLowerCase()) !== -1) {
 						found = true;
 					}
 				});

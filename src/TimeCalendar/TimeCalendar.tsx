@@ -7,6 +7,7 @@ import "./styles/twenty.scss";
 import "dayjs/locale/de"; // load on demand
 import Utils from "../Utils/Utils";
 import SETTINGS from "../Utils/Settings";
+import { styles } from "../ToolTypes";
 dayjs.locale("de");
 
 export interface OneDashTimeCalendarProps {
@@ -45,11 +46,7 @@ class TimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	};
 	getEndDate = (startDate: Dayjs) => {
 		const days = this.getNumberOfDays(startDate);
-		return startDate
-			.clone()
-			.add(days, "d")
-			.toDate()
-			.getTime();
+		return startDate.clone().add(days, "d").toDate().getTime();
 	};
 	getStartDate = () => {
 		const date = dayjs(this.state.startDate);
@@ -117,12 +114,7 @@ class TimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	startDateHasChanged = () => {
 		this.generateWorkingHours();
 		if (this.props.onStartDateChanged)
-			this.props.onStartDateChanged(
-				this.getStartDate()
-					.toDate()
-					.getTime(),
-				this.getEndDate(this.getStartDate())
-			);
+			this.props.onStartDateChanged(this.getStartDate().toDate().getTime(), this.getEndDate(this.getStartDate()));
 	};
 	typeChange = (type: TimeCalendarTypes) => {
 		this.setState({ type }, this.startDateHasChanged);
@@ -165,9 +157,7 @@ class TimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	};
 
 	render() {
-		const startDate = this.getStartDate()
-			.toDate()
-			.getTime();
+		const startDate = this.getStartDate().toDate().getTime();
 
 		const endDate = this.getEndDate(this.getStartDate());
 		return (

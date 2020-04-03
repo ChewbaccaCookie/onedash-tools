@@ -1,5 +1,7 @@
 import React from "react";
 import Dialog from "./Dialog";
+import { ButtonMode } from "../Form/InputTypes";
+import { DialogButton } from "./DialogTypes";
 interface PromptDialogButtonOptions {
 	event?: () => void;
 	closeOnClick?: boolean;

@@ -8,7 +8,10 @@
     ".npmrc": true,
     "onedash-tools.code-workspace": true,
     "README.md": true,
-    "renovate.json": true
+    "renovate.json": true,
+    "dist": true,
+    "node_modules": true,
+    "public": true
   },
   "jest.autoEnable": false
 }
