@@ -1,0 +1,183 @@
+{
+	"tableHeaders": [
+		{
+			"id": 90068,
+			"columnName": "type",
+			"maxLength": null,
+			"required": 1,
+			"title": "HTTP Type",
+			"type": "select",
+			"visible": 1,
+			"inputData": "[{ \"label\": \"GET\", \"value\": \"GET\" }, { \"label\": \"POST\", \"value\": \"POST\" }]"
+		},
+		{
+			"id": 90067,
+			"columnName": "functionName",
+			"maxLength": null,
+			"required": 1,
+			"title": "Function Name",
+			"type": "text",
+			"visible": 1,
+			"inputData": null
+		},
+		{
+			"id": 90066,
+			"columnName": "path",
+			"maxLength": null,
+			"required": 1,
+			"title": "Path",
+			"type": "text",
+			"visible": 1,
+			"inputData": null
+		},
+		{
+			"id": 90069,
+			"columnName": "secure",
+			"maxLength": null,
+			"required": 0,
+			"title": "Secure",
+			"type": "boolean",
+			"visible": 1,
+			"inputData": null
+		},
+		{
+			"id": 90070,
+			"columnName": "roleId",
+			"maxLength": null,
+			"required": 0,
+			"title": "RoleId",
+			"type": "number",
+			"visible": 0,
+			"inputData": null
+		},
+		{
+			"id": 90071,
+			"columnName": "dbType",
+			"maxLength": null,
+			"required": 1,
+			"title": "DB Type",
+			"type": "select",
+			"visible": 0,
+			"inputData": "[ { \"label\": \"MySQL\", \"value\": \"MYSQL\" },{ \"label\": \"MongoDB\", \"value\": \"MONGODB\" }]"
+		}
+	],
+	"tableData": [
+		{
+			"id": 78,
+			"path": "/adminTools/applications",
+			"functionName": "getApplications",
+			"type": "GET",
+			"secure": 0,
+			"roleId": 0,
+			"dbType": "MYSQL"
+		},
+		{
+			"id": 8688,
+			"path": "/adminTools/deleteRole/:roleId",
+			"functionName": "deleteRole",
+			"type": "POST",
+			"secure": 1,
+			"roleId": 4,
+			"dbType": "MYSQL"
+		},
+		{
+			"id": 54746,
+			"path": "/adminTools/getRolesTable",
+			"functionName": "getRolesTable",
+			"type": "GET",
+			"secure": 1,
+			"roleId": 4,
+			"dbType": "MYSQL"
+		},
+		{
+			"id": 73525,
+			"path": "/adminTools/saveRole",
+			"functionName": "saveRole",
+			"type": "POST",
+			"secure": 1,
+			"roleId": 4,
+			"dbType": "MYSQL"
+		},
+		{
+			"id": 81,
+			"path": "/adminTools/table/:selectedAppId",
+			"functionName": "addGenericTable",
+			"type": "POST",
+			"secure": 1,
+			"roleId": 4,
+			"dbType": "MYSQL"
+		},
+		{
+			"id": 80,
+			"path": "/adminTools/table/:selectedAppId/:tableName",
+			"functionName": "getGenericTable",
+			"type": "GET",
+			"secure": 1,
+			"roleId": 4,
+			"dbType": "MYSQL"
+		},
+		{
+			"id": 79,
+			"path": "/adminTools/tables/:selectedAppId",
+			"functionName": "getGenericTablesByAppId",
+			"type": "GET",
+			"secure": 1,
+			"roleId": 4,
+			"dbType": "MYSQL"
+		},
+		{
+			"id": 18,
+			"path": "/arrangements/get",
+			"functionName": "getArrangements",
+			"type": "GET",
+			"secure": 0,
+			"roleId": null,
+			"dbType": "MONGODB"
+		},
+		{
+			"id": 31433,
+			"path": "/arrangements/set",
+			"functionName": "setArrangement",
+			"type": "POST",
+			"secure": 1,
+			"roleId": 13,
+			"dbType": "MONGODB"
+		},
+		{
+			"id": 65050,
+			"path": "/auth/getRoles",
+			"functionName": "getRoles",
+			"type": "GET",
+			"secure": 1,
+			"roleId": 0,
+			"dbType": "MYSQL"
+		},
+		{
+			"id": 23,
+			"path": "/cardDesigner/card/add",
+			"functionName": "addCard",
+			"type": "POST",
+			"secure": 1,
+			"roleId": 3,
+			"dbType": "MONGODB"
+		},
+		{
+			"id": 25,
+			"path": "/cardDesigner/card/delete",
+			"functionName": "deleteCard",
+			"type": "POST",
+			"secure": 1,
+			"roleId": 3,
+			"dbType": "MONGODB"
+		},
+		{
+			"id": 26,
+			"path": "/cardDesigner/card/get/:masterCardId",
+			"functionName": "getCardsByMasterCard",
+			"type": "GET",
+			"secure": 0,
+			"roleId": null,
+			"dbType": "MONGODB"
+		}
+	]
+}

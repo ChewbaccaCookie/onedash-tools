@@ -1,0 +1,135 @@
+.onedash-tag-input.style-twenty {
+	.react-tags {
+		width: calc(100% - 20px);
+		margin: 0;
+		padding: 2px 12.5px 3px 5px;
+		background-color: #fff;
+		border-radius: 4px;
+		font-size: 0.9rem;
+		border: 2px solid var(--tools-gray);
+		transition: 0.15s all ease-in-out;
+		max-width: 245px;
+		position: relative;
+		margin-top: 5px;
+	}
+	&.disabled {
+		.react-tags,
+		.react-tags input {
+			pointer-events: none;
+			background: var(--tools-light-gray);
+		}
+	}
+	&.input-invalid {
+		.react-tags {
+			border-color: var(--tools-failure) !important;
+		}
+	}
+
+	.react-tags__search-input {
+		input {
+			min-width: 125px;
+		}
+
+		padding: 7.5px;
+	}
+
+	.onedash-tag-input {
+		margin-top: 5px;
+	}
+
+	.react-tags.is-focused {
+		border-color: var(--tools-primary);
+	}
+
+	.react-tags__selected {
+		display: inline;
+	}
+
+	.react-tags__selected-tag {
+		padding: 2px 10px 3px 10px;
+		margin: 2px;
+		display: inline-block;
+		box-sizing: border-box;
+		cursor: pointer;
+		border: 2px solid var(--tools-primary);
+		border-radius: 4px;
+		background: none;
+		/* match the font styles */
+		font-size: inherit;
+		line-height: inherit;
+	}
+
+	.react-tags__selected-tag:hover,
+	.react-tags__selected-tag:focus {
+		border-color: #b1b1b1;
+	}
+
+	.react-tags__search {
+		display: inline-block;
+
+		/* prevent autoresize overflowing the container */
+		max-width: 100%;
+	}
+
+	.react-tags__search input {
+		/* prevent autoresize overflowing the container */
+		max-width: 100%;
+
+		/* remove styles and layout from this element */
+		margin: 0;
+		padding: 0;
+		border: 0;
+		outline: none;
+
+		/* match the font styles */
+		font-size: inherit;
+		line-height: inherit;
+	}
+
+	.react-tags__search input::-ms-clear {
+		display: none;
+	}
+
+	.react-tags__suggestions {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		z-index: 5;
+	}
+
+	.react-tags__suggestions ul {
+		margin: 4px -2px;
+		padding: 0;
+		list-style: none;
+		background: white;
+		border: 2px solid var(--tools-primary);
+		border-radius: 4px;
+		box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.16);
+	}
+
+	.react-tags__suggestions li {
+		border-bottom: 1px solid #ddd;
+		padding: 6px 8px;
+	}
+
+	.react-tags__suggestions li mark {
+		text-decoration: underline;
+		background: none;
+		font-weight: 600;
+	}
+
+	.react-tags__suggestions li:hover {
+		cursor: pointer;
+		background: 2px #a8d1fc;
+	}
+
+	.react-tags__suggestions li.is-active {
+		background: 2px #a8d1fc;
+	}
+
+	.react-tags__suggestions li.is-disabled {
+		opacity: 0.5;
+		cursor: auto;
+	}
+}

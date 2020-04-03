@@ -1,0 +1,29 @@
+.onedash-card.style-twenty {
+	margin: 10px;
+	background: var(--tools-card-bg);
+	box-shadow: var(--tools-card-shadow);
+	padding: 30px;
+	max-width: 600px;
+	width: calc(100% - 80px);
+	color: var(--tools-text);
+
+	& * {
+		font-family: var(--tools-font-family);
+	}
+
+	&.onedash-table-card {
+		width: calc(100% - 80px);
+		max-width: 100%;
+	}
+	.card-content {
+		padding-left: 5px;
+	}
+
+	.card-headding {
+		color: var(--tools-dark-primary);
+		font-weight: lighter;
+		margin-bottom: 10px;
+		border-bottom: 1px solid var(--tools-gray);
+		padding: 0px 0px 2.5px 5px;
+	}
+}

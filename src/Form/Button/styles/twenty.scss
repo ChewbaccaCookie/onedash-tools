@@ -1,0 +1,113 @@
+.onedash-button.style-twenty {
+	margin: 15px 10px 10px 10px;
+	padding: 10px 12.5px;
+	border-radius: var(--tools-border-radius);
+	border: 2px solid;
+	font-size: var(--tools-font-size);
+	transition: 0.15s all ease-in-out;
+	cursor: pointer;
+	user-select: none;
+
+	&:focus {
+		border-color: var(--tools-black) !important;
+		outline: none;
+	}
+
+	&.disabled {
+		pointer-events: none;
+		background: var(--tools-light-gray) !important;
+		border-color: var(--tools-gray) !important;
+		color: var(--tools-text) !important;
+	}
+
+	&.btn-primary {
+		background: var(--tools-btn-primary);
+		border-color: var(--tools-btn-primary);
+		color: var(--tools-white);
+		&:hover,
+		&:focus {
+			background: none;
+			color: var(--tools-text);
+		}
+	}
+	&.btn-secondary {
+		background: var(--tools-btn-secondary);
+		border-color: var(--tools-btn-secondary);
+		color: var(--tools-white);
+		&:hover,
+		&:focus {
+			background: none;
+			color: var(--tools-text);
+		}
+	}
+	&.btn-success {
+		background: var(--tools-btn-success);
+		border-color: var(--tools-btn-success);
+		color: var(--tools-white);
+		&:hover,
+		&:focus {
+			background: none;
+			color: var(--tools-text);
+		}
+	}
+	&.btn-danger {
+		background: var(--tools-btn-danger);
+		border-color: var(--tools-btn-danger);
+		color: var(--tools-white);
+		&:hover,
+		&:focus {
+			background: none;
+			color: var(--tools-text);
+		}
+	}
+	&.btn-warning {
+		background: var(--tools-btn-warning);
+		border-color: var(--tools-btn-warning);
+		color: var(--tools-white);
+		&:hover,
+		&:focus {
+			background: none;
+			color: var(--tools-text);
+		}
+	}
+	&.btn-info {
+		background: var(--tools-btn-info);
+		border-color: var(--tools-btn-info);
+		color: var(--tools-white);
+		&:hover,
+		&:focus {
+			background: none;
+			color: var(--tools-text);
+		}
+	}
+	&.btn-light {
+		background: var(--tools-btn-light);
+		border-color: var(--tools-btn-light);
+		color: var(--tools-text);
+		&:hover,
+		&:focus {
+			background: none;
+			color: var(--tools-text);
+		}
+	}
+	&.btn-dark {
+		background: var(--tools-btn-dark);
+		border-color: var(--tools-btn-dark);
+		color: var(--tools-white);
+		&:hover,
+		&:focus {
+			background: none;
+			color: var(--tools-text);
+		}
+	}
+
+	&.btn-link {
+		background: none;
+		border: none;
+		color: var(--tools-btn-primary);
+		&:hover,
+		&:focus {
+			color: var(--tools-text);
+		}
+	}
+}

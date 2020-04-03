@@ -1,0 +1,150 @@
+.onedash-boolean.style-twenty {
+	margin-top: 21px;
+	--duration: 0.4s;
+
+	&.has-children {
+		display: inline-flex;
+		align-items: center;
+	}
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+		position: relative;
+	}
+
+	&.input-invalid {
+		.check-bg {
+			border: 2px solid var(--tools-failure);
+		}
+	}
+	&.read-only,
+	&.disabled {
+		pointer-events: none;
+	}
+	&.disabled {
+		.check-bg {
+			background: var(--tools-light-gray);
+			border-color: var(--tools-gray) !important;
+
+			&:after {
+				background: var(--tools-light-gray);
+			}
+		}
+		.checkmark svg {
+			background: var(--tools-gray) !important;
+		}
+	}
+
+	.onedash-children {
+		flex-shrink: 1;
+	}
+	.onedash-label {
+		display: block;
+	}
+	.checker {
+		display: block;
+		height: 31px;
+		width: 55px;
+		box-sizing: content-box;
+		padding: 5px;
+		border-radius: 4px;
+		transition: transform var(--duration) ease;
+		cursor: pointer;
+		flex-shrink: 0;
+		margin-right: 10px;
+		margin-top: 5px;
+	}
+
+	.checkmark {
+		width: 25px;
+		height: 25px;
+		transition: transform var(--duration) ease;
+		transform: translateX(-3px);
+
+		z-index: 5;
+
+		svg {
+			display: block;
+			background: #e5e5e5;
+			transform: translateX(7px);
+			border-radius: 2.4px;
+			margin-top: 3px;
+
+			transition: background-color var(--duration) ease, transform calc(var(--duration) * 1.5) ease;
+
+			path {
+				// opacity: 0;
+				stroke-dasharray: 90 90;
+				stroke-dashoffset: 90;
+				transition: stroke-dashoffset calc(var(--duration) / 3) linear calc(var(--duration) / 3);
+			}
+		}
+	}
+
+	.checkbox {
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0.4;
+		visibility: hidden;
+
+		&:checked {
+			~ .checkmark {
+				transform: translate(32px);
+
+				svg {
+					background: var(--tools-success);
+					transform: translate(-6.4px);
+					path {
+						stroke-dashoffset: 0;
+					}
+				}
+			}
+		}
+	}
+
+	.check-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: inherit;
+		background: var(--tools-input-background);
+		border: 2px solid var(--tools-gray);
+		z-index: 2;
+
+		&:before,
+		&:after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			border-radius: inherit;
+		}
+
+		&:after {
+			background: var(--tools-input-background);
+		}
+
+		&:focus {
+			outline: none;
+			border: 2px solid var(--tools-primary);
+		}
+	}
+
+	.checker.checker {
+		&:active {
+			transform: scale(0.85);
+			transition-duration: calc(var(--duration) / 2);
+
+			.check-bg::before {
+				transform: translateY(0) scale(0.8);
+				opacity: 0.2;
+			}
+		}
+	}
+}
