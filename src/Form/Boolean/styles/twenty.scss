@@ -1,29 +1,75 @@
 .onedash-boolean.style-twenty {
+	margin-top: 21px;
+	--duration: 0.4s;
+
+	&.has-children {
+		display: inline-flex;
+		align-items: center;
+	}
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+		position: relative;
+	}
+
+	&.input-invalid {
+		.check-bg {
+			border: 2px solid var(--tools-failure);
+		}
+	}
+	&.read-only,
+	&.disabled {
+		pointer-events: none;
+	}
+	&.disabled {
+		.check-bg {
+			background: var(--tools-light-gray);
+			border-color: var(--tools-gray) !important;
+
+			&:after {
+				background: var(--tools-light-gray);
+			}
+		}
+		.checkmark svg {
+			background: var(--tools-gray) !important;
+		}
+	}
+
+	.onedash-children {
+		flex-shrink: 1;
+	}
+	.onedash-label {
+		display: block;
+	}
 	.checker {
 		display: block;
-		font-size: 20vmin;
-		height: 1em;
-		width: 2.5em;
+		height: 31px;
+		width: 55px;
 		box-sizing: content-box;
-		padding: 0.15em;
-		border-radius: 0.25em;
+		padding: 5px;
+		border-radius: 4px;
 		transition: transform var(--duration) ease;
 		cursor: pointer;
+		flex-shrink: 0;
+		margin-right: 10px;
+		margin-top: 5px;
 	}
 
 	.checkmark {
-		width: 1em;
-		height: 1em;
+		width: 25px;
+		height: 25px;
 		transition: transform var(--duration) ease;
-		transform: translateX(-0.4em);
+		transform: translateX(-3px);
 
 		z-index: 5;
 
 		svg {
 			display: block;
 			background: #e5e5e5;
-			transform: translateX(0.4em);
-			border-radius: 0.15em;
+			transform: translateX(7px);
+			border-radius: 2.4px;
+			margin-top: 3px;
 
 			transition: background-color var(--duration) ease, transform calc(var(--duration) * 1.5) ease;
 
@@ -45,11 +91,11 @@
 
 		&:checked {
 			~ .checkmark {
-				transform: translate(1.9em);
+				transform: translate(32px);
 
 				svg {
-					background: #77c44c;
-					transform: translate(-0.4em);
+					background: var(--tools-success);
+					transform: translate(-6.4px);
 					path {
 						stroke-dashoffset: 0;
 					}
@@ -65,7 +111,8 @@
 		width: 100%;
 		height: 100%;
 		border-radius: inherit;
-		background: white;
+		background: var(--tools-input-background);
+		border: 2px solid var(--tools-gray);
 		z-index: 2;
 
 		&:before,
@@ -80,17 +127,12 @@
 		}
 
 		&:after {
-			background: white;
+			background: var(--tools-input-background);
 		}
 
-		&:before {
-			transition: transform var(--duration) ease;
-			transform: translateY(30%);
-			transform-origin: bottom center;
-			background: black;
-			filter: blur(0.25em);
-			opacity: 0.2;
-			z-index: -1;
+		&:focus {
+			outline: none;
+			border: 2px solid var(--tools-primary);
 		}
 	}
 

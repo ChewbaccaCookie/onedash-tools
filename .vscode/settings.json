@@ -1,19 +1,14 @@
 {
   "files.exclude": {
     ".vscode": true,
-    "node_modules": true,
-    "public": true,
     "build": true,
-    "package-lock.json": true,
-    ".travis.yml": true,
     ".eslintrc": true,
     ".eslintignore": true,
     ".editorconfig": true,
     ".npmrc": true,
     "onedash-tools.code-workspace": true,
     "README.md": true,
-    "renovate.json": true,
-    "rollup.config.js": true
+    "renovate.json": true
   },
   "jest.autoEnable": false
 }

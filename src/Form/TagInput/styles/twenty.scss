@@ -6,7 +6,7 @@
 		background-color: #fff;
 		border-radius: 4px;
 		font-size: 0.9rem;
-		border: 1.5px solid var(--tools-gray);
+		border: 2px solid var(--tools-gray);
 		transition: 0.15s all ease-in-out;
 		max-width: 245px;
 		position: relative;
@@ -99,11 +99,11 @@
 	}
 
 	.react-tags__suggestions ul {
-		margin: 4px -1.5px;
+		margin: 4px -2px;
 		padding: 0;
 		list-style: none;
 		background: white;
-		border: 1.5px solid var(--tools-primary);
+		border: 2px solid var(--tools-primary);
 		border-radius: 4px;
 		box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.16);
 	}
@@ -121,11 +121,11 @@
 
 	.react-tags__suggestions li:hover {
 		cursor: pointer;
-		background: 1.5px #a8d1fc;
+		background: 2px #a8d1fc;
 	}
 
 	.react-tags__suggestions li.is-active {
-		background: 1.5px #a8d1fc;
+		background: 2px #a8d1fc;
 	}
 
 	.react-tags__suggestions li.is-disabled {

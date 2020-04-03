@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import Utils from "../Utils/Utils";
 import ArrowBox from "../ArrowBox/ArrowBox";
 import Boolean from "../Form/Boolean/Boolean";
+import Button from "../Form/Button/Button";
 
 export interface OneDashCellProps extends TimeCell {
 	onMouseDown: (e: React.SyntheticEvent<HTMLDivElement, MouseEvent>) => void;
@@ -90,15 +91,15 @@ class OneDashCell extends Component<OneDashCellProps> {
 							value={this.props.appointment.repeatWeekly}
 							className="full-width separated"
 							onChange={this.toggleRepeat}
-							type="boolean"
 							name="repeat"
 							label="Wöchentlich wiederholen"
 						/>
-						<button
+						<Button
+							mode="link"
 							className="onedash-cell-popover-btn"
 							onClick={() => this.props.appointment && this.props.onDelete(this.props.appointment)}>
 							Termin löschen
-						</button>
+						</Button>
 					</ArrowBox>
 				)}
 			</div>

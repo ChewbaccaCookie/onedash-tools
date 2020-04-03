@@ -8,6 +8,7 @@ import { withKnobs, select as sel, boolean, text, number } from "@storybook/addo
 import Button from "./Button/Button";
 import TagInput from "./TagInput/TagInput";
 import Card from "../Card/Card";
+import Boolean from "./Boolean/Boolean";
 function timeout(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -188,6 +189,26 @@ export const tagInput = () => {
 		</StyleLoader>
 	);
 };
+export const booleanInput = () => {
+	const theme = sel("theme", { light: "light", dark: "dark" }, "light");
+	const checked = boolean("checked", false);
+	const disabled = boolean("Disabled", false);
+	const readOnly = boolean("Read Only", false);
+	return (
+		<StyleLoader theme={theme}>
+			<Card>
+				<Boolean
+					disabled={disabled}
+					readonly={readOnly}
+					value={checked}
+					name="boolean-input"
+					label="Lorem Ipsum Label"
+					required
+				/>
+			</Card>
+		</StyleLoader>
+	);
+};
 
 export const form = () => {
 	const theme = sel("theme", { light: "light", dark: "dark" }, "light");
@@ -241,6 +262,10 @@ export const form = () => {
 							name="tag-input"
 							tags={[{ label: "Blau", value: "blue" }]}
 						/>
+						<Boolean required name="boolean-input">
+							Hiermit bestätigen Sie, dass sie unsere <a href="#privacy">Datenschutzerklärung</a> und
+							unser <a href="#impress">Impressum</a> gelesen und verstanden haben
+						</Boolean>
 					</fieldset>
 				</Form>
 			</Card>

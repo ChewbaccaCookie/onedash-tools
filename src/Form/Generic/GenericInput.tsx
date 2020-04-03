@@ -4,7 +4,11 @@ import SETTINGS from "../../Utils/Settings";
 
 import "./styles/twenty.scss";
 
-abstract class GenericInput<T extends GenericInputProps, S extends GenericInputState> extends React.Component<T, any, S> {
+abstract class GenericInput<T extends GenericInputProps, S extends GenericInputState> extends React.Component<
+	T,
+	any,
+	S
+> {
 	protected id = Utils.generateGuid();
 	protected reference: any;
 	protected resetted = false;
@@ -81,8 +85,14 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 		if (!this.state.valid) {
 			classList += " input-invalid";
 		}
+		if (React.Children.toArray(this.props.children).length > 0) {
+			classList += " has-children";
+		}
 		if (this.props.disabled) {
 			classList += " disabled";
+		}
+		if (this.props.readonly) {
+			classList += " read-only";
 		}
 		if (this.props.className) {
 			classList += " " + this.props.className;

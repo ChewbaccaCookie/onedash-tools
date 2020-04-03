@@ -14,6 +14,7 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-dark-primary": "#ee4540",
 		"tools-light-primary": "#ee4540",
 		"tools-failure": "#e56038",
+		"tools-dark-failure": "#b64c22",
 		"tools-success": "#7fcc76",
 		"tools-gray": "#6f6f6f",
 		"tools-light-gray": "#989a9c",
@@ -41,6 +42,8 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-dialog-bg": "#2d132c",
 
 		"tools-spinner-color": "white",
+
+		"tools-lachs-rgb": "241, 174, 86",
 	},
 	light: {
 		/**
@@ -57,6 +60,7 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-dark-primary": "#13447a",
 		"tools-light-primary": "#007bff7a",
 		"tools-failure": "#e56038",
+		"tools-dark-failure": "#b64c22",
 		"tools-success": "#7fcc76",
 		"tools-gray": "#c7c7c7",
 		"tools-light-gray": "#ebebeb",
@@ -84,6 +88,8 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-dialog-bg": "white",
 
 		"tools-spinner-color": "white",
+
+		"tools-lachs-rgb": "241, 174, 86",
 	},
 
 	all: {

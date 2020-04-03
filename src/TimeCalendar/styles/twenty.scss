@@ -1,6 +1,6 @@
 .onedash-time-calendar.style-twenty {
 	border-radius: 4px;
-	border: 2px solid $timeCalendarBorder;
+	border: 1px solid var(--tools-gray);
 
 	& * {
 		font-family: var(--tools-font-family);
@@ -8,7 +8,7 @@
 	.onedash-calendar-header {
 		width: calc(100% - 10px);
 		padding: 5px;
-		border-bottom: 2px solid $timeCalendarBorder;
+		border-bottom: 1px solid var(--tools-gray);
 		display: flex;
 		align-items: center;
 
@@ -17,7 +17,7 @@
 			justify-content: space-between;
 			flex-grow: 1;
 			margin: 5px;
-			color: $timeCalendarHeaderTextColor;
+			color: var(--tools-text);
 			align-items: center;
 			button {
 				font-size: 1.4rem;
@@ -52,8 +52,10 @@
 					text-align: center;
 					height: 35px;
 					padding: 10px 5px;
-					background: $timeCalendarHeaderBackground;
-					border-bottom: 2px solid $timeCalendarBorder;
+					background: var(--tools-table-header-background);
+					color: var(--tools-table-header-text);
+
+					border-bottom: 1px solid var(--tools-gray);
 					font-weight: bold;
 					font-size: 1rem;
 					user-select: none;
@@ -62,14 +64,14 @@
 					height: 21px;
 					user-select: none;
 					cursor: auto;
-					transition: $timeCalendarTransition;
+					transition: 0.15s all ease-in-out;
 					text-align: center;
 				}
 			}
 			.onedash-day {
 				flex: 1;
-				background: $timeCalendarNotWorking;
-				border-left: 2px solid $timeCalendarBorder;
+				background: var(--tools-light-gray);
+				border-left: 1px solid var(--tools-gray);
 				&:first-of-type {
 					border-left: none;
 				}
@@ -79,13 +81,14 @@
 					height: 35px;
 					padding: 10px 5px;
 					margin-bottom: 10px;
-					background: $timeCalendarHeaderBackground;
-					border-bottom: 2px solid $timeCalendarBorder;
-					transition: $timeCalendarTransition;
+					background: var(--tools-table-header-background);
+					color: var(--tools-table-header-text);
+					border-bottom: 1px solid var(--tools-gray);
+					transition: 0.15s all ease-in-out;
 					user-select: none;
 					cursor: pointer;
 					&:hover {
-						background: $timeCalendarDaySelected;
+						background: rgba(var(--tools-lachs-rgb), 0.8);
 					}
 
 					span {
@@ -102,56 +105,47 @@
 				&__content {
 					.onedash-cell {
 						height: 20px;
-						border-bottom: 1px solid $timeCalendarBorder;
+						border-bottom: 1px solid var(--tools-gray);
 						cursor: pointer;
 						background: white;
 
 						&:hover,
 						&.selected {
-							background: $timeCalendarSelected;
-							border-bottom: 1px solid $timeCalendarSelected;
+							background: rgba(var(--tools-lachs-rgb), 1);
+							border-bottom: 1px solid rgba(var(--tools-lachs-rgb), 1);
 						}
 						&.hover {
-							background: transparentize($timeCalendarSelected, 0.5);
-							border-bottom: 1px solid transparentize($timeCalendarSelected, 0.5);
+							background: rgba(var(--tools-lachs-rgb), 0.5);
+							border-bottom: 1px solid rgba(var(--tools-lachs-rgb), 0.5);
 						}
 
 						&.booked {
-							background: $timeCalendarBooked;
-							border-bottom: 1px solid $timeCalendarBooked;
+							background: var(--tools-failure);
+							border-bottom: 1px solid var(--tools-failure);
 
 							&__primary {
-								background: $timeCalendarBookedPrimary;
-								border-bottom: 1px solid $timeCalendarBookedPrimary;
+								background: var(--tools-success);
+								border-bottom: 1px solid var(--tools-success);
 							}
 							&.full-day {
-								background: $timeCalendarBookedFullDay;
-								border-bottom: 1px solid $timeCalendarBookedFullDay;
+								background: rgba(var(--tools-lachs-rgb), 0.7);
+								border-bottom: 1px solid rgba(var(--tools-lachs-rgb), 0.7);
 							}
 						}
 
 						&.non-working {
-							background: $timeCalendarNotWorking;
+							background: rgba(var(--tools-black-rgb), 0.2);
 							pointer-events: none;
-							border-bottom: 1px solid $timeCalendarBorder;
+							border-bottom: 1px solid rgba(var(--tools-black-rgb), 0);
 						}
 
-						& .onedash-popover__content {
+						& .onedash-arrow-box__content {
 							&-title {
 								margin: 0px 10px;
 							}
 							.onedash-cell-popover-btn {
-								border: none;
-								margin: 10px;
-								padding: 0px;
-								background: none;
-								color: $timeCalendarPopoverBtnColor;
-								cursor: pointer;
-								font-weight: bold;
-								transition: 0.15s all ease-in-out;
-								&:hover {
-									opacity: 0.7;
-								}
+								margin: 0px;
+								color: var(--tools-failure);
 							}
 						}
 					}

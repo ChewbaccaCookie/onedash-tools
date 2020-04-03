@@ -3,140 +3,24 @@ import StyleLoader from "../Utils/StyleLoader";
 import { withKnobs, select as sel, boolean } from "@storybook/addon-knobs";
 import Table from "./Table";
 import Card from "../Card/Card";
+import { action } from "@storybook/addon-actions";
+import * as ROUTE_TEST_DATA from "./routeTestData.json";
+import * as FACILITIES_TEST_DATA from "./facilitiesTestData.json";
 
 export default {
 	title: "Table",
 	decorators: [withKnobs],
 };
 
-const tableHeaders = [
-	{
-		columnName: "plz",
-		title: "Postleitzahl",
-		type: "number",
-		visible: 1,
-	},
-	{
-		columnName: "ort",
-		title: "Ortsname",
-		type: "text",
-		visible: 1,
-	},
-] as TableHeader[];
-const tableValues = [
-	{
-		id: 0,
-		plz: "54470",
-		ort: "Bernkastel - Kues",
-	},
-	{
-		id: 1,
-		plz: "54516",
-		ort: "Wittlich",
-	},
-	{
-		id: 2,
-		plz: "12323",
-		ort: "Mannheim",
-	},
-	{
-		id: 3,
-		plz: "54342",
-		ort: "Mannheim",
-	},
-	{
-		id: 4,
-		plz: "32152",
-		ort: "Mannheim",
-	},
-	{
-		id: 5,
-		plz: "67834",
-		ort: "Mannheim",
-	},
-	{
-		id: 6,
-		plz: "03927",
-		ort: "Mannheim",
-	},
-	{
-		id: 7,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 8,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 9,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 10,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 11,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 12,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 13,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 14,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 15,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 16,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 17,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 18,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 19,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-	{
-		id: 20,
-		plz: "68169",
-		ort: "Mannheim",
-	},
-] as any[];
-
-export const defaultTable = () => {
+export const routeTestData = () => {
 	const disabled = boolean("Disabled", false);
 	const editable = boolean("Editable", true);
 	const searchable = boolean("Searchable", true);
-	const orderable = boolean("Orderable", true);
+	const orderable = boolean("Orderable", false);
+	const openDialogOnAdd = boolean("openDialogOnAdd", true);
+	const openDialogOnClick = boolean("openDialogOnRowClick", true);
 	const maxElements = Number(sel("Anzahl zeilen", ["0", "5", "10", "15", "20"], "15"));
+	const { tableHeaders, tableData } = ROUTE_TEST_DATA;
 	return (
 		<StyleLoader>
 			<Card maxWidth={900}>
@@ -145,8 +29,37 @@ export const defaultTable = () => {
 					orderable={orderable}
 					editable={editable}
 					disabled={disabled}
-					tableHeaders={tableHeaders}
-					tableValues={tableValues.slice(0, maxElements)}
+					tableHeaders={tableHeaders as any}
+					tableValues={tableData.slice(0, maxElements)}
+					onSave={action("onSave")}
+					onDelete={action("onDelete")}
+					onAddClick={{ event: action("onAddClick"), openDialog: openDialogOnAdd }}
+					onOrderChange={action("onOrderChange")}
+					onRowClick={{ event: action("onRowClick"), openDialog: openDialogOnClick }}
+				/>
+			</Card>
+		</StyleLoader>
+	);
+};
+export const faciltiesTestData = () => {
+	const disabled = boolean("Disabled", false);
+	const editable = boolean("Editable", true);
+	const searchable = boolean("Searchable", true);
+	const orderable = boolean("Orderable", false);
+	const maxElements = Number(sel("Anzahl zeilen", ["0", "5", "10", "15", "20"], "15"));
+	const { tableHeaders, tableData } = FACILITIES_TEST_DATA;
+	return (
+		<StyleLoader>
+			<Card maxWidth={900}>
+				<Table
+					dialogMaxWidth={800}
+					searchable={searchable}
+					orderable={orderable}
+					editable={editable}
+					disabled={disabled}
+					tableHeaders={tableHeaders as any}
+					tableValues={tableData.slice(0, maxElements)}
+					onDelete={action("onDelete")}
 				/>
 			</Card>
 		</StyleLoader>

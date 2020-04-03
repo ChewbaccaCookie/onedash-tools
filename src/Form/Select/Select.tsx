@@ -123,7 +123,9 @@ export default class Select extends GenericInput<SelectProps, any> {
 				onChange={(e) => this.inputChange(e, false)}
 				loadingMessage={() => "..."}
 				noOptionsMessage={(res) => {
-					return res.inputValue.length > 0 && res.inputValue.length < 200 ? `${res.inputValue} wurde nicht gefunden` : "...";
+					return res.inputValue.length > 0 && res.inputValue.length < 200
+						? `${res.inputValue} wurde nicht gefunden`
+						: "...";
 				}}
 				className="onedash-select"
 				id={this.id}
@@ -139,7 +141,9 @@ export default class Select extends GenericInput<SelectProps, any> {
 				onFocus={this.onFocus}
 				onChange={(e) => this.inputChange(e.target.value, true)}
 				className="component">
-				<option value={'"invalid-input"'}>{this.props.placeholder ? this.props.placeholder : "Wählen Sie ..."}</option>
+				<option value={'"invalid-input"'}>
+					{this.props.placeholder ? this.props.placeholder : "Wählen Sie ..."}
+				</option>
 				{options.map((option, index) => (
 					<option key={index} value={JSON.stringify(option.value)}>
 						{option.label}
@@ -153,7 +157,9 @@ export default class Select extends GenericInput<SelectProps, any> {
 				{this.props.label && (
 					<label className="onedash-label" htmlFor={this.id}>
 						{this.props.label}
-						{this.props.required === true && !this.props.settings?.requiredNotVisible && <span className="required">*</span>}
+						{this.props.required === true && !this.props.settings?.requiredNotVisible && (
+							<span className="required">*</span>
+						)}
 					</label>
 				)}
 				{!this.props.readonly && (
@@ -196,7 +202,9 @@ export default class Select extends GenericInput<SelectProps, any> {
 					</>
 				)}
 
-				{this.props.readonly && <p className="read-only">{options.find((x) => x.value === this.state.value)?.label}</p>}
+				{this.props.readonly && (
+					<p className="read-only">{options.find((x) => x.value === this.state.value)?.label}</p>
+				)}
 			</div>
 		);
 	}

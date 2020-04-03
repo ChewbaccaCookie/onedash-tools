@@ -6,8 +6,6 @@ const SETTINGS: { style: styles } = {
 };
 
 export const setStyle = (THEME: StyleLoaderStyle | undefined, theme: "light" | "dark") => {
-	console.log(THEME);
-
 	if (!THEME) return;
 	const t = THEME[theme];
 	Object.keys(t).forEach((key) => {

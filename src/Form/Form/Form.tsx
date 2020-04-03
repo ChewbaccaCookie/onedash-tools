@@ -3,6 +3,7 @@ import Input from "../Input/Input";
 import Select from "../Select/Select";
 import Button from "../Button/Button";
 import TagInput from "../TagInput/TagInput";
+import Boolean from "../Boolean/Boolean";
 
 export interface FormProps {
 	onSubmit?: (values: any, control: Form) => void;
@@ -31,10 +32,15 @@ class Form extends React.Component<FormProps> {
 			if (child.props && child.props.children && typeof child.props.children === "object") {
 				childElements = this.cloneChildren(child.props.children, []);
 			}
-			if (child.type === Input || child.type === Select || child.type === TagInput) {
+			if (child.type === Input || child.type === Select || child.type === TagInput || child.type === Boolean) {
 				const newEl = React.cloneElement(
 					child,
-					{ ref: (el: any) => this.references.push(el), key: i, _change: this.onChange, style: this.props.style },
+					{
+						ref: (el: any) => this.references.push(el),
+						key: i,
+						_change: this.onChange,
+						style: this.props.style,
+					},
 					childElements
 				);
 				elements.push(newEl);
@@ -102,21 +108,21 @@ class Form extends React.Component<FormProps> {
 		return values;
 	};
 
-	onSubmit = (e: any) => {
+	onSubmit = (e?: any) => {
 		const values = this.mapData();
 		if (this.props.validateOnSubmit === true) {
 			if (this.validateInputs() === true) {
 				if (this.props.onSubmit) this.props.onSubmit(values, this);
-				e.preventDefault();
+				if (e) e.preventDefault();
 				return;
 			} else {
-				e.preventDefault();
+				if (e) e.preventDefault();
 				return;
 			}
 		}
 		if (this.props.onSubmit) this.props.onSubmit(values, this);
 
-		e.preventDefault();
+		if (e) e.preventDefault();
 	};
 
 	buildClassName = () => {
@@ -127,10 +133,16 @@ class Form extends React.Component<FormProps> {
 		return classes;
 	};
 
+	keyDown = (e: any) => {
+		if (e.key === "Enter") {
+			this.onSubmit();
+		}
+	};
+
 	render() {
 		this.references = [];
 		return (
-			<form className={this.buildClassName()} onSubmit={this.onSubmit}>
+			<form onKeyDown={this.keyDown} className={this.buildClassName()} onSubmit={this.onSubmit}>
 				<div>{this.cloneChildren(this.props.children, [])}</div>
 				{this.props.resetText && (
 					<Button onClick={() => this.resetForm()} type="reset" mode="light">

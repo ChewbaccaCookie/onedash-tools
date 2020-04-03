@@ -38,6 +38,10 @@ export default {
 			rollupCommonJSResolveHack: true,
 			clean: true,
 		}),
-		commonjs(),
+		commonjs({
+			namedExports: {
+				"react-table": ["useTable", "useResizeColumns", "useFlexLayout", "useSortBy"],
+			},
+		}),
 	],
 };

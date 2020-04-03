@@ -189,32 +189,3 @@ body {
 		background: transparent;
 	}
 }
-
-/**
-    transform:scale(1);
-    .modal-background {
-      background:rgba(0,0,0,.0);
-      animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-      .modal {
-        opacity:0;
-        animation: scaleUp .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-      }
-    }
-    + .content {
-      animation: scaleBack .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-    }
-    &.out {
-      animation: quickScaleDown 0s .5s linear forwards;
-      .modal-background {
-        animation: fadeOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        .modal {
-           animation: scaleDown .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-        }
-      }
-      + .content {
-        animation: scaleForward .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-      }
-    }
-
-
-**/

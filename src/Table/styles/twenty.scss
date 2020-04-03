@@ -6,8 +6,8 @@
 		display: inline-block;
 		margin: 0 auto;
 		position: relative;
-		border-bottom-right-radius: 1.5px;
-		border-bottom-left-radius: 1.5px;
+		border-bottom-right-radius: 2px;
+		border-bottom-left-radius: 2px;
 
 		span {
 			position: absolute;
@@ -97,6 +97,7 @@
 	.td {
 		margin: 0;
 		padding: 0.5rem;
+		word-break: break-word;
 
 		.sorting-icon {
 			width: 0;
@@ -214,14 +215,26 @@
 			margin-top: 10px;
 		}
 	}
+	.entry-dialog {
+		.dialog-form > div {
+			display: flex;
+			flex-wrap: wrap;
+			.dialog-entry {
+				flex-grow: 1;
+				flex-basis: var(--tools-input-width);
+			}
+		}
+	}
 
 	.table {
-		display: inline-block;
+		display: block;
 		border-spacing: 0;
 		border-radius: var(--tools-border-radius);
 		margin: 10px;
 		margin-top: 0px;
 		width: calc(100% - 20px);
+		min-width: auto !important;
+		overflow-x: auto;
 
 		.tr:last-child .td {
 			border-bottom: 0;
@@ -246,14 +259,11 @@
 				width: calc(100% - var(--tools-scrollbar-width));
 			}
 		}
-
-		.tbody {
-			max-height: 300px;
-			overflow-y: scroll;
-			scroll-behavior: auto;
-
+		&,
+		* {
 			&::-webkit-scrollbar {
 				width: var(--tools-scrollbar-width);
+				height: var(--tools-scrollbar-width);
 			}
 			& {
 				scrollbar-width: var(--tools-scrollbar-width);
@@ -267,6 +277,13 @@
 				border-radius: 6px;
 				border: 3px solid var(--tools-scrollbar-bg);
 			}
+		}
+
+		.tbody {
+			max-height: 300px;
+			overflow-y: scroll;
+			scroll-behavior: auto;
+			overflow-x: hidden;
 
 			.tr {
 				background: var(--tools-table-body-bg);

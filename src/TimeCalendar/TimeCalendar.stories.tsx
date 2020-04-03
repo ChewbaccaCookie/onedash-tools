@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
-import { withKnobs, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, number, boolean } from "@storybook/addon-knobs";
 import Card from "../Card/Card";
 import TimeCalendar from "./TimeCalendar";
 import dayjs from "dayjs";
 import StyleLoader from "../Utils/StyleLoader";
+import { action } from "@storybook/addon-actions";
 export default {
-	title: "Misc",
+	title: "TimeCalendar",
 	decorators: [withKnobs],
 };
 const workingSchema: WorkingSchema = {
@@ -94,15 +95,22 @@ const appointments: Appointment[] = [
 ];
 
 export const timeCalendar = () => {
+	const slotMinutes = number("slotMinutes", 30);
+	const showWeekend = boolean("showWeekend", false);
 	return (
 		<StyleLoader>
-			<Card>
+			<Card maxWidth={1200}>
 				<TimeCalendar
 					appointments={appointments}
-					slotMinutes={30}
+					slotMinutes={slotMinutes}
 					startDate={new Date().getTime()}
 					workingSchema={workingSchema}
 					defaultType="month"
+					addAppointment={action("addAppointment")}
+					removeAppointment={action("removeAppointment")}
+					changeAppointment={action("changeAppointment")}
+					onStartDateChanged={action("onStartDateChanged")}
+					showWeekend={showWeekend}
 				/>
 			</Card>
 		</StyleLoader>

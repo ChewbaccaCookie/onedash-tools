@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import GenericInput from "../Generic/GenericInput";
-
+import "./styles/twenty.scss";
 interface BooleanSettings {
 	requiredNotVisible?: boolean;
 }
@@ -14,7 +14,7 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 	protected _validate = () => {
 		let valid = true;
 		const value = this.state.value;
-		if (this.props.required && (!value || value === "invalid-input")) {
+		if (this.props.required && value === false) {
 			valid = false;
 		}
 		this.setState({ valid });
@@ -24,6 +24,16 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 	constructor(props) {
 		super(props);
 		this.reference = React.createRef<any>();
+	}
+	componentDidMount() {
+		this.setState({ value: this.props.value ? this.props.value : false });
+	}
+
+	componentDidUpdate(lastProps: BooleanProps) {
+		const value = this.props.value ? this.props.value : false;
+		if (this.props.value !== lastProps.value) {
+			this.setState({ value });
+		}
 	}
 	onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.checked;
@@ -38,9 +48,29 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 		);
 	};
 
+	onKeyDown = (e: any) => {
+		if (this.props.disabled === true || this.props.readonly === true) return;
+		if (e.key === " ") this.toggle();
+	};
+
+	public isChecked = (checked: boolean) => {
+		this.setState({ value: checked });
+	};
+	public toggle = () => {
+		this.setState({ value: !this.state.value });
+	};
+
 	render() {
 		return (
 			<div className={this.buildClassList("onedash-boolean")}>
+				{this.props.label && (
+					<label className="onedash-label" htmlFor={this.id}>
+						{this.props.label}
+						{this.props.required === true && !this.props.settings?.requiredNotVisible && (
+							<span className="required">*</span>
+						)}
+					</label>
+				)}
 				<label className="checker">
 					<input
 						ref={this.reference}
@@ -48,8 +78,9 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 						onChange={this.onChange}
 						className="checkbox"
 						type="checkbox"
+						id={this.id}
 					/>
-					<div className="check-bg" tabIndex={0} />
+					<div className="check-bg" tabIndex={0} onKeyDown={this.onKeyDown} />
 					<div className="checkmark">
 						<svg viewBox="0 0 100 100">
 							<path
@@ -64,15 +95,15 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 					</div>
 				</label>
 
-				{this.props.label && (
-					<label className="onedash-label" htmlFor={this.id}>
-						{this.props.label}
-						{this.props.required === true && !this.props.settings?.requiredNotVisible && (
-							<span className="required">*</span>
-						)}
-					</label>
+				{this.props.children && (
+					<div
+						onClick={(e) => {
+							if ((e as any).target.classList.contains("onedash-children")) this.toggle();
+						}}
+						className="onedash-children">
+						{this.props.children}
+					</div>
 				)}
-				{this.props.children}
 			</div>
 		);
 	}

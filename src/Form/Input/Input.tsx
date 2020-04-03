@@ -29,7 +29,8 @@ class Input extends GenericInput<InputProps, any> {
 
 		if (this.props.required === true && (value === undefined || String(value)?.length === 0)) valid = false;
 		if (this.props.minLength && String(value)?.length < this.props.minLength) valid = false;
-		if (this.props.maxLength && this.props.maxLength > 0 && String(value)?.length > this.props.maxLength) valid = false;
+		if (this.props.maxLength && this.props.maxLength > 0 && String(value)?.length > this.props.maxLength)
+			valid = false;
 		if (value && this.props.type === "email" && this.emailValidation(String(value)) === false) valid = false;
 		if (value && this.props.type === "tel" && this.phoneValidation(String(value)) === false) valid = false;
 		this.setState({ valid });
@@ -85,7 +86,7 @@ class Input extends GenericInput<InputProps, any> {
 			(t(this.formatValue(this.props.value)) !== t(this.state.value) && this.resetted === true) ||
 			_lastProps.value !== this.props.value
 		) {
-			this.setState({ value: this.formatValue(this.props.value) });
+			this.setState({ value: this.formatValue(this.props.value), valid: true });
 		}
 	}
 
@@ -95,7 +96,9 @@ class Input extends GenericInput<InputProps, any> {
 				{this.props.label && (
 					<label className="onedash-label" htmlFor={this.id}>
 						{this.props.label}
-						{this.props.required === true && !this.props.settings?.requiredNotVisible && <span className="required">*</span>}
+						{this.props.required === true && !this.props.settings?.requiredNotVisible && (
+							<span className="required">*</span>
+						)}
 					</label>
 				)}
 				{!this.props.readonly ? (
@@ -132,7 +135,9 @@ class Input extends GenericInput<InputProps, any> {
 								{this.state.value}
 							</a>
 						)}
-						{this.props.type !== "email" && this.props.type !== "tel" && <p className="read-only">{this.state.value}</p>}
+						{this.props.type !== "email" && this.props.type !== "tel" && (
+							<p className="read-only">{this.state.value}</p>
+						)}
 					</>
 				)}
 			</div>

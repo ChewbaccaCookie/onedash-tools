@@ -9,6 +9,8 @@
 	& .required {
 		color: var(--tools-failure);
 		font-size: 1.4rem;
+		position: absolute;
+		margin-top: -5px;
 	}
 
 	& * {
@@ -30,7 +32,7 @@
 	}
 	& > .read-only {
 		display: block;
-		padding: 11.5px 0px;
+		padding: 12px 0px;
 		margin: 0px;
 		width: calc(100%);
 		font-weight: normal;
