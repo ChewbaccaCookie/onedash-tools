@@ -15,6 +15,7 @@ import Table from "./Table/Table";
 import TimeCalendar from "./TimeCalendar/TimeCalendar";
 import Utils from "./Utils/Utils";
 import StyleLoader from "./Utils/StyleLoader";
+import GenericInput from "./Form/Generic/GenericInput";
 
 export {
 	Input,
@@ -34,4 +35,5 @@ export {
 	TimeCalendar,
 	Utils,
 	StyleLoader,
+	GenericInput,
 };
