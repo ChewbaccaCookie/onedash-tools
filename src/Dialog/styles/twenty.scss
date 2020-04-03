@@ -16,7 +16,7 @@ body {
 
 	.dialog-bg {
 		background: transparent;
-		animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+		animation: fadeBGIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 		position: fixed;
 		width: 100vw;
 		height: 100vh;
@@ -146,46 +146,46 @@ body {
 			animation: scaleDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 		}
 		.dialog-bg {
-			animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+			animation: fadeBGOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 		}
 	}
-}
 
-@keyframes scaleDown {
-	0% {
-		transform: scale(1);
-		opacity: 1;
+	@keyframes scaleDown {
+		0% {
+			transform: scale(1);
+			opacity: 1;
+		}
+		100% {
+			transform: scale(0);
+			opacity: 0.1;
+		}
 	}
-	100% {
-		transform: scale(0);
-		opacity: 0.1;
+	@keyframes scaleIn {
+		0% {
+			transform: scale(0);
+			opacity: 0.1;
+		}
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
 	}
-}
-@keyframes scaleIn {
-	0% {
-		transform: scale(0);
-		opacity: 0.1;
-	}
-	100% {
-		transform: scale(1);
-		opacity: 1;
-	}
-}
 
-@keyframes fadeIn {
-	0% {
-		background: transparent;
+	@keyframes fadeBGIn {
+		0% {
+			background: transparent;
+		}
+		100% {
+			background: var(--tools-dialog-background);
+		}
 	}
-	100% {
-		background: var(--tools-dialog-background);
-	}
-}
 
-@keyframes fadeOut {
-	0% {
-		background: var(--tools-dialog-background);
-	}
-	100% {
-		background: transparent;
+	@keyframes fadeBGOut {
+		0% {
+			background: var(--tools-dialog-background);
+		}
+		100% {
+			background: transparent;
+		}
 	}
 }
