@@ -1,4 +1,4 @@
-export type styles = "none" | "minimal" | "twenty";
+export type styles = "none" | "minimal" | "twenty" | string;
 export interface ValueLabelPair {
 	label: string;
 	value: any;
