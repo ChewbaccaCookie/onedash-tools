@@ -135,6 +135,7 @@ export default class Select extends GenericInput<SelectProps, any> {
 
 		const nativeSelect = (
 			<select
+				placeholder={this.props.placeholder ? this.props.placeholder : "Wählen Sie ..."}
 				disabled={this.props.disabled}
 				onBlur={this.onBlur}
 				value={this.state.value !== undefined ? JSON.stringify(this.state.value) : undefined}
