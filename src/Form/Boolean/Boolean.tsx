@@ -60,7 +60,7 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 		this.setState({ value: checked }, () => this.sendOnChange(checked));
 	};
 	public toggle = () => {
-		this.setState({ value: !this.state.value }, () => this.sendOnChange(!this.state.value));
+		this.setState({ value: !this.state.value }, () => this.sendOnChange(this.state.value));
 	};
 
 	render() {
