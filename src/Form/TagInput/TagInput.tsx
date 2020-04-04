@@ -27,7 +27,6 @@ export default class TagInput extends GenericInput<TagInputProps, any> {
 		let valid = true;
 		if ((this.props.required && this.state.value?.length === 0) || (this.props.required && !this.state.value))
 			valid = false;
-		this.setState({ valid });
 		return valid;
 	};
 

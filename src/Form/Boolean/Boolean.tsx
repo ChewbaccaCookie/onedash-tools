@@ -18,7 +18,6 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 		if (this.props.required && value === false) {
 			valid = false;
 		}
-		this.setState({ valid });
 		return valid;
 	};
 
@@ -46,7 +45,7 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 		);
 	};
 	sendOnChange = (value: boolean) => {
-		this._validate();
+		this.validate();
 		if (this.props.onChange) this.props.onChange({ name: this.props.name, value });
 		if (this.props._change) this.props._change({ name: this.props.name, value });
 	};

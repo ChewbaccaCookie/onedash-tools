@@ -39,7 +39,6 @@ export default class Select extends GenericInput<SelectProps, any> {
 		if (this.props.required && (!value || value === "invalid-input")) {
 			valid = false;
 		}
-		this.setState({ valid });
 		return valid;
 	};
 

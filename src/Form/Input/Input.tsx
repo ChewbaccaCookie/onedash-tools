@@ -34,7 +34,6 @@ class Input extends GenericInput<InputProps, any> {
 			valid = false;
 		if (value && this.props.type === "email" && this.emailValidation(String(value)) === false) valid = false;
 		if (value && this.props.type === "tel" && this.phoneValidation(String(value)) === false) valid = false;
-		this.setState({ valid });
 		return valid;
 	};
 
