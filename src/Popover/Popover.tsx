@@ -11,6 +11,7 @@ export interface PopoverProps {
 	onClose?: () => void;
 	closeable?: boolean;
 	className?: string;
+	disableTouchMove?: boolean;
 	style?: styles;
 	button?: {
 		text?: string;
@@ -38,14 +39,16 @@ class Popover extends Component<PopoverProps> {
 		if (this.body && this.html) {
 			Utils.lockScrolling();
 			document.addEventListener("keydown", this.onKeyDown);
-			document.body.addEventListener("touchmove", this.preventDefault, { passive: false });
+			if (this.props.disableTouchMove === true)
+				document.body.addEventListener("touchmove", this.preventDefault, { passive: false });
 		}
 	}
 	componentWillUnmount() {
 		if (this.body && this.html) {
 			Utils.unlockScrolling();
 			document.removeEventListener("keydown", this.onKeyDown);
-			document.body.removeEventListener("touchmove", this.preventDefault);
+			if (this.props.disableTouchMove === true)
+				document.body.removeEventListener("touchmove", this.preventDefault);
 		}
 	}
 
@@ -65,7 +68,7 @@ class Popover extends Component<PopoverProps> {
 	};
 
 	touchMove = (e: any) => {
-		if (this.props.closeable === false) return;
+		if (!this.touchValid(e)) return;
 		this.touchMoveY = e.touches[0].clientY;
 		if (this.touchMoveY - this.touchStartY > 0) {
 			this.setState({ touchMargin: -Math.pow(this.touchMoveY - this.touchStartY, 1.05) });
@@ -73,12 +76,20 @@ class Popover extends Component<PopoverProps> {
 	};
 	touchStartY = 0;
 	touchMoveY = 0;
+
+	touchValid = (e: any) => {
+		const cl = e.target.classList;
+		return (
+			(cl.contains("popover") || cl.contains("popover-touchbar") || cl.contains("popover-title")) &&
+			!(this.props.closeable === false)
+		);
+	};
 	touchStart = (e: any) => {
-		if (this.props.closeable === false) return;
+		if (!this.touchValid(e)) return;
 		this.touchStartY = e.touches[0].clientY;
 	};
-	touchEnd = () => {
-		if (this.props.closeable === false) return;
+	touchEnd = (e: any) => {
+		if (!this.touchValid(e)) return;
 		const diff = this.touchMoveY - this.touchStartY;
 		if (diff > 120) {
 			this.closePopover();
@@ -131,7 +142,7 @@ class Popover extends Component<PopoverProps> {
 						</>
 					)}
 					<div className="content">
-						<h2>{title}</h2>
+						<h2 className="popover-title">{title}</h2>
 						<div className="content-children">{this.props.children}</div>
 					</div>
 					{this.props.button && (
