@@ -49,11 +49,11 @@ class Popover extends Component<PopoverProps> {
 
 	private onKeyDown = (e: any) => {
 		if (this.props.closeable === false || e.key !== "Escape") return;
-		this.closePopover();
+		this.close();
 	};
 
-	closePopover = () => {
-		if (this.props.closeable === false) return;
+	close = (forceClose?: boolean) => {
+		if (this.props.closeable === false && !(forceClose === true)) return;
 		this.setState({
 			isClosing: true,
 		});
@@ -87,7 +87,7 @@ class Popover extends Component<PopoverProps> {
 		if (!this.touchValid(e)) return;
 		const diff = this.touchMoveY - this.touchStartY;
 		if (diff > 120) {
-			this.closePopover();
+			this.close();
 		} else {
 			this.setState({ touchMargin: 0, isMoving: true });
 			setTimeout(() => {
@@ -119,7 +119,7 @@ class Popover extends Component<PopoverProps> {
 		const { title } = this.props;
 		return (
 			<div className={this.buildClassName()}>
-				<div className="popover-bg" onClick={this.closePopover}></div>
+				<div className="popover-bg" onClick={() => this.close()}></div>
 
 				<div
 					className="popover"
@@ -130,7 +130,7 @@ class Popover extends Component<PopoverProps> {
 					{(this.props.closeable === undefined || this.props.closeable === true) && (
 						<>
 							<div className="popover-touchbar"></div>
-							<div className="popover-close page-close" onClick={this.closePopover}>
+							<div className="popover-close page-close" onClick={() => this.close()}>
 								<span></span>
 								<span></span>
 							</div>
