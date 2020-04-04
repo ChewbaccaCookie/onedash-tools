@@ -76,7 +76,7 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 				<label className="checker">
 					<input
 						ref={this.reference}
-						checked={this.state.value}
+						checked={this.state.value !== undefined ? this.state.value : false}
 						onChange={this.onChange}
 						className="checkbox"
 						type="checkbox"
