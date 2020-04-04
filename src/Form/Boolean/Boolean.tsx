@@ -46,8 +46,6 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 		);
 	};
 	sendOnChange = (value: boolean) => {
-		console.log("moin");
-
 		this._validate();
 		if (this.props.onChange) this.props.onChange({ name: this.props.name, value });
 		if (this.props._change) this.props._change({ name: this.props.name, value });
