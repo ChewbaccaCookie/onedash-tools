@@ -8,7 +8,7 @@ export interface DialogProps {
 	isOpen?: boolean;
 	closeable?: boolean;
 	title?: string;
-	onClose?: () => void;
+	onClose?: (forceClose?: boolean) => void;
 
 	settings?: DialogSettings;
 	buttons?: DialogButton[];

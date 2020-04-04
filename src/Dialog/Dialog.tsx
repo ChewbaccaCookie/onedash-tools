@@ -111,7 +111,7 @@ class Dialog extends Component<DialogProps> {
 							{this.props.title && <h2 className="dialog-title">{this.props.title}</h2>}
 
 							{this.isCloseable() && showX && (
-								<div className="dialog-close" onClick={this.hide}>
+								<div className="dialog-close" onClick={() => this.hide()}>
 									<span />
 									<span />
 								</div>
