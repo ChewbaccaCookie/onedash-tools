@@ -11,7 +11,6 @@ export interface PopoverProps {
 	onClose?: () => void;
 	closeable?: boolean;
 	className?: string;
-	disableTouchMove?: boolean;
 	style?: styles;
 	button?: {
 		text?: string;
@@ -33,22 +32,22 @@ class Popover extends Component<PopoverProps> {
 		this.html = document.querySelector("html");
 	}
 	preventDefault = (e: any) => {
-		e.preventDefault();
+		if (!e.path.find((x) => x?.classList?.contains("popover"))) {
+			e.preventDefault();
+		}
 	};
 	componentDidMount() {
 		if (this.body && this.html) {
 			Utils.lockScrolling();
 			document.addEventListener("keydown", this.onKeyDown);
-			if (this.props.disableTouchMove === true)
-				document.body.addEventListener("touchmove", this.preventDefault, { passive: false });
+			document.body.addEventListener("touchmove", this.preventDefault, { passive: false });
 		}
 	}
 	componentWillUnmount() {
 		if (this.body && this.html) {
 			Utils.unlockScrolling();
 			document.removeEventListener("keydown", this.onKeyDown);
-			if (this.props.disableTouchMove === true)
-				document.body.removeEventListener("touchmove", this.preventDefault);
+			document.body.removeEventListener("touchmove", this.preventDefault);
 		}
 	}
 
