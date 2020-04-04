@@ -42,11 +42,15 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 			{
 				value,
 			},
-			() => {
-				if (this.props.onChange) this.props.onChange({ name: this.props.name, value });
-				if (this.props._change) this.props._change({ name: this.props.name, value });
-			}
+			() => this.sendOnChange(value)
 		);
+	};
+	sendOnChange = (value: boolean) => {
+		console.log("moin");
+
+		this._validate();
+		if (this.props.onChange) this.props.onChange({ name: this.props.name, value });
+		if (this.props._change) this.props._change({ name: this.props.name, value });
 	};
 
 	onKeyDown = (e: any) => {
@@ -55,10 +59,10 @@ export default class Boolean extends GenericInput<BooleanProps, any> {
 	};
 
 	public isChecked = (checked: boolean) => {
-		this.setState({ value: checked });
+		this.setState({ value: checked }, () => this.sendOnChange(checked));
 	};
 	public toggle = () => {
-		this.setState({ value: !this.state.value });
+		this.setState({ value: !this.state.value }, () => this.sendOnChange(!this.state.value));
 	};
 
 	render() {
