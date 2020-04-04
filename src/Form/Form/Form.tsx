@@ -44,6 +44,7 @@ class Form extends React.Component<FormProps> {
 					},
 					childElements
 				);
+				this.references = this.references.filter((x) => x.ref !== null);
 				elements.push(newEl);
 			} else {
 				if (childElements.length > 0) {
@@ -58,7 +59,7 @@ class Form extends React.Component<FormProps> {
 	};
 
 	public getRef = (name: string) => {
-		return this.references.find((x) => x.name === name);
+		return this.references.find((x) => x.name === name && x.ref !== null);
 	};
 
 	public getData = () => {
