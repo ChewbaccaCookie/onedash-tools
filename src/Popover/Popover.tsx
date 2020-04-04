@@ -32,7 +32,7 @@ class Popover extends Component<PopoverProps> {
 		this.html = document.querySelector("html");
 	}
 	preventDefault = (e: any) => {
-		if (!e.path.find((x) => x?.classList?.contains("popover"))) {
+		if (!e.path.find((x) => x?.classList?.contains("content-children"))) {
 			e.preventDefault();
 		}
 	};
