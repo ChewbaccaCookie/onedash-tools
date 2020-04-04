@@ -6,12 +6,6 @@
 		display: inline-flex;
 		align-items: center;
 	}
-	*,
-	*::before,
-	*::after {
-		box-sizing: border-box;
-		position: relative;
-	}
 
 	&.input-invalid {
 		.check-bg {
@@ -54,6 +48,7 @@
 		flex-shrink: 0;
 		margin-right: 10px;
 		margin-top: 5px;
+		position: relative;
 	}
 
 	.checkmark {
@@ -61,7 +56,7 @@
 		height: 25px;
 		transition: transform var(--duration) ease;
 		transform: translateX(-3px);
-
+		position: relative;
 		z-index: 5;
 
 		svg {
@@ -114,6 +109,7 @@
 		background: var(--tools-input-background);
 		border: 2px solid var(--tools-gray);
 		z-index: 2;
+		box-sizing: border-box;
 
 		&:before,
 		&:after {

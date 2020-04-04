@@ -1,10 +1,13 @@
 import React from "react";
 import "./Spinner.scss";
+import SETTINGS from "../Utils/Settings";
+import { styles } from "../ToolTypes";
 
 interface SpinnerProps {
 	defaultVisible?: boolean;
 	fullPage?: boolean;
 	className?: string;
+	style?: styles;
 }
 class Spinner extends React.Component<SpinnerProps> {
 	state = {
@@ -49,6 +52,11 @@ class Spinner extends React.Component<SpinnerProps> {
 		if (this.props.className) className += ` ${this.props.className}`;
 		if (this.props.fullPage) className += " full-page";
 		if (this.state.display === true) className += " visible";
+		if (this.props.style) {
+			className += " style-" + this.props.style;
+		} else {
+			className += " style-" + SETTINGS.style;
+		}
 		return className;
 	};
 	render() {
