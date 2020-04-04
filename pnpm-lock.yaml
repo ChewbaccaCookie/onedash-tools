@@ -1,5 +1,7 @@
 dependencies:
+  '@types/body-scroll-lock': 2.6.1
   '@y0c/react-datepicker': 1.0.3
+  body-scroll-lock: 3.0.1
   react-select: 3.1.0_react-dom@16.12.0+react@16.12.0
   react-sortable-hoc: 1.11.0_react-dom@16.12.0+react@16.12.0
   react-table: 7.0.4_react@16.12.0
@@ -2960,6 +2962,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-xH2e58elpj1X4ynnKp9qSnWlsRTIs6n3tgLGNfwAGHwePw0mulHQllV34n0T25uYSu1k0hRKkWXF890B1yS47w==
+  /@types/body-scroll-lock/2.6.1:
+    dev: false
+    resolution:
+      integrity: sha512-PPFm/2A6LfKmSpvMg58gHtSqwwMChbcKKGhSCRIhY4MyFzhY8moAN6HrTCpOeZQUqkFdTFfMqr7njeqGLKt72Q==
   /@types/color-name/1.1.1:
     dev: true
     resolution:
@@ -5063,6 +5069,10 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
+  /body-scroll-lock/3.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-BYcnBAv6r3iKFDeYgG3ZMiOtxHDcHaev84he4vU4nB062A9MSUHsbVkrgsiSZlGCcWqoqGKCKTytSUhzuEjiCQ==
   /bonjour/3.5.0:
     dependencies:
       array-flatten: 2.1.2
@@ -18150,6 +18160,7 @@ specifiers:
   '@storybook/addons': 5.3.18
   '@storybook/react': 5.3.18
   '@svgr/rollup': 5.3.0
+  '@types/body-scroll-lock': ^2.6.1
   '@types/react': 16.9.32
   '@types/react-dom': 16.9.6
   '@types/react-select': 3.0.11
@@ -18163,6 +18174,7 @@ specifiers:
   babel-core: 6.26.3
   babel-loader: 8.1.0
   babel-runtime: 6.26.0
+  body-scroll-lock: ^3.0.1
   cross-env: 7.0.2
   dayjs: 1.8.23
   del-cli: 3.0.0

@@ -32,22 +32,18 @@ class Popover extends Component<PopoverProps> {
 		this.html = document.querySelector("html");
 	}
 	preventDefault = (e: any) => {
-		if (!e.path.find((x) => x?.classList?.contains("content-children"))) {
-			e.preventDefault();
-		}
+		e.preventDefault();
 	};
 	componentDidMount() {
 		if (this.body && this.html) {
 			Utils.lockScrolling();
 			document.addEventListener("keydown", this.onKeyDown);
-			document.body.addEventListener("touchmove", this.preventDefault, { passive: false });
 		}
 	}
 	componentWillUnmount() {
 		if (this.body && this.html) {
 			Utils.unlockScrolling();
 			document.removeEventListener("keydown", this.onKeyDown);
-			document.body.removeEventListener("touchmove", this.preventDefault);
 		}
 	}
 
