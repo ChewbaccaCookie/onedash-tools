@@ -61,8 +61,8 @@ class Dialog extends Component<DialogProps> {
 			this.hide();
 	};
 
-	public hide = () => {
-		if (!this.isCloseable()) return;
+	public hide = (forceClose?: boolean) => {
+		if (!this.isCloseable() && !forceClose) return;
 		document.removeEventListener("keydown", this.onKeyDown);
 		Utils.unlockScrolling();
 		this.setState({ dialogCloses: true });
