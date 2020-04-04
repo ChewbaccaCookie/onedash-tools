@@ -44,7 +44,6 @@ class Form extends React.Component<FormProps> {
 					},
 					childElements
 				);
-				this.references = this.references.filter((x) => x.ref !== null);
 				elements.push(newEl);
 			} else {
 				if (childElements.length > 0) {
@@ -68,7 +67,7 @@ class Form extends React.Component<FormProps> {
 	public validateInputs = () => {
 		let valid = true;
 		this.references.forEach((entry) => {
-			if (entry) {
+			if (entry.ref) {
 				if (!entry.ref.validate()) {
 					valid = false;
 				}
@@ -79,12 +78,12 @@ class Form extends React.Component<FormProps> {
 
 	public resetForm = () => {
 		this.references.forEach((entry) => {
-			if (entry) entry.ref.reset();
+			if (entry.ref) entry.ref.reset();
 		});
 
 		if (this.references.length > 0) {
 			const entry = this.references[0];
-			if (entry) entry.ref.focus();
+			if (entry.ref) entry.ref.focus();
 		}
 	};
 
@@ -104,7 +103,7 @@ class Form extends React.Component<FormProps> {
 	private mapData = () => {
 		const values = {} as any;
 		this.references.forEach((entry) => {
-			if (entry) {
+			if (entry.ref) {
 				const valuePair = entry.ref.getValue();
 				if (valuePair.name) {
 					values[valuePair.name] = valuePair.value;
