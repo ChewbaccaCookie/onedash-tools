@@ -18,7 +18,7 @@ export interface FormProps {
 }
 
 class Form extends React.Component<FormProps> {
-	references: any[] = [];
+	references: { ref: any; name: string }[] = [];
 
 	constructor(props: FormProps) {
 		super(props);
@@ -37,7 +37,7 @@ class Form extends React.Component<FormProps> {
 				const newEl = React.cloneElement(
 					child,
 					{
-						ref: (el: any) => this.references.push(el),
+						ref: (ref: any) => this.references.push({ name: child.props.name, ref }),
 						key: i,
 						_change: this.onChange,
 						style: this.props.style,
@@ -57,14 +57,18 @@ class Form extends React.Component<FormProps> {
 		return elements;
 	};
 
+	public getRef = (name: string) => {
+		return this.references.find((x) => x.name === name);
+	};
+
 	public getData = () => {
 		return this.mapData();
 	};
 	public validateInputs = () => {
 		let valid = true;
-		this.references.forEach((ref) => {
-			if (ref) {
-				if (!ref.validate()) {
+		this.references.forEach((entry) => {
+			if (entry) {
+				if (!entry.ref.validate()) {
 					valid = false;
 				}
 			}
@@ -73,13 +77,13 @@ class Form extends React.Component<FormProps> {
 	};
 
 	public resetForm = () => {
-		this.references.forEach((ref) => {
-			if (ref) ref.reset();
+		this.references.forEach((entry) => {
+			if (entry) entry.ref.reset();
 		});
 
 		if (this.references.length > 0) {
-			const ref = this.references[0];
-			if (ref) ref.focus();
+			const entry = this.references[0];
+			if (entry) entry.ref.focus();
 		}
 	};
 
@@ -98,9 +102,9 @@ class Form extends React.Component<FormProps> {
 
 	private mapData = () => {
 		const values = {} as any;
-		this.references.forEach((ref) => {
-			if (ref) {
-				const valuePair = ref.getValue();
+		this.references.forEach((entry) => {
+			if (entry) {
+				const valuePair = entry.ref.getValue();
 				if (valuePair.name) {
 					values[valuePair.name] = valuePair.value;
 				}
