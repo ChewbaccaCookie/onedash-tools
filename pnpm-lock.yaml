@@ -15,8 +15,8 @@ devDependencies:
   '@storybook/addon-storysource': 5.3.18_react-dom@16.12.0+react@16.12.0
   '@storybook/addon-viewport': 5.3.18_react-dom@16.12.0+react@16.12.0
   '@storybook/addons': 5.3.18_react-dom@16.12.0
-  '@storybook/react': 5.3.18_18737752d78144e9e8312f60ccd26c27
-  '@svgr/rollup': 5.3.0
+  '@storybook/react': 5.3.18_71e59afd7a2aca938952e14c1ae45814
+  '@svgr/rollup': 5.3.1
   '@types/react': 16.9.32
   '@types/react-dom': 16.9.6
   '@types/react-select': 3.0.11
@@ -2469,7 +2469,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-uQ6NYJ5WODXK8DJ7m8y3yUAtWB3n+6XtYztjY+tdkCsLYvTYDXNS+epV+f5Hu9+gB+/Dm+b5Su4jDD+LZB2QWA==
-  /@storybook/core/5.3.18_18737752d78144e9e8312f60ccd26c27:
+  /@storybook/core/5.3.18_71e59afd7a2aca938952e14c1ae45814:
     dependencies:
       '@babel/plugin-proposal-class-properties': 7.8.3
       '@babel/plugin-proposal-object-rest-spread': 7.9.0
@@ -2522,7 +2522,7 @@ packages:
       micromatch: 4.0.2
       node-fetch: 2.6.0
       open: 7.0.3
-      pnp-webpack-plugin: 1.5.0_typescript@3.8.3
+      pnp-webpack-plugin: 1.5.0
       postcss-flexbugs-fixes: 4.2.0
       postcss-loader: 3.0.0
       pretty-hrtime: 1.0.3
@@ -2553,7 +2553,6 @@ packages:
       babel-loader: ^7.0.0 || ^8.0.0
       react: '*'
       react-dom: '*'
-      typescript: '*'
     resolution:
       integrity: sha512-XQb/UQb+Ohuaw0GhKKYzvmuuh5Tit93f2cLZD9QCSWUPvDGmLG5g91Y9NbUr4Ap3mANT3NksMNhkAV0GxExEkg==
   /@storybook/csf/0.0.1:
@@ -2579,13 +2578,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-f2dr6xU3Es7OD0o2W0hDlzgVP6tZvgUjHfEGc6mj7kC+1BtEOuSDnQwRDznaLnVFwYlLKFJ/gkDneZb/qoBiwA==
-  /@storybook/react/5.3.18_18737752d78144e9e8312f60ccd26c27:
+  /@storybook/react/5.3.18_71e59afd7a2aca938952e14c1ae45814:
     dependencies:
       '@babel/plugin-transform-react-constant-elements': 7.9.0
       '@babel/preset-flow': 7.9.0
       '@babel/preset-react': 7.9.4
       '@storybook/addons': 5.3.18_ff53ef745c929d4ce800170f7360cad4
-      '@storybook/core': 5.3.18_18737752d78144e9e8312f60ccd26c27
+      '@storybook/core': 5.3.18_71e59afd7a2aca938952e14c1ae45814
       '@storybook/node-logger': 5.3.18
       '@svgr/webpack': 4.3.3
       '@types/webpack-env': 1.15.1
@@ -2614,7 +2613,6 @@ packages:
       babel-loader: ^7.0.0 || ^8.0.0
       react: '*'
       react-dom: '*'
-      typescript: '*'
     resolution:
       integrity: sha512-6yNg+phcrEqEjC2NOiu0mJuxbTwX7yzbkcusIn0S7N/KTXNO7CGvYjAkdjfw0gTLjfuVDZIjDQfoosslvfsj3w==
   /@storybook/router/5.3.18_react-dom@16.12.0+react@16.12.0:
@@ -2804,12 +2802,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-hYfYuZhQPCBVotABsXKSCfel2slf/yvJY8heTVX1PCTaq/IgASq1IyxPPKJ0chWREEKewIU/JMSsIGBtK1KKxw==
-  /@svgr/babel-plugin-transform-svg-component/5.3.0:
+  /@svgr/babel-plugin-transform-svg-component/5.3.1:
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-x+XT8iqm81xRado8GLqDg5eUni8KbgTooqLvVZNUey2s8QBWXy7RbzJP6VX5WB9LgfbA7en6ka1/GfRUHyNhWg==
+      integrity: sha512-LY5MTWhOBjOeKhZDL+vp/CBLz8ZJQmV1C/WBgGC2ex8qiiCKOs04sqUbmHqEw+ReisEAZVpPHXBFp3RdsB+1qQ==
   /@svgr/babel-preset/4.3.3:
     dependencies:
       '@svgr/babel-plugin-add-jsx-attribute': 4.2.0
@@ -2825,7 +2823,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-6PG80tdz4eAlYUN3g5GZiUjg2FMcp+Wn6rtnz5WJG9ITGEF1pmFdzq02597Hn0OmnQuCVaBYQE1OVFAnwOl+0A==
-  /@svgr/babel-preset/5.3.0:
+  /@svgr/babel-preset/5.3.1:
     dependencies:
       '@svgr/babel-plugin-add-jsx-attribute': 5.0.1
       '@svgr/babel-plugin-remove-jsx-attribute': 5.0.1
@@ -2834,12 +2832,12 @@ packages:
       '@svgr/babel-plugin-svg-dynamic-title': 5.0.1
       '@svgr/babel-plugin-svg-em-dimensions': 5.0.1
       '@svgr/babel-plugin-transform-react-native-svg': 5.0.1
-      '@svgr/babel-plugin-transform-svg-component': 5.3.0
+      '@svgr/babel-plugin-transform-svg-component': 5.3.1
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-VQPa3czStMhaDdOpGtzyVwWMZPbe437ocTGtXoa8R/iLTDYLD9BwyQLZZMPglKRBVaWJxqAVA8kbyFJQ9ahVdw==
+      integrity: sha512-9h7bIUXgSZ9N1Ocxxd8yk4Vgl0wL9cdzkYTTgjU+B0ccewBJg4OwZnWdqKuu/kzfqUfwfICUMygKQM/WWYd9lQ==
   /@svgr/core/4.3.3:
     dependencies:
       '@svgr/plugin-jsx': 4.3.3
@@ -2850,16 +2848,16 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-qNuGF1QON1626UCaZamWt5yedpgOytvLj5BQZe2j1k1B8DUG4OyugZyfEwBeXozCUwhLEpsrgPrE+eCu4fY17w==
-  /@svgr/core/5.3.0:
+  /@svgr/core/5.3.1:
     dependencies:
-      '@svgr/plugin-jsx': 5.3.0
+      '@svgr/plugin-jsx': 5.3.1
       camelcase: 5.3.1
       cosmiconfig: 6.0.0
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-ijUF5bLsK4xA0hmg9GEEeFC35LPYcIkONmQLCgjW3NDTf0eRBgCCm+ZZFdeDTYnkNeh+fFOfHEkv7U3tEbJnZQ==
+      integrity: sha512-ZmEEkYrOoylo40Sgl5HlNULu+zF1zqcZ87iglJR1r+id6+TL2tRs53HPiaKUkaPMd3x5C6ErNPlTwMLShaeMSw==
   /@svgr/hast-util-to-babel-ast/4.3.2:
     dependencies:
       '@babel/types': 7.9.0
@@ -2887,17 +2885,17 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-cLOCSpNWQnDB1/v+SUENHH7a0XY09bfuMKdq9+gYvtuwzC2rU4I0wKGFEp1i24holdQdwodCtDQdFtJiTCWc+w==
-  /@svgr/plugin-jsx/5.3.0:
+  /@svgr/plugin-jsx/5.3.1:
     dependencies:
       '@babel/core': 7.9.0
-      '@svgr/babel-preset': 5.3.0
+      '@svgr/babel-preset': 5.3.1
       '@svgr/hast-util-to-babel-ast': 5.0.1
       svg-parser: 2.0.4
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-duJFQ99ZvIXvxJmEhV/8GoKnPrAMOuK7k+lVyepRYHmR0BZr33RupjpApdleU29teXcJO5oMHYsviiHRCQcU9Q==
+      integrity: sha512-M4HQis1bJd10H1gLCYRKBulgOnxPj2Cxhx1rjMHhj+1BdGoKbFSeKLWA6uLsTm59Db6510f5ltE+N8UX0muEYg==
   /@svgr/plugin-svgo/4.3.1:
     dependencies:
       cosmiconfig: 5.2.1
@@ -2918,21 +2916,21 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-rQw558t/pPPA/aWrazLDt3xIuxh9zDuUcQUeR8EO6yiYftkjT7My1MLPz1pha1LhkJCR1ug83fp+TPRYkV9EIQ==
-  /@svgr/rollup/5.3.0:
+  /@svgr/rollup/5.3.1:
     dependencies:
       '@babel/core': 7.9.0
       '@babel/plugin-transform-react-constant-elements': 7.9.0_@babel+core@7.9.0
       '@babel/preset-env': 7.9.0_@babel+core@7.9.0
       '@babel/preset-react': 7.9.4_@babel+core@7.9.0
-      '@svgr/core': 5.3.0
-      '@svgr/plugin-jsx': 5.3.0
+      '@svgr/core': 5.3.1
+      '@svgr/plugin-jsx': 5.3.1
       '@svgr/plugin-svgo': 5.3.0
       rollup-pluginutils: 2.8.2
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-Gv9QTfBapLR4fu1U5ZZIHXkaPM/FYJGFHzHH23EVHbDdjB09dd8U4eN8i8W/9pzuxEVcFQkWiVZa33Y3wnIf7w==
+      integrity: sha512-hZJO2iz6jVsIjtOdn0SLBsxUVs3uK9Bf6SLspSCrMX3ZMJrvCxnUwKvFls6SXpH0jSJhb0T4OTUWNikInD/PhA==
   /@svgr/webpack/4.3.3:
     dependencies:
       '@babel/core': 7.9.0
@@ -3190,7 +3188,6 @@ packages:
       functional-red-black-tree: 1.0.1
       regexpp: 3.0.0
       tsutils: 3.17.1_typescript@3.8.3
-      typescript: 3.8.3
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -3225,7 +3222,6 @@ packages:
       '@typescript-eslint/typescript-estree': 2.26.0_typescript@3.8.3
       eslint: 6.8.0
       eslint-visitor-keys: 1.1.0
-      typescript: 3.8.3
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -3246,7 +3242,6 @@ packages:
       lodash: 4.17.15
       semver: 6.3.0
       tsutils: 3.17.1_typescript@3.8.3
-      typescript: 3.8.3
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -12893,14 +12888,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
-  /pnp-webpack-plugin/1.5.0_typescript@3.8.3:
+  /pnp-webpack-plugin/1.5.0:
     dependencies:
-      ts-pnp: 1.2.0_typescript@3.8.3
+      ts-pnp: 1.2.0
     dev: true
     engines:
       node: '>=6'
-    peerDependencies:
-      typescript: '*'
     resolution:
       integrity: sha512-jd9olUr9D7do+RN8Wspzhpxhgp1n6Vd0NtQ4SFkmIACZoEL1nkyAdW9Ygrinjec0vgDcWjscFQQ1gDW8rsfKTg==
   /polished/3.5.1:
@@ -16860,14 +16853,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-vDWbsl26LIcPGmDpoVzjEP6+hvHZkBkLW7JpvwbCv/5IYPJlsbzCVXY3wsCeAxAUeTclNOUZxnLdGh3VBD/J6w==
-  /ts-pnp/1.2.0_typescript@3.8.3:
-    dependencies:
-      typescript: 3.8.3
+  /ts-pnp/1.2.0:
     dev: true
     engines:
       node: '>=6'
-    peerDependencies:
-      typescript: '*'
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -18159,7 +18148,7 @@ specifiers:
   '@storybook/addon-viewport': ^5.3.18
   '@storybook/addons': 5.3.18
   '@storybook/react': 5.3.18
-  '@svgr/rollup': 5.3.0
+  '@svgr/rollup': 5.3.1
   '@types/body-scroll-lock': ^2.6.1
   '@types/react': 16.9.32
   '@types/react-dom': 16.9.6
