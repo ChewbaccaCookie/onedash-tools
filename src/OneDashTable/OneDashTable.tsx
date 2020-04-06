@@ -9,7 +9,7 @@ import PromptDialog from "../PromptDialog/PromptDialog";
 import { SortableElement, SortableHandle, SortableContainer } from "react-sortable-hoc";
 import OneDashTagInput from "../OneDashForm/OneDashTagInput";
 
-type formattingFunction = (value: any, shortForm?: boolean) => any;
+type formattingFunction = (value: any, shortForm?: boolean, entry?: any) => any;
 export type tableHeader = {
 	title: string;
 	columnName: string;
@@ -250,10 +250,11 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 		value: any,
 		formattingFunction: formattingFunction,
 		shortForm?: boolean,
-		selectValueLabelPair?: SelectValueLabelPair[]
+		selectValueLabelPair?: SelectValueLabelPair[],
+		row?: any
 	) => {
 		if (formattingFunction) {
-			const formatted = formattingFunction(value, shortForm);
+			const formatted = formattingFunction(value, shortForm, row);
 			if (React.isValidElement(formatted) === false) {
 				throw new Error("Child has to be a React object!");
 			}
@@ -345,7 +346,8 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 											tableRow[headerRowEntry.columnName],
 											headerRowEntry.formattingFunction as any,
 											true,
-											headerRowEntry.selectValueLabelPair
+											headerRowEntry.selectValueLabelPair,
+											tableRow
 										)}
 									</div>
 								))}
@@ -422,10 +424,11 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 																<>
 																	{this.formatOutput(
 																		header.type,
-																		this.state.selectedEntry,
+																		this.state.selectedEntry[header.columnName],
 																		header.formattingFunction as any,
 																		false,
-																		header.selectValueLabelPair
+																		header.selectValueLabelPair,
+																		this.state.selectedEntry
 																	)}
 																</>
 															)}
@@ -454,7 +457,8 @@ class OneDashTable extends Component<OneDashTableProps, OneDashTableState> {
 																this.state.selectedEntry[header.columnName],
 																header.formattingFunction as any,
 																false,
-																header.selectValueLabelPair
+																header.selectValueLabelPair,
+																this.state.selectedEntry
 															)}
 														</>
 													)}
