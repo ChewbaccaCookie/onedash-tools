@@ -2,6 +2,7 @@
 	display: none;
 	& * {
 		font-family: var(--tools-font-family);
+		-webkit-appearance: none;
 	}
 	&.dialog-visible {
 		display: block;

@@ -79,6 +79,7 @@
 .onedash-table-sorting-element.style-twenty {
 	& * {
 		font-family: var(--tools-font-family);
+		-webkit-appearance: none;
 	}
 	.td {
 		border-right: 1px solid var(--tools-table-border);
@@ -196,6 +197,7 @@
 
 	& * {
 		font-family: var(--tools-font-family);
+		-webkit-appearance: none;
 	}
 
 	&.editable .tbody .tr {

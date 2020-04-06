@@ -4,6 +4,7 @@
 
 	& * {
 		font-family: var(--tools-font-family);
+		-webkit-appearance: none;
 	}
 	.onedash-calendar-header {
 		width: calc(100% - 10px);

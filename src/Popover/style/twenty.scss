@@ -1,6 +1,7 @@
 .onedash-popover-wrapper.style-twenty {
 	& * {
 		font-family: var(--tools-font-family);
+		-webkit-appearance: none;
 	}
 
 	&.isClosing {
