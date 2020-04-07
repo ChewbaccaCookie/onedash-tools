@@ -93,6 +93,11 @@ class Dialog extends Component<DialogProps> {
 		}
 	};
 
+	componentWillUnmount() {
+		Utils.unlockScrolling();
+		Utils.clearAllBodyScrollLocks();
+	}
+
 	render() {
 		const maxWidth = this.props.settings?.maxWidth ? this.props.settings.maxWidth : defaultValues.maxWidth;
 		const showX = this.props.settings?.showX !== undefined ? this.props.settings.showX : true;

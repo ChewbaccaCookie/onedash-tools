@@ -19,8 +19,6 @@ export interface PopoverProps {
 }
 
 class Popover extends Component<PopoverProps> {
-	body: HTMLBodyElement | null;
-	html: HTMLHtmlElement | null;
 	state = {
 		isClosing: false,
 		isMoving: false,
@@ -28,23 +26,18 @@ class Popover extends Component<PopoverProps> {
 	};
 	constructor(props: PopoverProps) {
 		super(props);
-		this.body = document.querySelector("body");
-		this.html = document.querySelector("html");
 	}
 	preventDefault = (e: any) => {
 		e.preventDefault();
 	};
 	componentDidMount() {
-		if (this.body && this.html) {
-			Utils.lockScrolling();
-			document.addEventListener("keydown", this.onKeyDown);
-		}
+		Utils.lockScrolling();
+		document.addEventListener("keydown", this.onKeyDown);
 	}
 	componentWillUnmount() {
-		if (this.body && this.html) {
-			Utils.unlockScrolling();
-			document.removeEventListener("keydown", this.onKeyDown);
-		}
+		Utils.unlockScrolling();
+		document.removeEventListener("keydown", this.onKeyDown);
+		Utils.clearAllBodyScrollLocks();
 	}
 
 	private onKeyDown = (e: any) => {
