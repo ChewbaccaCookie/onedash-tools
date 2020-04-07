@@ -4,7 +4,12 @@
 		"es6": true
 	},
 	"plugins": ["@typescript-eslint", "react"],
-	"extends": ["plugin:@typescript-eslint/recommended", "plugin:react/recommended", "prettier", "prettier/@typescript-eslint"],
+	"extends": [
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"prettier",
+		"prettier/@typescript-eslint"
+	],
 	"parser": "@typescript-eslint/parser",
 
 	"globals": {

@@ -105,8 +105,8 @@ class Dialog extends Component<DialogProps> {
 		const buttons: DialogButton[] = this.props.buttons
 			? this.props.buttons
 			: this.isCloseable()
-			? [{ type: "close", closeOnClick: true, mode: "light" }]
-			: [];
+				? [{ type: "close", closeOnClick: true, mode: "light" }]
+				: [];
 
 		return (
 			<section style={this.props.cssStyles} className={this.getClasses()}>

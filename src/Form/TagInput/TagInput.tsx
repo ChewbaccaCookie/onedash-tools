@@ -73,10 +73,10 @@ export default class TagInput extends GenericInput<TagInputProps, any> {
 		const _selectedTags: Tag[] = !this.state.value
 			? []
 			: this.state.value.map((t) => {
-					return {
-						id: t.value,
-						name: t.label,
-					};
+				return {
+					id: t.value,
+					name: t.label,
+				};
 			  });
 
 		return (

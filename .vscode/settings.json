@@ -2,8 +2,6 @@
   "files.exclude": {
     ".vscode": true,
     "build": true,
-    ".eslintrc": true,
-    ".eslintignore": true,
     ".editorconfig": true,
     ".npmrc": true,
     "onedash-tools.code-workspace": true,
