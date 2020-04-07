@@ -15,7 +15,7 @@ jobs:
           node-version: 13
           registry-url: https://npm.onedash.dev/
       - name: "Install Dependencies"
-        run: npx pnpm i --lockfile=false --reporter=silent
+        run: npm i
         env:
            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: "Build tools"
