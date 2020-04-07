@@ -1,0 +1,31 @@
+name: Module CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-tools:
+    name: "Build Tools"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 13
+          registry-url: https://npm.onedash.dev/
+      - name: "Install Dependencies"
+        run: npx pnpm i --lockfile=false --reporter=silent
+      - name: "Build tools"
+        run: npm run build
+      - name: "Automated Version Bump"
+        uses: "phips28/gh-action-bump-version@master"
+        with:
+          tag-prefix: ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Publish to Registry"
+        run: npm publish
+      - name: "Build Storybook"
+        run: npm run build-storybook
+        
