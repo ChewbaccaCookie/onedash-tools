@@ -9,7 +9,16 @@
     "renovate.json": true,
     "dist": true,
     "node_modules": true,
-    "public": true
+    "public": true,
+    ".eslintignore": true,
+    ".eslintrc": true,
+    ".gitignore": true,
+    ".prettierrc": true,
+    "package-lock.json": true,
+    "pnpm-lock.yaml": true,
+    "tsconfig.json": true,
+    "rollup.config.js": true,
+    ".storybook": true
   },
   "jest.autoEnable": false
 }
