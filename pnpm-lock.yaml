@@ -2,6 +2,7 @@ dependencies:
   '@types/body-scroll-lock': 2.6.1
   '@y0c/react-datepicker': 1.0.3
   body-scroll-lock: 3.0.1
+  js-cookie: 2.2.1
   react-select: 3.1.0_react-dom@16.13.1+react@16.13.1
   react-sortable-hoc: 1.11.0_react-dom@16.13.1+react@16.13.1
   react-table: 7.0.4_react@16.13.1
@@ -17,6 +18,7 @@ devDependencies:
   '@storybook/addons': 5.3.18_react-dom@16.13.1
   '@storybook/react': 5.3.18_b9617369b6c27b1b36cad10a81541cc9
   '@svgr/rollup': 5.3.1
+  '@types/js-cookie': 2.2.6
   '@types/react': 16.9.34
   '@types/react-dom': 16.9.6
   '@types/react-select': 3.0.11
@@ -41,6 +43,7 @@ devDependencies:
   node-sass: 4.13.1
   react: 16.13.1
   react-calendar: 3.0.1_react-dom@16.13.1+react@16.13.1
+  react-color: 2.18.0_react@16.13.1
   react-docgen-typescript-loader: 3.7.2_typescript@3.8.3
   react-dom: 16.13.1_react@16.13.1
   react-scripts-ts: 3.1.0_75917bd16e8e244bc8a412c02f5f4e40
@@ -3346,6 +3349,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-UpYjBi8xefVChsCoBpKShdxTllC9pwISirfoZsUa2AAdQg/Jd2KQGtSbw+ya7GPo7x/wAPlH6JBhKhAsXUEZNA==
+  /@types/js-cookie/2.2.6:
+    dev: true
+    resolution:
+      integrity: sha512-+oY0FDTO2GYKEV0YPvSshGq9t7YozVkgvXLty7zogQNuCxBhT9/3INX9Q7H1aRZ4SUDRXAKlJuA4EA5nTt7SNw==
   /@types/json-schema/7.0.4:
     dev: true
     resolution:
@@ -3524,6 +3531,7 @@ packages:
       functional-red-black-tree: 1.0.1
       regexpp: 3.1.0
       tsutils: 3.17.1_typescript@3.8.3
+      typescript: 3.8.3
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -3558,6 +3566,7 @@ packages:
       '@typescript-eslint/typescript-estree': 2.27.0_typescript@3.8.3
       eslint: 6.8.0
       eslint-visitor-keys: 1.1.0
+      typescript: 3.8.3
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -3578,6 +3587,7 @@ packages:
       lodash: 4.17.15
       semver: 6.3.0
       tsutils: 3.17.1_typescript@3.8.3
+      typescript: 3.8.3
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -11131,6 +11141,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Vg8czh0Q7sFBSUMWWArX/miJeBWYBPpdU/3M/DKSaekLMqrqVPaedp+5mZhie/r0lgrcaYBfwXatEew6gwgiQQ==
+  /js-cookie/2.2.1:
+    dev: false
+    resolution:
+      integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==
   /js-string-escape/1.0.1:
     dev: true
     engines:
@@ -18579,6 +18593,7 @@ specifiers:
   '@storybook/react': 5.3.18
   '@svgr/rollup': 5.3.1
   '@types/body-scroll-lock': ^2.6.1
+  '@types/js-cookie': ^2.2.6
   '@types/react': 16.9.34
   '@types/react-dom': 16.9.6
   '@types/react-select': 3.0.11
@@ -18602,9 +18617,11 @@ specifiers:
   eslint-plugin-prettier: 3.1.3
   eslint-plugin-react: 7.19.0
   gh-pages: 2.2.0
+  js-cookie: ^2.2.1
   node-sass: 4.13.1
   react: 16.13.1
   react-calendar: 3.0.1
+  react-color: ^2.18.0
   react-docgen-typescript-loader: 3.7.2
   react-dom: 16.13.1
   react-scripts-ts: 3.1.0
