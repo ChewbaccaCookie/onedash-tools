@@ -35,6 +35,9 @@ class DarkLightModeSwitch extends Component<DarkLightModeSwitchProps> {
 			this.setState({ light: this.props.mode === "light" ? true : false });
 		}
 	}
+	public getTheme = () => {
+		return this.state.light === true ? "light" : "dark";
+	};
 	public setColorTheme = (theme: "dark" | "light") => {
 		if (this.props.cookie) Cookies.set("theme", theme);
 		this.setState({ light: theme === "light" ? true : false });
@@ -42,8 +45,8 @@ class DarkLightModeSwitch extends Component<DarkLightModeSwitchProps> {
 	};
 	public toggleMode = () => {
 		if (this.props.cookie) Cookies.set("theme", this.state.light === false ? "light" : "dark");
+		if (this.props.onModeChange) this.props.onModeChange(this.state.light === false ? "light" : "dark");
 		this.setState({ light: !this.state.light });
-		if (this.props.onModeChange) this.props.onModeChange(this.state.light === true ? "light" : "dark");
 	};
 
 	private buildClassName = (defaultClassName: string, darkModeClassName: string) => {
