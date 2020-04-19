@@ -18,26 +18,26 @@
 	}
 	.sun-box {
 		&.move {
-			transform: rotate(-15deg) translate(50px, 50px);
+			transform: rotate(-15deg) translate(25px, 25px);
 		}
 	}
 	.moon-box {
 		&.move {
-			transform: rotate(-15deg) translateX(50px);
+			transform: rotate(-15deg) translateX(25px);
 		}
 	}
 	.sun {
 		position: absolute;
-		top: -60px;
-		left: -20px;
-		width: 20px;
-		height: 20px;
+		top: -30px;
+		left: -10px;
+		width: 10px;
+		height: 10px;
 		background: #ffd64d;
 		&::before {
 			content: "";
 			position: absolute;
-			width: 20px;
-			height: 20px;
+			width: 10px;
+			height: 10px;
 			background: inherit;
 			transform: rotate(45deg);
 		}
@@ -45,25 +45,25 @@
 
 	.moon {
 		position: absolute;
-		top: -10px;
-		left: 140px;
-		width: 18px;
-		height: 18px;
+		top: 5-px;
+		left: 70px;
+		width: 9px;
+		height: 9px;
 		border-radius: 50%;
-		box-shadow: -5px 1px 0 4px #ba93e7;
+		box-shadow: -2.5px 0.5px 0 2px #ba93e7;
 		background: rgba(255, 255, 255, 0);
 	}
 
 	.btn {
-		width: 180px;
-		height: 90px;
+		width: 90px;
+		height: 45px;
 		position: relative;
 
 		&__background {
 			position: fixed;
-			width: 180px;
-			height: 90px;
-			border-radius: 50px;
+			width: 90px;
+			height: 45px;
+			border-radius: 25px;
 			background: #ffb74d;
 			cursor: pointer;
 			transition: all 1s ease;
@@ -75,26 +75,26 @@
 
 		&__face {
 			position: absolute;
-			top: 9px;
-			left: 9px;
-			width: 70px;
-			height: 70px;
+			top: 4.5px;
+			left: 8px;
+			width: 35px;
+			height: 35px;
 			border-radius: 50%;
 			background: #fff;
 			box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, 0.2);
 			transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
 
 			&.move {
-				transform: translateX(90px);
+				transform: translateX(40px);
 			}
 		}
 
 		&__eye-left,
 		&__eye-right {
 			position: absolute;
-			top: 23px;
-			width: 5px;
-			height: 15px;
+			top: 11.5px;
+			width: 2.5px;
+			height: 7.5px;
 			background: #ffb74d;
 			border-radius: 30%;
 			transition: all 1s ease;
@@ -105,7 +105,7 @@
 			}
 
 			&.close {
-				transform: scaleY(0.2) scaleX(2) translateY(14px);
+				transform: scaleY(0.2) scaleX(2) translateY(7px);
 				transform-origin: center;
 				transition: all 1s ease;
 				background: #893fd7;
@@ -113,20 +113,20 @@
 		}
 
 		&__eye-left {
-			left: 20px;
+			left: 10px;
 		}
 		&__eye-right {
-			left: 46px;
+			left: 23px;
 		}
 
 		&__mouth {
 			position: absolute;
-			top: 46px;
-			left: 21px;
-			width: 30px;
-			height: 12px;
-			border-bottom-left-radius: 90px;
-			border-bottom-right-radius: 90px;
+			top: 23px;
+			left: 10.5px;
+			width: 15px;
+			height: 6px;
+			border-bottom-left-radius: 45px;
+			border-bottom-right-radius: 45px;
 			background: #ffb74d;
 			transition: all 1s ease;
 
