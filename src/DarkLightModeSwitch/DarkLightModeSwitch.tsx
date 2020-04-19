@@ -16,16 +16,14 @@ class DarkLightModeSwitch extends Component<DarkLightModeSwitchProps> {
 		// Load by cookie
 		if (this.props.cookie === true && this.props.mode === undefined) {
 			const mode = Cookies.get("theme");
-			if (mode) this.setState({ light: mode !== "dark" ? true : false });
-		}
-		// Load by prop
-		if (this.props.mode !== undefined) {
+			if (mode) {
+				this.setState({ light: mode !== "dark" ? true : false });
+			}
+		} else if (this.props.mode !== undefined) {
 			this.setState({ light: this.props.mode === "light" ? true : false });
+		} else {
+			this.setState({ light: window.matchMedia("(prefers-color-scheme: light)").matches === true });
 		}
-
-		// Load by device preferences {
-		this.setState({ light: window.matchMedia("(prefers-color-scheme: light)").matches === true });
-
 		window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => e.matches && this.setColorTheme("dark"));
 		window.matchMedia("(prefers-color-scheme: light)").addListener((e) => e.matches && this.setColorTheme("light"));
 	}
