@@ -3531,7 +3531,6 @@ packages:
       functional-red-black-tree: 1.0.1
       regexpp: 3.1.0
       tsutils: 3.17.1_typescript@3.8.3
-      typescript: 3.8.3
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -3566,7 +3565,6 @@ packages:
       '@typescript-eslint/typescript-estree': 2.27.0_typescript@3.8.3
       eslint: 6.8.0
       eslint-visitor-keys: 1.1.0
-      typescript: 3.8.3
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -3587,7 +3585,6 @@ packages:
       lodash: 4.17.15
       semver: 6.3.0
       tsutils: 3.17.1_typescript@3.8.3
-      typescript: 3.8.3
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -18593,7 +18590,7 @@ specifiers:
   '@storybook/react': 5.3.18
   '@svgr/rollup': 5.3.1
   '@types/body-scroll-lock': ^2.6.1
-  '@types/js-cookie': ^2.2.6
+  '@types/js-cookie': 2.2.6
   '@types/react': 16.9.34
   '@types/react-dom': 16.9.6
   '@types/react-select': 3.0.11
@@ -18621,7 +18618,7 @@ specifiers:
   node-sass: 4.13.1
   react: 16.13.1
   react-calendar: 3.0.1
-  react-color: ^2.18.0
+  react-color: 2.18.0
   react-docgen-typescript-loader: 3.7.2
   react-dom: 16.13.1
   react-scripts-ts: 3.1.0
