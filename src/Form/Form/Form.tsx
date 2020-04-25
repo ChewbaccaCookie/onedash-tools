@@ -14,6 +14,7 @@ export interface FormProps {
 	resetText?: string;
 	validateOnSubmit?: boolean;
 	validateOnChange?: boolean;
+	onValidate?: (values: any, control: Form) => boolean;
 	style?: styles;
 }
 
@@ -89,6 +90,9 @@ class Form extends React.Component<FormProps> {
 
 	onChange = () => {
 		const values = this.mapData();
+		if (this.props.onValidate && this.props.onValidate(values, this) === false) {
+			return;
+		}
 		if (this.props.onChange) {
 			if (this.props.validateOnChange === true) {
 				if (this.validateInputs() === true) {
@@ -115,6 +119,10 @@ class Form extends React.Component<FormProps> {
 
 	onSubmit = (e?: any) => {
 		const values = this.mapData();
+		if (this.props.onValidate && this.props.onValidate(values, this) === false) {
+			if (e) e.preventDefault();
+			return;
+		}
 		if (this.props.validateOnSubmit === true) {
 			if (this.validateInputs() === true) {
 				if (this.props.onSubmit) this.props.onSubmit(values, this);
