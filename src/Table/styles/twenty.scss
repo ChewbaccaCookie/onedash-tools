@@ -42,7 +42,7 @@
 			position: relative;
 			width: 1.25px;
 			height: 12.5px;
-			background: #fff;
+			background: var(--tools-table-body-bg);
 			display: block;
 			margin: 3.5px auto;
 			border-radius: 1.25px;
@@ -51,7 +51,7 @@
 				content: "";
 				width: 1.25px;
 				height: 12.5px;
-				background: #fff;
+				background: var(--tools-table-body-bg);
 				position: absolute;
 				left: -4.5px;
 				border-radius: 1.25px;
@@ -61,7 +61,7 @@
 				content: "";
 				width: 1.25px;
 				height: 12.5px;
-				background: #fff;
+				background: var(--tools-table-body-bg);
 				position: absolute;
 				right: -4.5px;
 				border-radius: 1.25px;

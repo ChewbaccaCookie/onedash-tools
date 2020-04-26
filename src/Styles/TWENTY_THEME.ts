@@ -5,8 +5,8 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		/**
 		 * Default Colors
 		 */
-		"tools-input-background": "#2d132c",
-		"tools-card-bg": "#2d132c",
+		"tools-input-background": "#1b2027",
+		"tools-card-bg": "#222831",
 		"tools-text": "white",
 		"tools-white": "black",
 		"tools-black": "white",
@@ -26,13 +26,13 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-btn-light": "#989a9c",
 		"tools-btn-dark": "#6f6f6f",
 
-		"tools-table-border": "#ebebeb",
-		"tools-table-header-background": "#354555",
-		"tools-table-header-border": "#354555",
+		"tools-table-border": "#1b2027",
+		"tools-table-header-background": "#1b2027",
+		"tools-table-header-border": "#1b2027",
 		"tools-table-header-text": "white",
 		"tools-table-sort": "rgba(0,0,0,0.5)",
-		"tools-table-body-bg": "white",
-		"tools-table-body-hover": "#f9fafc",
+		"tools-table-body-bg": "#222831",
+		"tools-table-body-hover": "#1b2027",
 
 		"tools-scrollbar-bg": "#2d132c",
 		"tools-scrollbar-thumb": "#0f040e",
@@ -41,7 +41,7 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-dialog-background": "rgba(0, 0, 0, 0.7)",
 
 		// Background of the dialog
-		"tools-dialog-bg": "#2d132c",
+		"tools-dialog-bg": "#1b2027",
 
 		"tools-spinner-color": "white",
 

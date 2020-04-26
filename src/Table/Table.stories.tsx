@@ -13,6 +13,7 @@ export default {
 };
 
 export const routeTestData = () => {
+	const theme = sel("theme", { light: "light", dark: "dark" }, "light");
 	const disabled = boolean("Disabled", false);
 	const editable = boolean("Editable", true);
 	const searchable = boolean("Searchable", true);
@@ -22,7 +23,7 @@ export const routeTestData = () => {
 	const maxElements = Number(sel("Anzahl zeilen", ["0", "5", "10", "15", "20"], "15"));
 	const { tableHeaders, tableData } = ROUTE_TEST_DATA;
 	return (
-		<StyleLoader>
+		<StyleLoader theme={theme}>
 			<Card maxWidth={900}>
 				<Table
 					searchable={searchable}

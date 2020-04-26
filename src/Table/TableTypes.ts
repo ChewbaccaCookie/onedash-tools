@@ -32,7 +32,7 @@ export interface TableHeader {
 	formattingFunction?: formattingFunction;
 	sqlType?: "VARCHAR" | "BOOLEAN" | "INT";
 	maxLength?: number;
-	required?: 1 | 0;
-	visible: boolean | 0 | 1;
+	required?: boolean | 1 | 0;
+	visible?: boolean | 0 | 1;
 	isId?: boolean | 0 | 1;
 }
