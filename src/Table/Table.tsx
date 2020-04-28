@@ -21,6 +21,7 @@ import { ValueLabelPair } from "../ToolTypes";
 
 export default class Table extends Component<TableProps> {
 	deleteRowData: any;
+	isNewEntry = false;
 	promptDialog = React.createRef<Dialog>();
 	entryDialog = React.createRef<Dialog>();
 	entryForm = React.createRef<Form>();
@@ -92,6 +93,7 @@ export default class Table extends Component<TableProps> {
 	};
 
 	onRowClick = (row) => {
+		this.isNewEntry = false;
 		const original = row.original;
 
 		let openDialog = true;
@@ -188,7 +190,8 @@ export default class Table extends Component<TableProps> {
 		const selectedEntry = form.getData();
 		if (this.state.selectedEntry) selectedEntry.id = (this.state.selectedEntry as any).id;
 		this.setState({ selectedEntry }, () => {
-			if (this.props.onSave) this.props.onSave(selectedEntry);
+			if (this.props.onSave) this.props.onSave(selectedEntry, this.isNewEntry);
+			this.isNewEntry = false;
 			dialog.hide();
 		});
 		return true;
@@ -197,7 +200,10 @@ export default class Table extends Component<TableProps> {
 	addEntry = () => {
 		const openDialog = this.props.onAddClick?.openDialog !== undefined ? this.props.onAddClick.openDialog : true;
 		if (this.props.onAddClick?.event) this.props.onAddClick.event();
-		if (openDialog === true && this.entryDialog.current) this.entryDialog.current.show();
+		if (openDialog === true && this.entryDialog.current) {
+			this.isNewEntry = true;
+			this.entryDialog.current.show();
+		}
 	};
 	onKeyDown = (e: any) => {
 		if (e.key === "F6") {

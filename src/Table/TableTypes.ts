@@ -9,8 +9,13 @@ export interface TableProps {
 	searchable?: boolean;
 
 	orderable?: boolean;
-	onSave?: (entry: any) => void;
+	onSave?: (entry: any, isNewEntry: boolean) => void;
 	onDelete?: (rowId: any, rowValues: any) => void;
+
+	/**
+	 * @param event Event which should be called on Add Click
+	 * @param openDialog Defines whether the dialiog should be opened on add entry click
+	 */
 	onAddClick?: { event: () => void; openDialog?: boolean };
 	onOrderChange?: (lastOrderIndex: number, newOrderIndex: number) => void;
 
