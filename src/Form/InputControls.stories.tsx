@@ -1,14 +1,18 @@
 import React from "react";
+import moment from "moment";
 import Input from "./Input/Input";
 import Select from "./Select/Select";
 import Form from "./Form/Form";
 import { action } from "@storybook/addon-actions";
 import StyleLoader from "../Utils/StyleLoader";
-import { withKnobs, select as sel, boolean, text, number } from "@storybook/addon-knobs";
+import { withKnobs, select as sel, boolean, text, number, date } from "@storybook/addon-knobs";
 import Button from "./Button/Button";
 import TagInput from "./TagInput/TagInput";
 import Card from "../Card/Card";
 import Boolean from "./Boolean/Boolean";
+import DatePicker from "./DatePicker/DatePicker";
+import DateRangePicker from "./DateRangePicker/DateRangePicker";
+import { ValueLabelPair } from "../ToolTypes";
 function timeout(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -209,6 +213,60 @@ export const booleanInput = () => {
 		</StyleLoader>
 	);
 };
+export const datePicker = () => {
+	const theme = sel("theme", { light: "light", dark: "dark" }, "light");
+	const langKey = sel("Language", { en: "en", de: "de" }, "de");
+	const today = new Date();
+	const minDate = date("Min Date", new Date());
+	today.setDate(today.getDate() + 10);
+	const maxDate = date("Max Date", today);
+	const monthNum = number("Number of months", 2);
+	const disabled = boolean("Disabled", false);
+	const readOnly = boolean("Read Only", false);
+	return (
+		<StyleLoader theme={theme}>
+			<Card>
+				<DatePicker
+					langKey={langKey}
+					minDate={moment(minDate)}
+					maxDate={moment(maxDate)}
+					numberOfMonths={monthNum}
+					disabled={disabled}
+					readonly={readOnly}
+					label="Lorem Ipsum Label"
+					name="date"
+				/>
+			</Card>
+		</StyleLoader>
+	);
+};
+export const dateRangePicker = () => {
+	const theme = sel("theme", { light: "light", dark: "dark" }, "light");
+	const langKey = sel("Language", { en: "en", de: "de" }, "de");
+	const today = new Date();
+	const minDate = date("Min Date", new Date());
+	today.setDate(today.getDate() + 10);
+	const maxDate = date("Max Date", today);
+	const monthNum = number("Number of months", 2);
+	const disabled = boolean("Disabled", false);
+	const readOnly = boolean("Read Only", false);
+	return (
+		<StyleLoader theme={theme}>
+			<Card>
+				<DateRangePicker
+					langKey={langKey}
+					minDate={moment(minDate)}
+					maxDate={moment(maxDate)}
+					numberOfMonths={monthNum}
+					disabled={disabled}
+					readonly={readOnly}
+					label="Lorem Ipsum Label"
+					name="date"
+				/>
+			</Card>
+		</StyleLoader>
+	);
+};
 
 export const form = () => {
 	const theme = sel("theme", { light: "light", dark: "dark" }, "light");
@@ -218,7 +276,7 @@ export const form = () => {
 				<Form
 					onChange={action("form-change")}
 					onSubmit={action("form-submit")}
-					validateOnChange={boolean("Valdiate on Change", true)}
+					validateOnChange={boolean("Valdiate on Change", false)}
 					validateOnSubmit={boolean("Valdiate on Submit", true)}
 					submitText="Absenden"
 					resetText="Zurücksetzen">
@@ -252,16 +310,14 @@ export const form = () => {
 					<fieldset
 						style={{ margin: "10px", borderRadius: "5px", borderColor: "#ebebeb", borderStyle: "solid" }}>
 						<h2 style={{ fontFamily: "Raleway" }}>Weitere Angaben</h2>
-						<Input required name="email" type="email" label="Ihre Email - Adresse" />
-						<Input required name="tel" type="tel" label="Ihre Telefonnummer" />
-						<Input name="address" type="text" disabled label="Ihre Adresse" />
-						<Input required name="land" value="Deutschland" type="text" readonly label="Land" />
-						<TagInput
-							label="Lieblingsfarben"
-							required
-							name="tag-input"
-							tags={[{ label: "Blau", value: "blue" }]}
-						/>
+						<DateRangePicker required label="Reisezeitraum" name="date-range" />
+						<DatePicker required name="date" label="Datum" />
+						<Input required name="email" type="email" placeholder="Ihre Email - Adresse" />
+						<Input required name="tel" type="tel" placeholder="Ihre Telefonnummer" />
+						<Input name="address" type="text" disabled placeholder="Ihre Adresse" />
+						<Input required name="land" value="Deutschland" type="text" readonly placeholder="Land" />
+
+						<Input required name="text" type="textarea" placeholder="Ihr Text ..." />
 						<Boolean required name="boolean-input">
 							Hiermit bestätigen Sie, dass sie unsere <a href="#privacy">Datenschutzerklärung</a> und
 							unser <a href="#impress">Impressum</a> gelesen und verstanden haben

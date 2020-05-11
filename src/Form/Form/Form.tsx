@@ -5,10 +5,12 @@ import Button from "../Button/Button";
 import TagInput from "../TagInput/TagInput";
 import Boolean from "../Boolean/Boolean";
 import { styles } from "../../ToolTypes";
+import DatePicker from "../DatePicker/DatePicker";
+import DateRangePicker from "../DateRangePicker/DateRangePicker";
 
 export interface FormProps {
 	onSubmit?: (values: any, control: Form) => void;
-	onChange?: (values: any, control: Form) => void;
+	onChange?: (values: any, control: Form, valid: boolean) => void;
 	className?: string;
 	submitText?: string;
 	resetText?: string;
@@ -20,7 +22,9 @@ export interface FormProps {
 
 class Form extends React.Component<FormProps> {
 	references: { ref: any; name: string }[] = [];
-
+	state = {
+		valid: true,
+	};
 	constructor(props: FormProps) {
 		super(props);
 		this.references = [];
@@ -34,7 +38,14 @@ class Form extends React.Component<FormProps> {
 			if (child.props && child.props.children && typeof child.props.children === "object") {
 				childElements = this.cloneChildren(child.props.children, []);
 			}
-			if (child.type === Input || child.type === Select || child.type === TagInput || child.type === Boolean) {
+			if (
+				child.type === Input ||
+				child.type === DatePicker ||
+				child.type === DateRangePicker ||
+				child.type === Select ||
+				child.type === TagInput ||
+				child.type === Boolean
+			) {
 				const newEl = React.cloneElement(
 					child,
 					{
@@ -55,6 +66,7 @@ class Form extends React.Component<FormProps> {
 				}
 			}
 		});
+
 		return elements;
 	};
 
@@ -65,15 +77,16 @@ class Form extends React.Component<FormProps> {
 	public getData = () => {
 		return this.mapData();
 	};
-	public validateInputs = () => {
+	public validateInputs = (updateComponent = true) => {
 		let valid = true;
 		this.references.forEach((entry) => {
 			if (entry.ref) {
-				if (!entry.ref.validate()) {
+				if (!entry.ref.validate(updateComponent)) {
 					valid = false;
 				}
 			}
 		});
+
 		return valid;
 	};
 
@@ -88,18 +101,31 @@ class Form extends React.Component<FormProps> {
 		}
 	};
 
+	validateSubmitBtn = () => {
+		this.setState({
+			valid: this.validateInputs(false),
+		});
+	};
+
+	componentDidMount() {
+		if (this.props.validateOnChange || this.props.validateOnSubmit) {
+			this.validateSubmitBtn();
+		}
+	}
+
 	onChange = () => {
 		const values = this.mapData();
+		this.validateSubmitBtn();
 		if (this.props.onValidate && this.props.onValidate(values, this) === false) {
 			return;
 		}
 		if (this.props.onChange) {
 			if (this.props.validateOnChange === true) {
 				if (this.validateInputs() === true) {
-					this.props.onChange(values, this);
+					this.props.onChange(values, this, this.validateInputs(false));
 				}
 			} else {
-				this.props.onChange(values, this);
+				this.props.onChange(values, this, this.validateInputs(false));
 			}
 		}
 	};
@@ -146,16 +172,11 @@ class Form extends React.Component<FormProps> {
 		return classes;
 	};
 
-	keyDown = (e: any) => {
-		if (e.key === "Enter") {
-			this.onSubmit();
-		}
-	};
-
 	render() {
 		this.references = [];
+
 		return (
-			<form onKeyDown={this.keyDown} className={this.buildClassName()} onSubmit={this.onSubmit}>
+			<form className={this.buildClassName()} onSubmit={this.onSubmit}>
 				<div>{this.cloneChildren(this.props.children, [])}</div>
 				{this.props.resetText && (
 					<Button onClick={() => this.resetForm()} type="reset" mode="light">
@@ -163,7 +184,10 @@ class Form extends React.Component<FormProps> {
 					</Button>
 				)}
 				{this.props.submitText && (
-					<Button type="submit" mode="primary">
+					<Button
+						disabled={(this.props.validateOnSubmit || this.props.validateOnChange) && !this.state.valid}
+						type="submit"
+						mode="primary">
 						{this.props.submitText}
 					</Button>
 				)}

@@ -31,12 +31,17 @@
 			}
 		}
 	}
-	& > input {
+	&.onedash-textarea {
+		display: block;
+	}
+	& > input,
+	& > textarea {
 		border: 2px solid var(--tools-gray);
 		color: var(--tools-text);
 		border-radius: var(--tools-border-radius);
 		transition: 0.15s all ease-in-out;
 		background: var(--tools-input-background);
+		resize: none;
 
 		&[type="search"] {
 			padding-right: 45px;

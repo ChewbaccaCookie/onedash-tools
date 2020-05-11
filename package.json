@@ -20,9 +20,12 @@
 	},
 	"dependencies": {
 		"@types/body-scroll-lock": "^2.6.1",
+		"@types/react-dates": "^17.1.10",
 		"@y0c/react-datepicker": "^1.0.3",
 		"body-scroll-lock": "^3.0.2",
 		"js-cookie": "^2.2.1",
+		"moment": "^2.25.3",
+		"react-dates": "^21.8.0",
 		"react-select": "^3.1.0",
 		"react-sortable-hoc": "^1.11.0",
 		"react-table": "^7.0.4",

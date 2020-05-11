@@ -43,6 +43,12 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		// Background of the dialog
 		"tools-dialog-bg": "#1b2027",
 
+		"tools-date-picker-blocked": "rgba(0, 0, 0, 0.3)",
+		"tools-date-picker-selected": "#ee4540",
+		"tools-date-picker-between": "#ee45407a",
+		"tools-date-picker-hover": "#ee4540",
+		"tools-date-picker-selected-color": "white",
+
 		"tools-spinner-color": "white",
 
 		"tools-lachs-rgb": "241, 174, 86",
@@ -84,10 +90,16 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-scrollbar-thumb": "#c7cfd3",
 
 		// Background of the dialog background
-		"tools-dialog-background": "rgba(0, 0, 0, 0.7)",
+		"tools-dialog-background": "rgba(0, 0, 0, 0.1)",
 
 		// Background of the dialog
 		"tools-dialog-bg": "white",
+
+		"tools-date-picker-blocked": "rgba(0, 0, 0, 0.1)",
+		"tools-date-picker-selected": "#7fcc76",
+		"tools-date-picker-between": "#7fcc767a",
+		"tools-date-picker-hover": "#7fcc76",
+		"tools-date-picker-selected-color": "black",
 
 		"tools-spinner-color": "white",
 

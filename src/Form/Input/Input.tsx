@@ -4,9 +4,10 @@ import "./styles/twenty.scss";
 import { GenericInputProps } from "../InputTypes";
 
 interface InputSettings {
-	requiredNotVisible: boolean;
-	allowNumberNull: boolean;
-	validateEmail: boolean;
+	requiredNotVisible?: boolean;
+	allowNumberNull?: boolean;
+	validateEmail?: boolean;
+	textAreaRows?: number;
 }
 
 interface InputProps extends GenericInputProps {
@@ -19,6 +20,9 @@ interface InputProps extends GenericInputProps {
 }
 
 class Input extends GenericInput<InputProps, any> {
+	saveTimeout: undefined | number;
+	waitingValue: undefined | any;
+	isChanging = false;
 	constructor(props: GenericInputProps) {
 		super(props);
 		this.reference = React.createRef<HTMLInputElement>();
@@ -64,16 +68,30 @@ class Input extends GenericInput<InputProps, any> {
 		if (this.props.type === "number" && !this.props.settings?.allowNumberNull) {
 			value = value !== undefined ? value : 0;
 		}
-		if (value !== undefined) {
-			this.setState(
-				{
-					value,
-				},
-				() => {
-					if (this.props.onChange) this.props.onChange({ name: this.props.name, value });
-					if (this.props._change) this.props._change({ name: this.props.name, value });
-				}
-			);
+		this.setState({
+			value,
+		});
+		this.saveInput(value);
+	};
+
+	private saveInput = (value?: string | number) => {
+		if (!this.isChanging) {
+			this.isChanging = true;
+			this.saveTimeout = undefined;
+			if (!value) value = this.waitingValue;
+
+			if (value !== undefined) {
+				if (this.props.onChange) this.props.onChange({ name: this.props.name, value });
+				if (this.props._change) this.props._change({ name: this.props.name, value });
+			}
+		} else {
+			if (!this.saveTimeout) {
+				this.saveTimeout = setTimeout(() => {
+					this.isChanging = false;
+					this.saveInput();
+				}, 1000) as any;
+			}
+			this.waitingValue = value;
 		}
 	};
 
@@ -91,8 +109,10 @@ class Input extends GenericInput<InputProps, any> {
 	}
 
 	render() {
+		let classList = this.buildClassList("onedash-input");
+		if (this.props.type === "textarea") classList += " onedash-textarea";
 		return (
-			<div className={this.buildClassList("onedash-input")}>
+			<div className={classList}>
 				{this.props.label && (
 					<label className="onedash-label" htmlFor={this.id}>
 						{this.props.label}
@@ -133,6 +153,7 @@ class Input extends GenericInput<InputProps, any> {
 								value={this.state.value ? this.state.value : ""}
 								onBlur={this.onBlur}
 								autoComplete={this.props.autoComplete}
+								rows={this.props.settings?.textAreaRows ?? 4}
 							/>
 						)}
 						{this.props.type === "search" && (

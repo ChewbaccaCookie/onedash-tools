@@ -1,0 +1,129 @@
+.onedash-date-picker.style-twenty {
+	&.input-invalid .SingleDatePickerInput__withBorder {
+		border-color: var(--tools-failure);
+	}
+	&.focused .SingleDatePickerInput__withBorder {
+		border-color: var(--tools-primary);
+	}
+	.SingleDatePicker.SingleDatePicker_1 {
+		width: 100%;
+		margin-top: 5px;
+	}
+	.SingleDatePickerInput__withBorder {
+		border: 2px solid var(--tools-gray);
+		border-radius: var(--tools-border-radius);
+		transition: 0.15s all ease-in-out;
+		background: var(--tools-input-background);
+		width: calc(100% - 4px);
+	}
+	.DateInput,
+	input {
+		background: var(--tools-input-background);
+		color: var(--tools-text);
+		border: none;
+		&.DateInput_1 {
+			width: 100%;
+		}
+	}
+	input:focus {
+		outline: none;
+	}
+	.DateInput_fangShape {
+		fill: var(--tools-card-bg);
+	}
+	.SingleDatePicker_picker {
+		border: 1px solid var(--tools-light-gray);
+		z-index: 10;
+	}
+	.DateInput_fangStroke {
+		stroke: var(--tools-light-gray);
+	}
+	.DateInput_input {
+		width: calc(100% - 25px);
+		padding: 10px 12.5px;
+		font-weight: normal;
+		font-size: var(--tools-font-size);
+		margin: 0px;
+	}
+
+	.DayPickerKeyboardShortcuts_show {
+		display: none;
+	}
+
+	.DateInput_input {
+		line-height: normal;
+	}
+
+	.DateInput_input__focused {
+		border-bottom: none;
+		background: none;
+	}
+
+	.DayPicker_weekHeader_li {
+		color: var(--tools-black);
+	}
+
+	.DayPickerNavigation_button__default {
+		background: none;
+		border: 1px solid var(--tools-light-gray);
+	}
+
+	.CalendarDay.CalendarDay__selected_span {
+		background: var(--tools-date-picker-between);
+	}
+	.CalendarDay.CalendarDay__selected {
+		font-weight: bold;
+		background: var(--tools-date-picker-selected);
+	}
+	.CalendarDay.CalendarDay__hovered_span {
+		background: var(--tools-date-picker-between);
+	}
+	.CalendarDay.DayPickerNavigation_button__default {
+		background: none;
+		border: 1px solid var(--tools-light-gray);
+	}
+	.CalendarDay.CalendarDay__blocked_out_of_range {
+		background: var(--tools-date-picker-blocked);
+	}
+	.CalendarDay.CalendarDay__today {
+		background-image: repeating-linear-gradient(
+			45deg,
+			var(--tools-card-bg) 0%,
+			var(--tools-card-bg) 2%,
+			var(--tools-light-primary) 2%,
+			var(--tools-light-primary) 4%,
+			var(--tools-card-bg) 4%
+		);
+	}
+
+	.DayPicker,
+	.CalendarMonthGrid,
+	.CalendarMonth,
+	.CalendarDay__default,
+	.DayPickerNavigation_button {
+		background: var(--tools-card-bg);
+	}
+
+	.CalendarDay__default {
+		color: var(--tools-text);
+		border: 1px solid rgba(0, 0, 0, 0.3);
+
+		&:not(.CalendarDay__blocked_out_of_range):hover {
+			background: var(--tools-date-picker-hover);
+		}
+	}
+	.CalendarDay__blocked_out_of_range {
+		background: var(--tools-date-picker-blocked);
+	}
+
+	.CalendarMonth_caption {
+		color: var(--tools-text);
+	}
+
+	.DayPicker__withBorder,
+	.DayPicker_transitionContainer,
+	.DayPicker_focusRegion,
+	.SingleDatePicker_picker {
+		border-radius: var(--tools-border-radius);
+	}
+}

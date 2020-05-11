@@ -11,6 +11,13 @@
 		font-size: 1.4rem;
 		position: absolute;
 		margin-top: -5px;
+
+		&.placeholder-required {
+			margin-top: 0px;
+			right: 5px;
+			top: 7px;
+
+		}
 	}
 
 	& * {
