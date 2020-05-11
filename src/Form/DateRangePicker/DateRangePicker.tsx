@@ -5,10 +5,11 @@ import { GenericInputProps } from "../InputTypes";
 import "react-dates/initialize";
 import "./styles/twenty.scss";
 import "react-dates/lib/css/_datepicker.css";
-import { DateRangePicker as DRangePicker } from "react-dates";
+import DRangePicker from "react-dates/lib/components/DateRangePicker";
+// import { DateRangePicker as DRangePicker } from "react-dates";
 
 import moment from "moment";
-import { Utils } from "../..";
+import Utils from "../../Utils/Utils";
 
 interface BooleanSettings {
 	requiredNotVisible?: boolean;

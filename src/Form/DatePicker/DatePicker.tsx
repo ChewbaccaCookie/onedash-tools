@@ -4,7 +4,9 @@ import "./styles/twenty.scss";
 import { GenericInputProps } from "../InputTypes";
 import "react-dates/initialize";
 import "./styles/twenty.scss";
-import { SingleDatePicker } from "react-dates";
+import SingleDatePicker from "react-dates/lib/components/SingleDatePicker";
+// import { SingleDatePicker } from "react-dates";
+
 import "react-dates/lib/css/_datepicker.css";
 
 import moment from "moment";
