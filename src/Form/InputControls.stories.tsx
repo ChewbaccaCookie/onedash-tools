@@ -58,6 +58,8 @@ export const defaultInput = () => {
 							password: "password",
 							email: "email",
 							tel: "tel",
+							search: "search",
+							time: "time",
 						},
 						"text"
 					)}

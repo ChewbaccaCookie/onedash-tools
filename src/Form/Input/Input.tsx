@@ -16,7 +16,7 @@ interface InputProps extends GenericInputProps {
 	minLength?: number;
 	maxLength?: number;
 	settings?: InputSettings;
-	type?: "text" | "password" | "number" | "email" | "tel" | "textarea" | "search";
+	type?: "text" | "password" | "number" | "email" | "tel" | "textarea" | "search" | "time";
 }
 
 class Input extends GenericInput<InputProps, any> {

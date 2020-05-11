@@ -12,15 +12,17 @@
 		top: 18px;
 		&__circle {
 			width: 20px;
-			height: 0px;
+			height: 2px;
 			transform: rotate(-45deg);
-			border: 1px solid var(--tools-gray);
+			border: none;
+			background: var(--tools-gray);
 		}
 		&__rectangle {
 			width: 20px;
-			height: 0px;
-			border: 1px solid var(--tools-gray);
-			right: 2px;
+			height: 2px;
+			border: none;
+			background: var(--tools-gray);
+			right: 4px;
 			bottom: 5.75px;
 		}
 
@@ -34,6 +36,9 @@
 	&.onedash-textarea {
 		display: block;
 	}
+	& > input {
+		height: 17px;
+	}
 	& > input,
 	& > textarea {
 		border: 2px solid var(--tools-gray);
@@ -45,6 +50,8 @@
 
 		&[type="search"] {
 			padding-right: 45px;
+			box-sizing: content-box;
+			width: calc(100% - 61px);
 		}
 
 		&[type="search"]::-webkit-search-decoration,
@@ -72,7 +79,7 @@
 		text-align: center;
 		position: absolute;
 		top: 9px;
-		right: 40px;
+		right: 12px;
 		transition: 0.15s all ease-in-out;
 
 		&__circle {
