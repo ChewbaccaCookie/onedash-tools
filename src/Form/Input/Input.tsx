@@ -101,6 +101,9 @@ class Input extends GenericInput<InputProps, any> {
 						)}
 					</label>
 				)}
+				{this.props.placeholder && this.props.required === true && !this.props.settings?.requiredNotVisible && (
+					<span className="required placeholder-required">*</span>
+				)}
 				{!this.props.readonly ? (
 					<>
 						{this.props.type !== "textarea" && (
@@ -125,7 +128,6 @@ class Input extends GenericInput<InputProps, any> {
 								placeholder={this.props.placeholder}
 								onFocus={this.onFocus}
 								ref={this.reference}
-								type={this.props.type ? this.props.type : "text"}
 								id={this.id}
 								onChange={this.inputChange}
 								value={this.state.value ? this.state.value : ""}
