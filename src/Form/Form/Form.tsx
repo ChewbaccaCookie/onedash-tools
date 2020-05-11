@@ -83,7 +83,6 @@ class Form extends React.Component<FormProps> {
 			if (entry.ref) {
 				if (!entry.ref.validate(updateComponent)) {
 					valid = false;
-					console.log(entry.name);
 				}
 			}
 		});

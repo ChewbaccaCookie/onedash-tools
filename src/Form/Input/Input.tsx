@@ -93,7 +93,7 @@ class Input extends GenericInput<InputProps, any> {
 				this.saveTimeout = setTimeout(() => {
 					this.isChanging = false;
 					this.saveInput();
-				}, 1000) as any;
+				}, 200) as any;
 			}
 			this.waitingValue = value;
 		}
