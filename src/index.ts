@@ -16,7 +16,8 @@ import TimeCalendar from "./TimeCalendar/TimeCalendar";
 import Utils from "./Utils/Utils";
 import StyleLoader from "./Utils/StyleLoader";
 import GenericInput from "./Form/Generic/GenericInput";
-
+import DatePicker from "./Form/DatePicker/DatePicker";
+import DateRangePicker from "./Form/DateRangePicker/DateRangePicker";
 import DarkLightModeSwitch from "./DarkLightModeSwitch/DarkLightModeSwitch";
 
 export {
@@ -39,4 +40,6 @@ export {
 	StyleLoader,
 	GenericInput,
 	DarkLightModeSwitch,
+	DatePicker,
+	DateRangePicker,
 };
