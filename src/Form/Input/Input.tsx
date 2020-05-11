@@ -32,6 +32,8 @@ class Input extends GenericInput<InputProps, any> {
 		let valid = true;
 		const value = this.state.value;
 
+		if (this.props.type === "number" && this.props.settings?.allowNumberNull === false && this.state.value === 0)
+			valid = false;
 		if (this.props.required === true && (value === undefined || String(value)?.length === 0)) valid = false;
 		if (this.props.minLength && String(value)?.length < this.props.minLength) valid = false;
 		if (this.props.maxLength && this.props.maxLength > 0 && String(value)?.length > this.props.maxLength)
@@ -68,10 +70,12 @@ class Input extends GenericInput<InputProps, any> {
 		if (this.props.type === "number" && !this.props.settings?.allowNumberNull) {
 			value = value !== undefined ? value : 0;
 		}
-		this.setState({
-			value,
-		});
-		this.saveInput(value);
+		this.setState(
+			{
+				value,
+			},
+			() => this.saveInput(value)
+		);
 	};
 
 	private saveInput = (value?: string | number) => {

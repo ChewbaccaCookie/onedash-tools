@@ -53,6 +53,9 @@
 			box-sizing: content-box;
 			width: calc(100% - 61px);
 		}
+		&[type="time"] {
+			-webkit-appearance: none;
+		}
 
 		&[type="search"]::-webkit-search-decoration,
 		&[type="search"]::-webkit-search-cancel-button,

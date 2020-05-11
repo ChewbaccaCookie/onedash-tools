@@ -319,7 +319,7 @@ export const form = () => {
 						<Input name="address" type="text" disabled placeholder="Ihre Adresse" />
 						<Input required name="land" value="Deutschland" type="text" readonly placeholder="Land" />
 
-						<Input required name="text" type="textarea" placeholder="Ihr Text ..." />
+						<Input name="text" type="textarea" placeholder="Ihr Text ..." />
 						<Boolean required name="boolean-input">
 							Hiermit bestätigen Sie, dass sie unsere <a href="#privacy">Datenschutzerklärung</a> und
 							unser <a href="#impress">Impressum</a> gelesen und verstanden haben

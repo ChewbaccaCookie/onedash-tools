@@ -6,10 +6,11 @@ import "react-dates/initialize";
 import "./styles/twenty.scss";
 import "react-dates/lib/css/_datepicker.css";
 import DRangePicker from "react-dates/lib/components/DateRangePicker";
-// import { DateRangePicker as DRangePicker } from "react-dates";
+import Utils from "../../Utils/Utils";
 
 import moment from "moment";
-import Utils from "../../Utils/Utils";
+import "moment/locale/de";
+import "moment/locale/en-gb";
 
 interface BooleanSettings {
 	requiredNotVisible?: boolean;

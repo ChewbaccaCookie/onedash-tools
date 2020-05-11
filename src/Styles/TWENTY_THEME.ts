@@ -37,9 +37,6 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-scrollbar-bg": "#2d132c",
 		"tools-scrollbar-thumb": "#0f040e",
 
-		// Background of the dialog background
-		"tools-dialog-background": "rgba(0, 0, 0, 0.7)",
-
 		// Background of the dialog
 		"tools-dialog-bg": "#1b2027",
 
@@ -89,9 +86,6 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-scrollbar-bg": "#f9fafc",
 		"tools-scrollbar-thumb": "#c7cfd3",
 
-		// Background of the dialog background
-		"tools-dialog-background": "rgba(0, 0, 0, 0.1)",
-
 		// Background of the dialog
 		"tools-dialog-bg": "white",
 
@@ -112,6 +106,7 @@ const TWENTY_THEME: StyleLoaderStyle = {
 		"tools-btn-danger": "#db4c39",
 		"tools-btn-warning": "#ffc107",
 		"tools-btn-info": "#218199",
+		"tools-dialog-background": "rgba(0, 0, 0, 0.7)",
 
 		"tools-border-radius": "4px",
 		"tools-input-width": "250px",
