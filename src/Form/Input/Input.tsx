@@ -58,7 +58,7 @@ class Input extends GenericInput<InputProps, any> {
 		}
 	};
 
-	private inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	private inputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		this.resetted = false;
 		let value: string | number = e.target.value;
 		if (this.props.type === "number" && !this.props.settings?.allowNumberNull) {
@@ -103,19 +103,36 @@ class Input extends GenericInput<InputProps, any> {
 				)}
 				{!this.props.readonly ? (
 					<>
-						<input
-							disabled={this.props.disabled}
-							className="component"
-							placeholder={this.props.placeholder}
-							onFocus={this.onFocus}
-							ref={this.reference}
-							type={this.props.type ? this.props.type : "text"}
-							id={this.id}
-							onChange={this.inputChange}
-							value={this.state.value ? this.state.value : ""}
-							onBlur={this.onBlur}
-							autoComplete={this.props.autoComplete}
-						/>
+						{this.props.type !== "textarea" && (
+							<input
+								disabled={this.props.disabled}
+								className="component"
+								placeholder={this.props.placeholder}
+								onFocus={this.onFocus}
+								ref={this.reference}
+								type={this.props.type ? this.props.type : "text"}
+								id={this.id}
+								onChange={this.inputChange}
+								value={this.state.value ? this.state.value : ""}
+								onBlur={this.onBlur}
+								autoComplete={this.props.autoComplete}
+							/>
+						)}
+						{this.props.type === "textarea" && (
+							<textarea
+								disabled={this.props.disabled}
+								className="component"
+								placeholder={this.props.placeholder}
+								onFocus={this.onFocus}
+								ref={this.reference}
+								type={this.props.type ? this.props.type : "text"}
+								id={this.id}
+								onChange={this.inputChange}
+								value={this.state.value ? this.state.value : ""}
+								onBlur={this.onBlur}
+								autoComplete={this.props.autoComplete}
+							/>
+						)}
 						{this.props.type === "search" && (
 							<div className="search-icon" onClick={this.reset}>
 								<div className="search-icon__circle"></div>
