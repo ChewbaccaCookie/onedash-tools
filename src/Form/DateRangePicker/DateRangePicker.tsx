@@ -79,7 +79,7 @@ export default class DateRangePicker extends GenericInput<DateRangePickerProps, 
 	};
 
 	componentDidUpdate(lastProps: DateRangePickerProps) {
-		const value = this.props.value ? this.props.value : DEFAULT_VALUE;
+		const value = this.props.value && typeof this.props.value === "object" ? this.props.value : DEFAULT_VALUE;
 		if (this.props.value !== lastProps.value) {
 			this.setState({ value });
 		}
@@ -119,8 +119,8 @@ export default class DateRangePicker extends GenericInput<DateRangePickerProps, 
 
 				{!this.props.readonly ? (
 					<DRangePicker
-						startDate={this.state.value.startDate}
-						endDate={this.state.value.endDate}
+						startDate={this.state.value?.startDate ?? null}
+						endDate={this.state.value?.endDate ?? null}
 						onDatesChange={this.dateChanged}
 						readOnly={this.props.readonly}
 						disabled={this.props.disabled}
