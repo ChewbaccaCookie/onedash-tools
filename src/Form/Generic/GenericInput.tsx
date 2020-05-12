@@ -20,6 +20,12 @@ abstract class GenericInput<T extends GenericInputProps, S extends GenericInputS
 		focus: false,
 	};
 
+	public resetValid = () => {
+		this.setState({
+			valid: true,
+		});
+	};
+
 	public validate = (updateComponent = true) => {
 		const valid = this.props.onValidate ? this.props.onValidate(this.state.value) : true;
 		const v = valid && this._validate();

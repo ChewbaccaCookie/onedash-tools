@@ -16,6 +16,7 @@ export interface FormProps {
 	resetText?: string;
 	validateOnSubmit?: boolean;
 	validateOnChange?: boolean;
+	debug?: boolean;
 	onValidate?: (values: any, control: Form) => boolean;
 	style?: styles;
 }
@@ -78,11 +79,13 @@ class Form extends React.Component<FormProps> {
 		return this.mapData();
 	};
 	public validateInputs = (updateComponent = true) => {
+		if (this.props.debug) console.log("--------------------");
 		let valid = true;
 		this.references.forEach((entry) => {
 			if (entry.ref) {
 				if (!entry.ref.validate(updateComponent)) {
 					valid = false;
+					if (this.props.debug) console.log(entry.name);
 				}
 			}
 		});
@@ -101,7 +104,16 @@ class Form extends React.Component<FormProps> {
 		}
 	};
 
-	validateSubmitBtn = () => {
+	/**
+	 * Sets the valid property on all references to valid
+	 */
+	public resetValidation = () => {
+		this.references.forEach((entry) => {
+			if (entry.ref) entry.ref.resetValid();
+		});
+	};
+
+	public validateSubmitBtn = () => {
 		this.setState({
 			valid: this.validateInputs(false),
 		});
