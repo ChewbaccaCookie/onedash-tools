@@ -7,14 +7,21 @@ const SETTINGS: { style: styles } = {
 	style: "none",
 };
 
-export const setStyle = (THEME: StyleLoaderStyle | undefined, theme: "light" | "dark") => {
-	if (!THEME) return;
-	const t = THEME[theme];
-	Object.keys(t).forEach((key) => {
-		document.documentElement.style.setProperty(`--${key}`, t[key]);
+export const setStyle = (theme: "light" | "dark", ...THEMES: (StyleLoaderStyle | undefined)[]) => {
+	if (!THEMES || THEMES.length === 0) return;
+	const masterTheme: any = {};
+
+	THEMES.forEach((THEME) => {
+		if (!THEME) return;
+		masterTheme[theme] = { ...masterTheme[theme], ...THEME[theme] };
+		masterTheme.all = { ...(masterTheme.all ?? undefined), ...THEME.all };
 	});
-	Object.keys(THEME.all).forEach((key) => {
-		document.documentElement.style.setProperty(`--${key}`, THEME.all[key]);
+
+	Object.keys(masterTheme[theme]).forEach((key) => {
+		document.documentElement.style.setProperty(`--${key}`, masterTheme[theme][key]);
+	});
+	Object.keys(masterTheme.all).forEach((key) => {
+		document.documentElement.style.setProperty(`--${key}`, masterTheme.all[key]);
 	});
 };
 

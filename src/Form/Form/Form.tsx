@@ -114,8 +114,12 @@ class Form extends React.Component<FormProps> {
 	};
 
 	public validateSubmitBtn = () => {
+		let valid = true;
+		if (this.props.onValidate) {
+			valid = this.props.onValidate(this.mapData(), this);
+		}
 		this.setState({
-			valid: this.validateInputs(false),
+			valid: valid && this.validateInputs(false),
 		});
 	};
 

@@ -11,7 +11,7 @@ interface StyleLoaderProps {
 }
 export default class StyleLoader extends React.Component<StyleLoaderProps> {
 	getTheme = () => {
-		let THEME;
+		let THEME: any;
 		if (this.props.toolStyle === undefined || this.props.toolStyle === "twenty") THEME = TWENTY_THEME;
 		if (this.props.toolStyle === "minimal") THEME = MINIMAL_THEME;
 
@@ -19,17 +19,18 @@ export default class StyleLoader extends React.Component<StyleLoaderProps> {
 		return THEME;
 	};
 
-	constructor(props) {
+	constructor(props: StyleLoaderProps) {
 		super(props);
-		setStyle(this.getTheme(), this.props.theme ? this.props.theme : "light");
-		setStyle(this.props.additionalStyle, this.props.theme ? this.props.theme : "light");
+		setStyle(this.props.theme ?? "light", this.getTheme(), this.props.additionalStyle);
 	}
+
 	componentDidUpdate(lastProps: StyleLoaderProps) {
-		if (lastProps.toolStyle !== this.props.toolStyle || lastProps.theme !== this.props.theme) {
-			setStyle(this.getTheme(), this.props.theme ? this.props.theme : "light");
-		}
-		if (lastProps.additionalStyle !== this.props.additionalStyle || lastProps.theme !== this.props.theme) {
-			setStyle(this.props.additionalStyle, this.props.theme ? this.props.theme : "light");
+		if (
+			lastProps.toolStyle !== this.props.toolStyle ||
+			lastProps.theme !== this.props.theme ||
+			lastProps.additionalStyle !== this.props.additionalStyle
+		) {
+			setStyle(this.props.theme ?? "light", this.getTheme(), this.props.additionalStyle);
 		}
 	}
 	render() {
