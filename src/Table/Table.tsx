@@ -125,8 +125,6 @@ export default class Table extends Component<TableProps> {
 		shortForm?: boolean,
 		inputData?: ValueLabelPair[]
 	) => {
-		console.log(formattingFunction);
-
 		if (formattingFunction) {
 			const formatted = formattingFunction(value, shortForm);
 			if (React.isValidElement(formatted) === false) {
