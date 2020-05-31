@@ -303,7 +303,7 @@ export default class Table extends Component<TableProps> {
 							if (this.state.selectedEntry)
 								entryData = (this.state.selectedEntry as any)[header.columnName];
 							return (
-								<>
+								<React.Fragment key={index}>
 									{!header.isId && (entryData || this.props.editable || header.readonly === true) && (
 										<div className="dialog-entry" key={index}>
 											<div key={index}>
@@ -393,7 +393,7 @@ export default class Table extends Component<TableProps> {
 											</div>
 										</div>
 									)}
-								</>
+								</React.Fragment>
 							);
 						})}
 					</Form>
