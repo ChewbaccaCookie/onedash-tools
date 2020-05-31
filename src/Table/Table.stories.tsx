@@ -6,6 +6,7 @@ import Card from "../Card/Card";
 import { action } from "@storybook/addon-actions";
 import * as ROUTE_TEST_DATA from "./routeTestData.json";
 import * as FACILITIES_TEST_DATA from "./facilitiesTestData.json";
+import { TableHeader } from "./TableTypes";
 
 export default {
 	title: "Table",
@@ -15,13 +16,20 @@ export default {
 export const routeTestData = () => {
 	const theme = sel("theme", { light: "light", dark: "dark" }, "light");
 	const disabled = boolean("Disabled", false);
-	const editable = boolean("Editable", true);
+	const editable = boolean("Editable", false);
 	const searchable = boolean("Searchable", true);
 	const orderable = boolean("Orderable", false);
 	const openDialogOnAdd = boolean("openDialogOnAdd", true);
 	const openDialogOnClick = boolean("openDialogOnRowClick", true);
 	const maxElements = Number(sel("Anzahl zeilen", ["0", "5", "10", "15", "20"], "15"));
 	const { tableHeaders, tableData } = ROUTE_TEST_DATA;
+
+	const tHeaderFunctionName: TableHeader | undefined = tableHeaders.find(
+		(x) => x.columnName === "functionName"
+	) as any;
+	if (tHeaderFunctionName) {
+		tHeaderFunctionName.formattingFunction = (name: string) => <span style={{ color: "yellow" }}>{name}</span>;
+	}
 	return (
 		<StyleLoader theme={theme}>
 			<Card maxWidth={900}>

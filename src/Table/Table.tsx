@@ -16,7 +16,7 @@ import Utils from "../Utils/Utils";
 import Form from "../Form/Form/Form";
 import { DialogButton } from "../Dialog/DialogTypes";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TableProps, formattingFunction } from "./TableTypes";
+import { TableProps, formattingFunction, TableHeader } from "./TableTypes";
 import { ValueLabelPair } from "../ToolTypes";
 
 export default class Table extends Component<TableProps> {
@@ -125,6 +125,8 @@ export default class Table extends Component<TableProps> {
 		shortForm?: boolean,
 		inputData?: ValueLabelPair[]
 	) => {
+		console.log(formattingFunction);
+
 		if (formattingFunction) {
 			const formatted = formattingFunction(value, shortForm);
 			if (React.isValidElement(formatted) === false) {
@@ -175,7 +177,7 @@ export default class Table extends Component<TableProps> {
 	};
 
 	getHeader = () => {
-		return Utils.clone(this.props.tableHeaders).map((th) => {
+		return this.props.tableHeaders.map((th: TableHeader) => {
 			if (typeof th.inputData === "string" && th.inputData !== "") {
 				th.inputData = JSON.parse(th.inputData);
 			}
@@ -218,6 +220,7 @@ export default class Table extends Component<TableProps> {
 	render() {
 		const data = this.filterData();
 		const headers = this.getHeader();
+
 		const buttons: DialogButton[] = [{ type: "close", closeOnClick: true, text: "Abbrechen" }];
 		if (this.props.editable === true) {
 			buttons.push({ type: "save", closeOnClick: false, text: "Speichern", onClick: this.saveEntry });
@@ -302,43 +305,23 @@ export default class Table extends Component<TableProps> {
 							if (this.state.selectedEntry)
 								entryData = (this.state.selectedEntry as any)[header.columnName];
 							return (
-								<div className="dialog-entry" key={index}>
-									{!header.isId && (
-										<>
-											{(entryData || this.props.editable || header.readonly === true) && (
-												<div key={index}>
-													{this.props.editable && !(header.readonly === true) && (
-														<>
-															{header.type === "select" &&
-																typeof header.inputData === "object" && (
-																	<>
-																		<Select
-																			label={header.title}
-																			name={header.columnName}
-																			value={
-																				entryData ? entryData : "invalid-input"
-																			}
-																			native
-																			style={this.props.style}
-																			options={header.inputData || []}
-																			placeholder="Wählen Sie eine Option"
-																			required={
-																				header.required &&
-																				Number(header.required) === 1
-																					? true
-																					: false
-																			}
-																		/>
-																	</>
-																)}
-															{header.type === "tag-input" &&
-																typeof header.inputData === "object" && (
-																	<TagInput
+								<>
+									{!header.isId && (entryData || this.props.editable || header.readonly === true) && (
+										<div className="dialog-entry" key={index}>
+											<div key={index}>
+												{this.props.editable && !(header.readonly === true) && (
+													<>
+														{header.type === "select" &&
+															typeof header.inputData === "object" && (
+																<>
+																	<Select
 																		label={header.title}
-																		style={this.props.style}
 																		name={header.columnName}
-																		tags={header.inputData}
-																		value={entryData}
+																		value={entryData ? entryData : "invalid-input"}
+																		native
+																		style={this.props.style}
+																		options={header.inputData || []}
+																		placeholder="Wählen Sie eine Option"
 																		required={
 																			header.required &&
 																			Number(header.required) === 1
@@ -346,12 +329,15 @@ export default class Table extends Component<TableProps> {
 																				: false
 																		}
 																	/>
-																)}
-															{header.type === "boolean" && (
-																<Boolean
+																</>
+															)}
+														{header.type === "tag-input" &&
+															typeof header.inputData === "object" && (
+																<TagInput
 																	label={header.title}
 																	style={this.props.style}
 																	name={header.columnName}
+																	tags={header.inputData}
 																	value={entryData}
 																	required={
 																		header.required && Number(header.required) === 1
@@ -360,28 +346,42 @@ export default class Table extends Component<TableProps> {
 																	}
 																/>
 															)}
-															{header.type !== "select" &&
-																header.type !== "tag-input" &&
-																header.type !== "boolean" && (
-																	<Input
-																		label={header.title}
-																		style={this.props.style}
-																		type={header.type}
-																		required={
-																			header.required &&
-																			Number(header.required) === 1
-																				? true
-																				: false
-																		}
-																		maxLength={header.maxLength}
-																		value={entryData}
-																		name={header.columnName}
-																	/>
-																)}
-														</>
-													)}
-													{(!this.props.editable || header.readonly === true) && (
-														<>
+														{header.type === "boolean" && (
+															<Boolean
+																label={header.title}
+																style={this.props.style}
+																name={header.columnName}
+																value={entryData}
+																required={
+																	header.required && Number(header.required) === 1
+																		? true
+																		: false
+																}
+															/>
+														)}
+														{header.type !== "select" &&
+															header.type !== "tag-input" &&
+															header.type !== "boolean" && (
+																<Input
+																	label={header.title}
+																	style={this.props.style}
+																	type={header.type}
+																	required={
+																		header.required && Number(header.required) === 1
+																			? true
+																			: false
+																	}
+																	maxLength={header.maxLength}
+																	value={entryData}
+																	name={header.columnName}
+																/>
+															)}
+													</>
+												)}
+												{(!this.props.editable || header.readonly === true) && (
+													<div className="entry readonly">
+														<p className="label">{header.title}</p>
+														<div className="value">
 															{this.formatOutput(
 																header.type,
 																entryData,
@@ -389,13 +389,13 @@ export default class Table extends Component<TableProps> {
 																false,
 																header.inputData
 															)}
-														</>
-													)}
-												</div>
-											)}
-										</>
+														</div>
+													</div>
+												)}
+											</div>
+										</div>
 									)}
-								</div>
+								</>
 							);
 						})}
 					</Form>

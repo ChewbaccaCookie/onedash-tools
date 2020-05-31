@@ -1,4 +1,23 @@
 .style-twenty {
+	.entry.readonly {
+		margin: 5px;
+		padding: 5px;
+
+		.label {
+			margin: 0px;
+			font-size: 0.9rem;
+			margin-left: 10px;
+			margin-bottom: 5px;
+		}
+		.value {
+			background: var(--tools-table-border);
+			border-radius: 5px;
+			padding: 7.5px 15px;
+			font-size: 1rem;
+			font-weight: bold;
+			word-break: break-all;
+		}
+	}
 	.trash-icon {
 		background: #ff6873;
 		width: 16.5px;

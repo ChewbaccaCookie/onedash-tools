@@ -1,7 +1,6 @@
 {
 	"tableHeaders": [
 		{
-			"id": 90068,
 			"columnName": "type",
 			"maxLength": null,
 			"required": 1,
@@ -11,7 +10,6 @@
 			"inputData": "[{ \"label\": \"GET\", \"value\": \"GET\" }, { \"label\": \"POST\", \"value\": \"POST\" }]"
 		},
 		{
-			"id": 90067,
 			"columnName": "functionName",
 			"maxLength": null,
 			"required": 1,
@@ -21,7 +19,6 @@
 			"inputData": null
 		},
 		{
-			"id": 90066,
 			"columnName": "path",
 			"maxLength": null,
 			"required": 1,
@@ -31,7 +28,6 @@
 			"inputData": null
 		},
 		{
-			"id": 90069,
 			"columnName": "secure",
 			"maxLength": null,
 			"required": 0,
@@ -41,7 +37,6 @@
 			"inputData": null
 		},
 		{
-			"id": 90070,
 			"columnName": "roleId",
 			"maxLength": null,
 			"required": 0,
@@ -51,7 +46,6 @@
 			"inputData": null
 		},
 		{
-			"id": 90071,
 			"columnName": "dbType",
 			"maxLength": null,
 			"required": 1,
