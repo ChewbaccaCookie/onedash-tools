@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import { Component } from "react";
 import dayjs from "dayjs";
