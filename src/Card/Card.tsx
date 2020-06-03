@@ -26,7 +26,7 @@ class Card extends Component<CardProps, any> {
 	};
 	render() {
 		const styles = this.props.cssStyles ? this.props.cssStyles : {};
-		if (this.props.maxWidth) styles.maxWidth = this.props.maxWidth;
+		if (this.props.maxWidth) (styles as any).maxWidth = this.props.maxWidth;
 
 		return (
 			<div style={styles} className={this.getClasses()}>

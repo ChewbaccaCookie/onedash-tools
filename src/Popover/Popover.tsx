@@ -7,11 +7,12 @@ import Button from "../Form/Button/Button";
 import { styles } from "../ToolTypes";
 
 export interface PopoverProps {
-	title: string;
-	onClose?: () => void;
+	title?: string;
 	closeable?: boolean;
+	onClose?: () => void;
 	className?: string;
 	style?: styles;
+	defaultVisible?: boolean;
 	button?: {
 		text?: string;
 		onClick?: () => void;
@@ -23,6 +24,7 @@ class Popover extends Component<PopoverProps> {
 		isClosing: false,
 		isMoving: false,
 		touchMargin: 0,
+		isVisible: false,
 	};
 	constructor(props: PopoverProps) {
 		super(props);
@@ -31,13 +33,16 @@ class Popover extends Component<PopoverProps> {
 		e.preventDefault();
 	};
 	componentDidMount() {
-		Utils.lockScrolling();
-		document.addEventListener("keydown", this.onKeyDown);
+		if (this.props.defaultVisible === true) this.show();
 	}
-	componentWillUnmount() {
-		Utils.unlockScrolling();
-		document.removeEventListener("keydown", this.onKeyDown);
-		Utils.clearAllBodyScrollLocks();
+	componentDidUpdate(lastProps: PopoverProps) {
+		if (this.props.defaultVisible !== lastProps.defaultVisible) {
+			if (this.props.defaultVisible === true) {
+				this.show();
+			} else {
+				this.close();
+			}
+		}
 	}
 
 	private onKeyDown = (e: any) => {
@@ -45,14 +50,34 @@ class Popover extends Component<PopoverProps> {
 		this.close();
 	};
 
-	close = (forceClose?: boolean) => {
+	public close = (forceClose?: boolean) => {
 		if (this.props.closeable === false && !(forceClose === true)) return;
+
+		Utils.unlockScrolling();
+		document.removeEventListener("keydown", this.onKeyDown);
+		Utils.clearAllBodyScrollLocks();
+
 		this.setState({
 			isClosing: true,
 		});
 		setTimeout(() => {
 			if (this.props.onClose) this.props.onClose();
+			this.setState({
+				isVisible: false,
+			});
 		}, 250);
+	};
+
+	public show = () => {
+		Utils.lockScrolling();
+		setTimeout(() => {
+			Utils.lockScrolling();
+		}, 100);
+		document.addEventListener("keydown", this.onKeyDown);
+		this.setState({
+			isVisible: true,
+			isClosing: false,
+		});
 	};
 
 	touchMove = (e: any) => {
@@ -100,6 +125,10 @@ class Popover extends Component<PopoverProps> {
 			className += " not-closeable";
 		}
 
+		if (this.props.className) {
+			className += ` ${this.props.className}`;
+		}
+
 		if (this.props.style) {
 			className += " style-" + this.props.style;
 		} else {
@@ -110,6 +139,8 @@ class Popover extends Component<PopoverProps> {
 
 	render() {
 		const { title } = this.props;
+		const { isVisible } = this.state;
+		if (!isVisible) return <></>;
 		return (
 			<div className={this.buildClassName()}>
 				<div className="popover-bg" onClick={() => this.close()}></div>
@@ -130,7 +161,7 @@ class Popover extends Component<PopoverProps> {
 						</>
 					)}
 					<div className="content">
-						<h2 className="popover-title">{title}</h2>
+						{title && <h2 className="popover-title">{title}</h2>}
 						<div className="content-children">{this.props.children}</div>
 					</div>
 					{this.props.button && (
