@@ -1,6 +1,6 @@
 {
 	"name": "@onedash/tools",
-	"version": "7.0.9",
+	"version": "7.0.11",
 	"description": "Official OneDash. tools for React",
 	"author": "ChewbaccaCookie",
 	"license": "UNLICENSED",
@@ -67,7 +67,7 @@
 		"eslint-plugin-import": "2.20.2",
 		"eslint-plugin-prettier": "3.1.3",
 		"eslint-plugin-react": "7.19.0",
-		"gh-pages": "2.2.0",
+		"gh-pages": "3.0.0",
 		"node-sass": "4.14.1",
 		"react": "16.13.1",
 		"react-calendar": "3.0.1",
