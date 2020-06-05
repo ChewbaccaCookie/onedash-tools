@@ -66,11 +66,7 @@ export default class Table extends Component<TableProps> {
 			this.props.tableValues.filter((x) => {
 				let found = sF?.length > 0 ? false : true;
 				Object.keys(x).map((columnName) => {
-					if (
-						String(x[columnName])
-							.toLowerCase()
-							.indexOf(sF?.toLowerCase()) !== -1
-					) {
+					if (String(x[columnName]).toLowerCase().indexOf(sF?.toLowerCase()) !== -1) {
 						found = true;
 					}
 				});
@@ -259,7 +255,7 @@ export default class Table extends Component<TableProps> {
 						)}
 					</div>
 					<div className="right">
-						{this.props.editable && (
+						{(this.props.editable || this.props.addable) && (
 							<Button onClick={this.addEntry} disabled={this.props.disabled}>
 								Neuer Eintrag
 							</Button>

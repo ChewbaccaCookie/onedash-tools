@@ -6,6 +6,7 @@ export interface TableProps {
 	tableHeaders: TableHeader[];
 	tableValues: { id: number | string; [key: string]: any }[];
 	editable?: boolean;
+	addable?: boolean;
 	searchable?: boolean;
 
 	orderable?: boolean;
