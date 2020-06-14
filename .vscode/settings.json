@@ -16,7 +16,6 @@
     "package-lock.json": true,
     "pnpm-lock.yaml": true,
     "tsconfig.json": true,
-    "rollup.config.js": true,
     ".storybook": true
   },
   "jest.autoEnable": false
