@@ -44,6 +44,10 @@ class Popover extends Component<PopoverProps> {
 			}
 		}
 	}
+	componentWillUnmount() {
+		Utils.unlockScrolling();
+		Utils.clearAllBodyScrollLocks();
+	}
 
 	private onKeyDown = (e: any) => {
 		if (this.props.closeable === false || e.key !== "Escape") return;
@@ -54,8 +58,8 @@ class Popover extends Component<PopoverProps> {
 		if (this.props.closeable === false && !(forceClose === true)) return;
 
 		Utils.unlockScrolling();
-		document.removeEventListener("keydown", this.onKeyDown);
 		Utils.clearAllBodyScrollLocks();
+		document.removeEventListener("keydown", this.onKeyDown);
 
 		this.setState({
 			isClosing: true,
@@ -64,12 +68,13 @@ class Popover extends Component<PopoverProps> {
 			if (this.props.onClose) this.props.onClose();
 			this.setState({
 				isVisible: false,
+				touchMargin: 0,
+				isMoving: false,
 			});
 		}, 250);
 	};
 
 	public show = () => {
-		Utils.lockScrolling();
 		setTimeout(() => {
 			Utils.lockScrolling();
 		}, 100);
