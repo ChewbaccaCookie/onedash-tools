@@ -19,7 +19,6 @@ import GenericInput from "./Form/Generic/GenericInput";
 import DatePicker from "./Form/DatePicker/DatePicker";
 import DateRangePicker from "./Form/DateRangePicker/DateRangePicker";
 import DarkLightModeSwitch from "./DarkLightModeSwitch/DarkLightModeSwitch";
-import ServerStatus from "./ServerStatus/ServerStatus";
 
 export {
 	Input,
@@ -43,5 +42,4 @@ export {
 	DarkLightModeSwitch,
 	DatePicker,
 	DateRangePicker,
-	ServerStatus,
 };

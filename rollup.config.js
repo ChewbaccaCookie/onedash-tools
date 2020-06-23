@@ -7,7 +7,6 @@ import url from "rollup-plugin-url";
 import svgr from "@svgr/rollup";
 import bundleSize from "rollup-plugin-bundle-size";
 import { terser } from "rollup-plugin-terser";
-import json from "@rollup/plugin-json";
 
 import pkg from "./package.json";
 
@@ -29,7 +28,6 @@ export default {
 	],
 	plugins: [
 		terser(),
-		json(),
 		bundleSize(),
 		external(),
 		postcss({
