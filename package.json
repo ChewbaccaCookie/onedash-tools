@@ -19,6 +19,7 @@
 		"build-storybook": "build-storybook -c .storybook -o public"
 	},
 	"dependencies": {
+		"@rollup/plugin-json": "^4.1.0",
 		"@types/body-scroll-lock": "^2.6.1",
 		"@types/react-dates": "^17.1.10",
 		"@y0c/react-datepicker": "^1.0.3",
