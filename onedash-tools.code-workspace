@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"jest.autoEnable": false
+		"jest.autoEnable": false,
+		"deno.enable": false
 	}
 }
