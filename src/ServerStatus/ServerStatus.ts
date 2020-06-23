@@ -1,4 +1,4 @@
-import Axios from "Axios";
+import Axios from "axios";
 
 export default class ServerStatus {
 	private readonly serverPath: string;
