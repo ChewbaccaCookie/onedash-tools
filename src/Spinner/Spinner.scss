@@ -28,7 +28,7 @@
 			height: 100vh;
 			top: 0;
 			left: 0;
-			-webkit-backdrop-filter: blur(4px);
+			backdrop-filter: blur(4px);
 			-webkit-animation: blurIn 0.3s ease-in-out;
 			animation: blurIn 0.3s ease-in-out;
 		}
@@ -114,21 +114,21 @@
 
 	@keyframes blurIn {
 		0% {
-			-webkit-backdrop-filter: blur(0px);
+			backdrop-filter: blur(0px);
 			background: rgba(0, 0, 0, 0);
 		}
 		100% {
-			-webkit-backdrop-filter: blur(4px);
+			backdrop-filter: blur(4px);
 			background: rgba(0, 0, 0, 0.5);
 		}
 	}
 	@keyframes blurOut {
 		0% {
-			-webkit-backdrop-filter: blur(4px);
+			backdrop-filter: blur(4px);
 			background: rgba(0, 0, 0, 0.5);
 		}
 		100% {
-			-webkit-backdrop-filter: blur(0px);
+			backdrop-filter: blur(0px);
 			background: rgba(0, 0, 0, 0);
 		}
 	}
