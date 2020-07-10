@@ -168,18 +168,22 @@
 	@keyframes fadeBGIn {
 		0% {
 			background: transparent;
+			backdrop-filter: blur(0px);
 		}
 		100% {
 			background: var(--tools-dialog-background);
+			backdrop-filter: blur(4px);
 		}
 	}
 
 	@keyframes fadeBGOut {
 		0% {
 			background: var(--tools-dialog-background);
+			backdrop-filter: blur(4px);
 		}
 		100% {
 			background: transparent;
+			backdrop-filter: blur(0px);
 		}
 	}
 }
