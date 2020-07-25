@@ -36,7 +36,7 @@ export default {
 		}),
 		url(),
 		svgr(),
-		nodeResolve({ preferBuiltins: false }),
+		nodeResolve({ preferBuiltins: true }),
 		typescript({
 			rollupCommonJSResolveHack: true,
 			clean: true,
@@ -47,4 +47,5 @@ export default {
 			},
 		}),
 	],
+	external: ["util"],
 };

@@ -15,8 +15,7 @@
     ".prettierrc": true,
     "package-lock.json": true,
     "pnpm-lock.yaml": true,
-    "tsconfig.json": true,
-    ".storybook": true
+    "tsconfig.json": true
   },
   "jest.autoEnable": false
 }
