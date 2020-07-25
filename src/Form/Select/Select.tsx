@@ -139,7 +139,7 @@ export default class Select extends GenericInput<SelectProps, any> {
 				placeholder={this.props.placeholder ? this.props.placeholder : "Wählen Sie ..."}
 				disabled={this.props.disabled}
 				onBlur={this.onBlur}
-				value={this.state.value !== undefined ? JSON.stringify(this.state.value) : undefined}
+				value={this.state.value !== undefined ? JSON.stringify(this.state.value) : "invalid-input"}
 				onFocus={this.onFocus}
 				onChange={(e) => this.inputChange(e.target.value, true)}
 				className="component">

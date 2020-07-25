@@ -2,8 +2,8 @@ import typescript from "rollup-plugin-typescript2";
 import commonjs from "rollup-plugin-commonjs";
 import external from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
-import resolve from "rollup-plugin-node-resolve";
-import url from "rollup-plugin-url";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import url from "@rollup/plugin-url";
 import svgr from "@svgr/rollup";
 import bundleSize from "rollup-plugin-bundle-size";
 import { terser } from "rollup-plugin-terser";
@@ -36,7 +36,7 @@ export default {
 		}),
 		url(),
 		svgr(),
-		resolve(),
+		nodeResolve({ preferBuiltins: false }),
 		typescript({
 			rollupCommonJSResolveHack: true,
 			clean: true,
