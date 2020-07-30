@@ -17,6 +17,8 @@ export interface DayProps {
 	onDelete: (appointment: Appointment) => void;
 	onChange: (id: number, appointment: Appointment) => void;
 	type: TimeCalendarTypes;
+	removeAppointmentPromptText?: JSX.Element | string;
+	removeAppointmentTitle?: string;
 }
 
 class Day extends Component<DayProps> {
@@ -271,6 +273,8 @@ class Day extends Component<DayProps> {
 								startDate={cell.startDate}
 								endDate={cell.endDate}
 								isNonWorking={cell.isNonWorking}
+								removeAppointmentPromptText={this.props.removeAppointmentPromptText}
+								removeAppointmentTitle={this.props.removeAppointmentTitle}
 							/>
 						))}
 				</div>

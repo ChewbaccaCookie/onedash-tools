@@ -97,6 +97,15 @@ const appointments: Appointment[] = [
 export const timeCalendar = () => {
 	const slotMinutes = number("slotMinutes", 30);
 	const showWeekend = boolean("showWeekend", false);
+
+	const promptMessage = (
+		<>
+			<p>Wollen Sie die Einrichtung zu der angegebenen Uhrzeit schließen?</p>
+			<p>
+				Achtung: Alle bereits gebuchten Tickets werden dabei storniert und alle Besucher erhalten eine E-Mail.
+			</p>
+		</>
+	);
 	return (
 		<StyleLoader>
 			<Card maxWidth={1200}>
@@ -111,6 +120,8 @@ export const timeCalendar = () => {
 					changeAppointment={action("changeAppointment")}
 					onStartDateChanged={action("onStartDateChanged")}
 					showWeekend={showWeekend}
+					removeAppointmentTitle="Einrichtung schließen"
+					removeAppointmentPromptText={promptMessage}
 				/>
 			</Card>
 		</StyleLoader>

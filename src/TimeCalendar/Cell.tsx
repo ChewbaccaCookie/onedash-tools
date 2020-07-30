@@ -5,6 +5,8 @@ import Utils from "../Utils/Utils";
 import ArrowBox from "../ArrowBox/ArrowBox";
 import Boolean from "../Form/Boolean/Boolean";
 import Button from "../Form/Button/Button";
+import Dialog from "../Dialog/Dialog";
+import { DialogButton } from "../Dialog/DialogTypes";
 
 export interface OneDashCellProps extends TimeCell {
 	onMouseDown: (e: React.SyntheticEvent<HTMLDivElement, MouseEvent>) => void;
@@ -14,10 +16,13 @@ export interface OneDashCellProps extends TimeCell {
 	onChange: (id: number, appointment: Appointment) => void;
 	onAdd: (appointment: Appointment) => void;
 	index: number;
+	removeAppointmentPromptText?: JSX.Element | string;
+	removeAppointmentTitle?: string;
 }
 
 class OneDashCell extends Component<OneDashCellProps> {
 	popover = React.createRef<ArrowBox>();
+	prompt = React.createRef<Dialog>();
 	buildClassName = () => {
 		let className = "onedash-cell";
 		if (this.props.isNonWorking) {
@@ -77,32 +82,55 @@ class OneDashCell extends Component<OneDashCellProps> {
 		return `${from} - ${to}`;
 	};
 	render() {
+		const buttons: DialogButton[] = [
+			{
+				type: "close",
+				closeOnClick: true,
+				mode: "light",
+				text: "Abbrechen",
+				side: "left",
+			},
+			{
+				type: "save",
+				closeOnClick: true,
+				mode: "success",
+				text: "Termin löschen",
+				onClick: () => this.props.appointment && this.props.onDelete(this.props.appointment),
+				submitButton: true,
+			},
+		];
 		return (
-			<div
-				onDragStart={this.preventDragHandler}
-				data-index={this.props.index}
-				onMouseOver={this.props.onMouseOver}
-				onMouseUp={this.mouseUp}
-				onMouseDown={this.mouseDown}
-				className={this.buildClassName()}>
-				{this.props.appointment && (
-					<ArrowBox className="onedash-cell-popover" title={this.generateTitle()} ref={this.popover}>
-						<Boolean
-							value={this.props.appointment.repeatWeekly}
-							className="full-width separated"
-							onChange={this.toggleRepeat}
-							name="repeat"
-							label="Wöchentlich wiederholen"
-						/>
-						<Button
-							mode="link"
-							className="onedash-cell-popover-btn"
-							onClick={() => this.props.appointment && this.props.onDelete(this.props.appointment)}>
-							Termin löschen
-						</Button>
-					</ArrowBox>
-				)}
-			</div>
+			<>
+				<div
+					onDragStart={this.preventDragHandler}
+					data-index={this.props.index}
+					onMouseOver={this.props.onMouseOver}
+					onMouseUp={this.mouseUp}
+					onMouseDown={this.mouseDown}
+					className={this.buildClassName()}>
+					{this.props.appointment && (
+						<ArrowBox className="onedash-cell-popover" title={this.generateTitle()} ref={this.popover}>
+							<Boolean
+								value={this.props.appointment.repeatWeekly}
+								className="full-width separated"
+								onChange={this.toggleRepeat}
+								name="repeat"
+								label="Wöchentlich wiederholen"
+							/>
+							<Button
+								mode="link"
+								className="onedash-cell-popover-btn"
+								onClick={() => this.prompt.current?.show()}>
+								{this.props.removeAppointmentTitle ?? "Termin löschen"}
+							</Button>
+						</ArrowBox>
+					)}
+				</div>
+				{}
+				<Dialog settings={{ showX: false, maxWidth: 400 }} buttons={buttons} ref={this.prompt}>
+					{this.props.removeAppointmentPromptText ?? "Wollen Sie den Termin wirklich löschen?"}
+				</Dialog>
+			</>
 		);
 	}
 }

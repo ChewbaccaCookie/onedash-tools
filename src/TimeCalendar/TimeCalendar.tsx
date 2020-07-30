@@ -15,6 +15,8 @@ export interface OneDashTimeCalendarProps {
 	appointments?: Appointment[];
 	addAppointment?: (appointment: Appointment) => void;
 	removeAppointment?: (appointment: Appointment) => void;
+	removeAppointmentPromptText?: JSX.Element | string;
+	removeAppointmentTitle?: string;
 	changeAppointment?: (appointment: Appointment) => void;
 	onStartDateChanged?: (startDate: TimeStamp, endDate: TimeStamp) => void;
 	workingSchema: WorkingSchema;
@@ -46,7 +48,11 @@ class TimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	};
 	getEndDate = (startDate: Dayjs) => {
 		const days = this.getNumberOfDays(startDate);
-		return startDate.clone().add(days, "d").toDate().getTime();
+		return startDate
+			.clone()
+			.add(days, "d")
+			.toDate()
+			.getTime();
 	};
 	getStartDate = () => {
 		const date = dayjs(this.state.startDate);
@@ -114,7 +120,12 @@ class TimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	startDateHasChanged = () => {
 		this.generateWorkingHours();
 		if (this.props.onStartDateChanged)
-			this.props.onStartDateChanged(this.getStartDate().toDate().getTime(), this.getEndDate(this.getStartDate()));
+			this.props.onStartDateChanged(
+				this.getStartDate()
+					.toDate()
+					.getTime(),
+				this.getEndDate(this.getStartDate())
+			);
 	};
 	typeChange = (type: TimeCalendarTypes) => {
 		this.setState({ type }, this.startDateHasChanged);
@@ -157,7 +168,9 @@ class TimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 	};
 
 	render() {
-		const startDate = this.getStartDate().toDate().getTime();
+		const startDate = this.getStartDate()
+			.toDate()
+			.getTime();
 
 		const endDate = this.getEndDate(this.getStartDate());
 		return (
@@ -179,6 +192,8 @@ class TimeCalendar extends Component<OneDashTimeCalendarProps, any> {
 					startDate={startDate}
 					endDate={endDate}
 					workingHours={this.state.workingHours}
+					removeAppointmentPromptText={this.props.removeAppointmentPromptText}
+					removeAppointmentTitle={this.props.removeAppointmentTitle}
 				/>
 			</div>
 		);

@@ -14,6 +14,8 @@ export interface ContentProps {
 	onDelete: (appointment: Appointment) => void;
 	onChange: (id, appointment: Appointment) => void;
 	type: TimeCalendarTypes;
+	removeAppointmentPromptText?: JSX.Element | string;
+	removeAppointmentTitle?: string;
 }
 
 class Content extends Component<ContentProps> {
@@ -58,6 +60,8 @@ class Content extends Component<ContentProps> {
 							isNonWorkingDay={false}
 							date={day}
 							workingHours={this.props.workingHours}
+							removeAppointmentPromptText={this.props.removeAppointmentPromptText}
+							removeAppointmentTitle={this.props.removeAppointmentTitle}
 						/>
 					))}
 				</div>
