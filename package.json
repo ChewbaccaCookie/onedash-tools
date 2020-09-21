@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"@types/body-scroll-lock": "^2.6.1",
-		"@types/react-dates": "^17.1.13",
+		"@types/react-dates": "^21.0.0",
 		"@y0c/react-datepicker": "^1.0.3",
 		"body-scroll-lock": "^3.0.3",
 		"js-cookie": "^2.2.1",
