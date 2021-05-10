@@ -8,13 +8,6 @@
 ## Storybook
 https://chewbaccacookie.github.io/onedash-tools/index.html
 
-## NPM Einrichten
-
-```bash
-npm set registry https://npm.onedash.dev
-npm login --registry https://npm.onedash.dev
-```
-
 ## Install
 
 ```bash
