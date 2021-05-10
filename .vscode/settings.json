@@ -13,8 +13,6 @@
     ".eslintignore": true,
     ".eslintrc": true,
     ".prettierrc": true,
-    "package-lock.json": true,
-    "pnpm-lock.yaml": true,
     "tsconfig.json": true
   },
   "jest.autoEnable": false

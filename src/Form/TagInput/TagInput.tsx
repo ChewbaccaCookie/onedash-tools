@@ -73,10 +73,10 @@ export default class TagInput extends GenericInput<TagInputProps, any> {
 		const _selectedTags: Tag[] = !this.state.value
 			? []
 			: this.state.value.map((t) => {
-				return {
-					id: t.value,
-					name: t.label,
-				};
+					return {
+						id: t.value,
+						name: t.label,
+					};
 			  });
 
 		return (
@@ -93,12 +93,12 @@ export default class TagInput extends GenericInput<TagInputProps, any> {
 					<ReactTags
 						minQueryLength={this.props.settings?.minQueryLength ? this.props.settings?.minQueryLength : 0}
 						autofocus={false}
-						placeholder={this.props.placeholder ? this.props.placeholder : "Geben Sie ein Tag ein"}
+						placeholderText={this.props.placeholder ?? "Geben Sie ein Tag ein"}
 						allowBackspace={false}
 						tags={_selectedTags}
 						suggestions={_tags}
-						handleDelete={this.handleDelete}
-						handleAddition={this.handleAddition}
+						onDelete={this.handleDelete}
+						onAddition={this.handleAddition}
 					/>
 				)}
 				{this.props.readonly && <p className="read-only">{_selectedTags.map((x) => x.name).join(", ")}</p>}

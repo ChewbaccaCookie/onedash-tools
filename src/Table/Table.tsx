@@ -497,8 +497,8 @@ function GenericTable({
 		return (
 			<div {...tableProps.getTableProps()} className="table">
 				<div>
-					{tableProps.headerGroups.map((headerGroup, i) => (
-						<div key={i} {...headerGroup.getHeaderGroupProps()} className="tr">
+					{tableProps.headerGroups.map((headerGroup) => (
+						<div {...headerGroup.getHeaderGroupProps()} className="tr">
 							{headerGroup.headers.map((column: any, ii) => (
 								<div key={ii} {...column.getHeaderProps(column.getSortByToggleProps())} className="th">
 									{column.render("Header")}
@@ -523,14 +523,14 @@ function GenericTable({
 				<div className="tbody">
 					<div>
 						{!(tableProps.rows.length === 1 && tableProps.rows[0].original.id === -1) &&
-							tableProps.rows.map((row, i) => {
+							tableProps.rows.map((row) => {
 								tableProps.prepareRow(row);
 
 								return (
-									<div key={i} onClick={(e) => onClick(e, row)} {...row.getRowProps()} className="tr">
-										{row.cells.map((cell, ii) => {
+									<div onClick={(e) => onClick(e, row)} {...row.getRowProps()} className="tr">
+										{row.cells.map((cell) => {
 											return (
-												<div key={{ ii }} {...cell.getCellProps()} className="td">
+												<div {...cell.getCellProps()} className="td">
 													{cell.render("Cell")}
 												</div>
 											);
@@ -552,8 +552,8 @@ function GenericTable({
 		return (
 			<div {...tableProps.getTableProps()} className="table">
 				<div>
-					{tableProps.headerGroups.map((headerGroup, i) => (
-						<div key={i} {...headerGroup.getHeaderGroupProps()} className="tr">
+					{tableProps.headerGroups.map((headerGroup) => (
+						<div {...headerGroup.getHeaderGroupProps()} className="tr">
 							{headerGroup.headers.map((column: any, ii) => (
 								<div key={ii} {...column.getHeaderProps()} className="th">
 									{column.render("Header")}
@@ -575,9 +575,9 @@ function GenericTable({
 								return (
 									<SortableItem key={i} index={row.original.order || i}>
 										<div onClick={(e) => onClick(e, row)} {...row.getRowProps()} className="tr">
-											{row.cells.map((cell, ii) => {
+											{row.cells.map((cell) => {
 												return (
-													<div key={{ ii }} {...cell.getCellProps()} className="td">
+													<div {...cell.getCellProps()} className="td">
 														{cell.render("Cell")}
 													</div>
 												);
