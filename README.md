@@ -1,8 +1,9 @@
 ![Build Master](https://github.com/ChewbaccaCookie/onedash-tools/workflows/Build%20Master/badge.svg)
+# !!! DEPRECATED !!!
 
 # OneDash. Tools
 
-> Official OneDash. tools for React
+> OneDash. tools for React
 
 ## Storybook
 https://chewbaccacookie.github.io/onedash-tools/index.html
@@ -20,6 +21,3 @@ npm login --registry https://npm.onedash.dev
 npm install --save @onedash/tools
 ```
 
-## License
-
-NONE © [ChewbaccaCookie](https://github.com/ChewbaccaCookie)
